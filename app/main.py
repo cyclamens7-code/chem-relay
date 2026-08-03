@@ -11,11 +11,14 @@
   - UI  :  GET /            → app/static/index.html
   - API :  GET /api/chem?q=<CAS 또는 물질명>
 """
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse
-import httpx, json, re, hashlib, time, pathlib, asyncio, os
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import Response
+import httpx, json, re, hashlib, time, pathlib, asyncio, os, secrets
 
 # ── Anthropic(Claude) 설정 ──────────────────────────────────────────
 # API 키는 서버(NAS) 환경변수로만 주입 → 브라우저에 절대 노출되지 않음.
@@ -23,6 +26,13 @@ import httpx, json, re, hashlib, time, pathlib, asyncio, os
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 ANTHROPIC_MODEL   = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5")
 ANTHROPIC_URL     = "https://api.anthropic.com/v1/messages"
+
+# ── 접속 잠금(비밀번호) ─────────────────────────────────────────────
+# 아이디/비밀번호를 환경변수로 설정하면 전체 사이트에 로그인창이 걸립니다.
+# 둘 중 하나라도 비어 있으면 잠금은 꺼진 상태(누구나 접속)로 동작합니다.
+AUTH_USER = os.getenv("AUTH_USER", "")
+AUTH_PASS = os.getenv("AUTH_PASS", "")
+AUTH_ON   = bool(AUTH_USER and AUTH_PASS)
 
 APP_DIR   = pathlib.Path(__file__).parent
 STATIC    = APP_DIR / "static"
@@ -45,6 +55,30 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], allow_methods=["GET"], allow_headers=["*"],
 )
+
+# ── 접속 잠금 미들웨어 ──────────────────────────────────────────────
+# AUTH_ON 이면 모든 요청에 대해 브라우저 기본 로그인창(HTTP Basic)을 요구.
+# /api/health 는 배포 상태 점검용이라 잠금에서 제외.
+class BasicAuthMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        if not AUTH_ON or request.url.path == "/api/health":
+            return await call_next(request)
+        header = request.headers.get("Authorization", "")
+        ok = False
+        if header.startswith("Basic "):
+            import base64
+            try:
+                raw = base64.b64decode(header[6:]).decode("utf-8")
+                user, _, pw = raw.partition(":")
+                ok = (secrets.compare_digest(user, AUTH_USER) and
+                      secrets.compare_digest(pw, AUTH_PASS))
+            except Exception:
+                ok = False
+        if not ok:
+            return Response(status_code=401, headers={"WWW-Authenticate": 'Basic realm="chem-relay"'})
+        return await call_next(request)
+
+app.add_middleware(BasicAuthMiddleware)
 
 # ----------------------------------------------------------------------
 # 캐시
