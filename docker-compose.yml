@@ -1,0 +1,15 @@
+services:
+  chem-relay:
+    build: .
+    container_name: chem-relay
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./cache:/data/cache
+    environment:
+      # ── Claude(선택) : 국내 규제·우려 "자세히 생성" 기능용 ──
+      # 아래에 본인 Anthropic API 키를 넣으세요. 비워두면 "자세히 생성"만 비활성,
+      # 나머지(기본정보·구조식·GHS·요약)는 그대로 무료로 동작합니다.
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - ANTHROPIC_MODEL=claude-sonnet-5
+    restart: unless-stopped

@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>화학물질 유해성 조회 콘솔 (NAS)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+:root{--ink:#15171c;--paper:#f7f5f0;--card:#fff;--steel:#5a6472;--line:#e4e1d9;
+--hazard:#b23b2e;--hazard-bg:#fbeeec;--amber:#a9761a;--amber-bg:#faf1dd;--verify:#20706f;--verify-bg:#e4f1f0;--focus:#3a67c4}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter","Pretendard",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+.mono{font-family:"JetBrains Mono",monospace;font-feature-settings:"tnum"}
+button{font-family:inherit;cursor:pointer}
+.console{background:var(--ink);color:#eae7df;padding:34px 24px 30px;border-bottom:3px solid var(--hazard)}
+.ci{max-width:1080px;margin:0 auto}
+.brandrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.brand{font-family:"Space Grotesk";font-weight:700;font-size:20px;color:#fff}
+.brand .dot{color:var(--hazard)}
+.tagline{font-size:12.5px;color:#9aa1ad;font-family:"JetBrains Mono";letter-spacing:.02em}
+.subnote{font-size:12px;color:#8a919d;margin:0 0 20px}.subnote b{color:#cdd2da}
+.sw{display:flex;gap:10px;flex-wrap:wrap}.sf{flex:1 1 340px;position:relative}
+.sf input{width:100%;padding:15px 16px 15px 46px;border:0;border-radius:2px;background:#0d0e12;color:#fff;font-size:16px;font-family:"JetBrains Mono";outline:2px solid #2c303b}
+.sf input::placeholder{color:#6b7280;font-family:"Inter","Pretendard"}.sf input:focus{outline:2px solid var(--focus)}
+.sf svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);opacity:.55}
+.sb{padding:0 26px;border:0;border-radius:2px;background:var(--hazard);color:#fff;font-weight:600;font-size:15px}
+.sb:hover{background:#c84437}.sb:disabled{opacity:.5;cursor:wait}
+.hint{margin-top:11px;font-size:12px;color:#8a919d;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.hint code{background:#0d0e12;padding:3px 9px;border-radius:2px;color:#c7ccd4;font-family:"JetBrains Mono";cursor:pointer}.hint code:hover{color:#fff}
+main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
+.empty{padding:40px 0}.nodb{background:var(--verify-bg);border:1px solid #bcdedc;border-radius:4px;padding:16px 18px;font-size:13px;color:#1f4c4b}.nodb b{color:var(--verify)}
+.target{background:var(--card);border:1px solid var(--line);border-radius:4px;margin-top:20px;overflow:hidden;box-shadow:0 8px 30px -20px rgba(0,0,0,.3)}
+.idhead{padding:22px 24px;display:flex;gap:24px;flex-wrap:wrap}
+.struct{width:150px;height:150px;flex:none;border:1px solid var(--line);border-radius:4px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.struct img{max-width:100%;max-height:100%}.struct .ph{font-size:11px;color:var(--steel);text-align:center;padding:8px;line-height:1.5}
+.idmain{flex:1 1 320px;min-width:260px}
+.idname{font-family:"Space Grotesk";font-size:21px;font-weight:600;line-height:1.25}
+.idname small{display:block;font-family:"Inter","Pretendard";font-size:13px;font-weight:400;color:var(--steel);margin-top:3px}
+.idkv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;margin-top:14px;overflow:hidden}
+.idkv .cell{background:#fff;padding:9px 12px}.idkv .k{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--steel);font-weight:600}.idkv .v{font-size:13.5px;margin-top:2px;word-break:break-word}
+.source-note{font-size:11px;color:var(--steel);padding:0 24px 16px;display:flex;align-items:center;gap:7px}
+.livepill{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--verify);padding:2px 8px;border-radius:99px}
+.section{background:var(--card);border:1px solid var(--line);border-radius:4px;margin-top:16px;overflow:hidden}
+.sh{display:flex;align-items:center;gap:14px;padding:16px 22px;cursor:pointer;user-select:none}.sh:hover{background:#faf9f6}
+.sn{font-family:"JetBrains Mono";font-weight:700;font-size:13px;color:#fff;background:var(--ink);width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:3px}
+.st{font-family:"Space Grotesk";font-weight:600;font-size:16.5px;flex:1}
+.sfl{font-family:"JetBrains Mono";font-size:9.5px;font-weight:600;padding:3px 8px;border-radius:99px}.sfl.auto{background:var(--verify-bg);color:var(--verify)}.sfl.link{background:#f2f0ec;color:var(--steel)}
+.chev{transition:transform .22s;opacity:.5}.section.open .chev{transform:rotate(90deg)}
+.sbody{display:none;padding:4px 22px 24px;border-top:1px solid var(--line)}.section.open .sbody{display:block}
+.si{color:var(--steel);font-size:13px;margin:14px 0 16px;max-width:66ch}
+.block{margin:14px 0}.block h4{font-size:13px;margin:0 0 7px;display:flex;align-items:center;gap:8px}.block h4 .tick{width:6px;height:6px;border-radius:1px;flex:none}
+.block ul{margin:6px 0 8px;padding-left:18px}.block li{font-size:13.5px;margin:4px 0;color:#2c2f36}
+.evidence{border-left:3px solid var(--verify);background:var(--verify-bg);padding:11px 14px;border-radius:0 3px 3px 0;margin:10px 0;font-size:12.5px}
+.evidence .lab{font-weight:600;color:var(--verify);font-size:11px;letter-spacing:.05em;text-transform:uppercase}
+.inference{border-left:3px solid var(--amber);background:var(--amber-bg);padding:11px 14px;border-radius:0 3px 3px 0;margin:10px 0;font-size:12.5px}
+.inference .lab{font-weight:600;color:var(--amber);font-size:11px;letter-spacing:.05em;text-transform:uppercase}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.chip{font-family:"JetBrains Mono";font-size:12px;font-weight:500;padding:5px 10px;border-radius:3px;border:1px solid}
+.chip.haz{color:var(--hazard);background:var(--hazard-bg);border-color:#eccbc6}.chip.warn{color:var(--amber);background:var(--amber-bg);border-color:#ead9b4}.chip.neutral{color:var(--steel);background:#f2f0ec;border-color:var(--line)}
+.pictos{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.picto{display:flex;flex-direction:column;align-items:center;gap:4px;width:74px;text-align:center}
+.picto .dia{width:52px;height:52px;transform:rotate(45deg);border:2.5px solid var(--hazard);border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center}.picto .dia span{transform:rotate(-45deg);font-size:22px}.picto small{font-size:10px;color:var(--steel);line-height:1.2}
+.signal{display:inline-block;font-family:"Space Grotesk";font-weight:700;font-size:15px;padding:4px 14px;border-radius:3px}.signal.danger{background:var(--hazard);color:#fff}.signal.warning{background:var(--amber);color:#fff}
+.tbl{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.tbl th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--steel);font-weight:600;padding:8px 10px;border-bottom:2px solid var(--line)}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}.tbl tr:hover td{background:#faf9f6}
+.hcode{font-family:"JetBrains Mono";font-weight:700;color:var(--hazard);white-space:nowrap}
+.src{font-size:11.5px;color:var(--steel)}.src b{color:var(--ink);font-weight:600}
+.dbname{font-family:"JetBrains Mono";font-size:11.5px;color:var(--verify);font-weight:500;text-decoration:none}.dbname:hover{text-decoration:underline}
+.gt{font-family:"Space Grotesk";font-weight:600;font-size:13.5px;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}
+.gt .badge{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--steel);padding:2px 7px;border-radius:3px}
+.items{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.item{font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:3px;background:#fcfbf9;color:#3a3f47}
+.dbgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:7px;margin-top:6px}
+.dblink{display:flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--line);border-radius:3px;padding:9px 11px;background:#fff;font-size:12px;transition:border-color .15s,background .15s}
+.dblink:hover{border-color:var(--ink);background:#fbfaf7}
+.dblink .glyph{width:20px;height:20px;flex:none;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono";font-size:11px;font-weight:700}
+.dblink.direct .glyph{background:var(--verify-bg);color:var(--verify)}.dblink.copy .glyph{background:#f2f0ec;color:var(--steel)}
+.dblink .lbl{flex:1;line-height:1.25;color:var(--ink)}.dblink .arrow{opacity:.35;flex:none}.dblink:hover .arrow{opacity:.8}
+.leg{font-size:11px;color:var(--steel);margin:14px 0 4px;display:flex;gap:16px;flex-wrap:wrap}.leg span{display:inline-flex;align-items:center;gap:6px}
+.leg .g{width:16px;height:16px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-family:"JetBrains Mono";font-size:9px;font-weight:700}.g.direct{background:var(--verify-bg);color:var(--verify)}.g.copy{background:#f2f0ec;color:var(--steel)}
+.loading{display:flex;align-items:center;gap:10px;color:var(--steel);font-size:13px;padding:10px 0}
+.spin{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--verify);border-radius:50%;animation:sp .7s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+.errbox{background:var(--amber-bg);border:1px solid #ead9b4;border-radius:4px;padding:12px 14px;font-size:12.5px;color:#6d4c12}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:4px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:50;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast .cas{font-family:"JetBrains Mono";color:#f4d38a}
+.genbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--amber-bg);border:1px solid #ead9b4;border-radius:4px;padding:12px 14px;margin-bottom:14px}
+.genbar .txt{font-size:12.5px;color:#6d4c12;flex:1;min-width:180px}
+.genbtn{background:var(--amber);color:#fff;border:0;border-radius:3px;padding:8px 16px;font-size:13px;font-weight:600;white-space:nowrap}
+.genbtn:hover{background:#956613}.genbtn:disabled{opacity:.55;cursor:wait}
+.conf{display:inline-block;font-family:"JetBrains Mono";font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;margin-left:6px}
+.conf.high{background:var(--verify-bg);color:var(--verify)}.conf.medium{background:var(--amber-bg);color:var(--amber)}.conf.low{background:var(--hazard-bg);color:var(--hazard)}
+.disclaimer{margin-top:26px;font-size:11.5px;color:var(--steel);line-height:1.6;border-top:1px solid var(--line);padding-top:16px}
+@media(max-width:640px){.struct{width:120px;height:120px}}
+</style>
+</head>
+<body>
+<header class="console"><div class="ci">
+  <div class="brandrow"><div class="brand">유해성 조회 콘솔<span class="dot">.</span></div><div class="tagline">NAS 중계 서버 · CAS·물질명 → 실제 자료 자동 표시</div></div>
+  <p class="subnote">이 콘솔은 <b>내 NAS의 중계 서버</b>가 대신 조회한 자료를 표시합니다. 브라우저 CORS 제약이 없습니다.</p>
+  <div class="sw"><div class="sf">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a919d" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <input id="q" type="text" placeholder="CAS 번호나 물질명 입력 후 Enter  (예: 71-43-2, benzene)" autocomplete="off" spellcheck="false">
+  </div><button class="sb" id="go">조회</button></div>
+  <div class="hint">빠른 시도:
+    <code data-fill="71-43-2">벤젠 71-43-2</code>
+    <code data-fill="50-00-0">폼알데하이드 50-00-0</code>
+    <code data-fill="97926-71-1">예시 97926-71-1</code>
+  </div>
+</div></header>
+
+<main id="main">
+  <div class="empty"><div class="nodb"><b>NAS 중계 서버 버전.</b> 검색하면 NAS의 서버가 PubChem 등을 대신 조회해 기본정보·구조식·GHS 분류를 채웁니다. 국내 정부 DB(기후부·KOSHA 등)는 서버의 <span class="mono">fetch_korea()</span> 함수에 스크래핑을 붙이면 이 화면에 함께 표시할 수 있습니다(지금은 링크 안내).</div></div>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const API = "/api/chem";  // 같은 NAS에서 서비스 → 상대경로
+
+const DB={
+  kreach:{name:"기후부 화학물질정보처리시스템",url:"https://kreach.mcee.go.kr/repwrt/index.do"},
+  kreach_open:{name:"화학물질 정보공개(기후부)",url:"https://kreach.mcee.go.kr/repwrt/mttrInfoOpen/mttrInfoOpenList.do"},
+  kosha:{name:"고용노동부 MSDS",url:"https://msds.kosha.or.kr/MSDSInfo/"},
+  nfa:{name:"소방청 국가위험물통합정보",url:"https://hazmat.nfa.go.kr/"},
+  nifds:{name:"식약처 독성정보시스템",url:"https://www.nifds.go.kr/toxinfo/tcd/initial/list.do"},
+  echa:{name:"ECHA 등록물질",url:"https://chem.echa.europa.eu/"},
+  echa_clh:{name:"EU CLP 조화분류(CLH)",url:"https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"},
+  echa_rar:{name:"EU RAR 위해성평가",url:"https://echa.europa.eu/information-on-chemicals/information-from-existing-substances-regulation"},
+  iarc:{name:"IARC Monograph",url:"https://monographs.iarc.who.int/list-of-classifications/"},
+  ntp:{name:"US NTP(RoC)",url:"https://ntp.niehs.nih.gov/whatwestudy/assessments/cancer/roc/index.html"},
+  epa_iris:{name:"US EPA IRIS",url:"https://cfpub.epa.gov/ncea/iris/search/index.cfm"},
+  atsdr:{name:"US ATSDR",url:"https://wwwn.cdc.gov/TSP/INDEX.ASPX"},
+  ecotox:{name:"US ECOTOX",url:"https://cfpub.epa.gov/ecotox/search.cfm"},
+  comptox:{name:"US EPA CompTox",url:"https://comptox.epa.gov/dashboard/",query:"https://comptox.epa.gov/dashboard/search-results?search="},
+  pubchem:{name:"PubChem 전체 레코드",url:"https://pubchem.ncbi.nlm.nih.gov/",query:"https://pubchem.ncbi.nlm.nih.gov/#query="},
+  cas_cc:{name:"CAS Common Chemistry",url:"https://commonchemistry.cas.org/",query:"https://commonchemistry.cas.org/results?q="},
+  nite:{name:"일본 NITE CHRIP",url:"https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"},
+  jcheck:{name:"일본 J-CHECK",url:"https://www.nite.go.jp/chem/jcheck/search.action?request_locale=ja"},
+  aicis:{name:"호주 AICIS",url:"https://www.industrialchemicals.gov.au/chemical-information/search-assessments"},
+  hcis:{name:"호주 HCIS",url:"https://hcis.safeworkaustralia.gov.au/HazardousChemical"},
+  ccid:{name:"뉴질랜드 CCID",url:"https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"},
+  oecd:{name:"OECD SIDS",url:"https://hpvchemicals.oecd.org/ui/Search.aspx"},
+  echemportal:{name:"OECD eChemPortal",url:"https://www.echemportal.org/echemportal/substance-search"},
+  scholar:{name:"Google Scholar",url:"https://scholar.google.com/",query:"https://scholar.google.com/scholar?q="}
+};
+const GROUPS={
+  regulation:["kreach","echa_clh","iarc","ntp","epa_iris","aicis","hcis","ccid","nfa","kosha"],
+  domestic:["kreach","kreach_open","kosha","nfa","nifds","echa_rar","atsdr"],
+  phys:["kreach","echa","comptox","nite","kosha","oecd","echemportal","scholar"],
+  human:["kreach","echa","echa_rar","iarc","ntp","epa_iris","atsdr","oecd","nite","jcheck","nifds","comptox","echemportal","scholar"],
+  env:["kreach","echa","echa_rar","ecotox","oecd","nite","jcheck","comptox","echemportal","scholar"]
+};
+const TESTITEMS={
+  "물리화학적 특성":{code:"E0301",group:"phys",items:["물질의 상태","물용해도","녹는점/어는점","끓는점","증기압","Log Kow","밀도","입도분석","인화성","폭발성","산화성","점도","해리상수"]},
+  "인체(건강) 유해성":{code:"E0302",group:"human",items:["급성경구독성","급성경피독성","급성흡입독성","복귀돌연변이(Ames)","피부 자극성/부식성","피부 과민성","호흡기 과민성","눈 자극성/부식성","염색체 이상","체세포 유전독성","반복투여독성(28일)","반복투여독성(90일)","생식·발달독성","추가 유전독성","최기형성","2세대 생식독성","발암성"]},
+  "환경 유해성":{code:"E0303",group:"env",items:["어류 독성","물벼룩 독성","이분해성","담수조류 생장저해","가수분해","본질적 분해성","분해산물 확인","육생식물 독성","육생무척추동물 독성","활성슬러지 호흡저해","흡착/탈착","환경 거동·동태","저서생물 만성독성","생물농축성(BCF)"]}
+};
+const PICTO_ICON={"발암성":"☣","건강":"☣","Health hazard":"☣","Health Hazard":"☣","Flammable":"🔥","인화성":"🔥","Corrosive":"⚠","부식성":"⚠","Acute Toxic":"☠","급성독성":"☠","Irritant":"❗","Environmental Hazard":"🌿","환경":"🌿","Compressed Gas":"⬤","Explosive":"💥","Oxidizer":"◎"};
+function pictoIcon(n){for(const k in PICTO_ICON)if(n&&n.includes(k))return PICTO_ICON[k];return"⚠";}
+
+const $=s=>document.querySelector(s);
+const main=$("#main"),input=$("#q"),toast=$("#toast"),goBtn=$("#go");
+let Q="";
+const isCas=v=>/^\d{2,7}-\d{2}-\d$/.test(v.trim());
+function dbHref(k){const d=DB[k];if(!d)return"#";return d.query?d.query+encodeURIComponent(Q):d.url;}
+function dbClick(e,k){const d=DB[k];if(!d||d.query)return;if(navigator.clipboard)navigator.clipboard.writeText(Q);toast.innerHTML=`<span class="cas">${Q}</span> 복사됨 — <b>${d.name}</b> 검색창에 붙여넣으세요`;toast.classList.add("show");clearTimeout(dbClick._t);dbClick._t=setTimeout(()=>toast.classList.remove("show"),3200);}
+function dbLinks(keys){return `<div class="dbgrid">`+keys.map(k=>{const d=DB[k];if(!d)return"";const dir=!!d.query;return `<a class="dblink ${dir?'direct':'copy'}" href="${dbHref(k)}" target="_blank" rel="noopener" onclick="dbClick(event,'${k}')"><span class="glyph">${dir?"↦":"○"}</span><span class="lbl">${d.name}</span><svg class="arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>`;}).join("")+`</div>`;}
+const legend=`<div class="leg"><span><span class="g direct">↦</span> 입력값으로 바로 조회</span><span><span class="g copy">○</span> 검색 이동 + 자동 복사</span></div>`;
+function section(n,title,flag,body,open){
+  const fl = flag==="auto"?`<span class="sfl auto">자동 조회</span>`
+           : flag==="gen"?`<span class="sfl" style="background:var(--amber-bg);color:var(--amber)">생성 가능</span>`
+           : `<span class="sfl link">DB 링크</span>`;
+  return `<div class="section${open?" open":""}"><div class="sh" onclick="this.parentNode.classList.toggle('open')"><div class="sn">${n}</div><div class="st">${title}</div>${fl}<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></div><div class="sbody" id="sec${n}">${body}</div></div>`;}
+function testGroups(){return Object.entries(TESTITEMS).map(([g,o])=>`<div class="gt">${g}<span class="badge">${o.code}</span></div><div class="items">${o.items.map(i=>`<span class="item">${i}</span>`).join("")}</div><div class="src" style="margin-bottom:2px"><b>${g}</b> 조회 Reference DB</div>${dbLinks(GROUPS[o.group])}`).join("");}
+
+function shell(q){
+  Q=q.trim();
+  main.innerHTML=`
+  <div class="target"><div class="idhead">
+    <div class="struct" id="struct"><div class="ph">구조식<br>불러오는 중…</div></div>
+    <div class="idmain"><div class="idname" id="idname">${Q}<small>NAS 서버가 조회 중…</small></div>
+    <div class="idkv" id="idkv"><div class="cell"><div class="k">상태</div><div class="v"><span class="loading" style="padding:0"><span class="spin"></span>조회 중</span></div></div></div></div>
+  </div><div class="source-note" id="idsrc"></div></div>
+  ${section(1,"화학물질 기본정보","auto",`<div class="loading"><span class="spin"></span>기본정보 로딩…</div>`,true)}
+  ${section(5,"유해성 분류 및 표시 정보 (GHS)","auto",`<div class="loading"><span class="spin"></span>GHS 분류 로딩…</div>`,true)}
+  ${section(3,"유해성 요약 — 확인된 유해성 근거","auto",`<div class="loading"><span class="spin"></span>정리 중…</div>`,false)}
+  ${section(2,"국내외 규제현황","gen",
+    `<div class="genbar"><div class="txt">규제현황을 <b>Claude가 출처와 함께 정리</b>해 드립니다. (이 물질만 API 호출 · 결과는 캐시됨)</div><button class="genbtn" id="gen2" onclick="enrichDetail()">자세히 생성</button></div>
+     <div id="enrich2"></div>
+     <p class="si">아래는 직접 확인용 규제 DB 링크입니다.</p>${legend}${dbLinks(GROUPS.regulation)}`,false)}
+  ${section(4,"국내 우려 이슈 및 노출경로","gen",
+    `<div id="enrich4"><p class="si">위 <b>2번 항목의 “자세히 생성”</b>을 누르면 국내 우려·용도·노출경로도 함께 채워집니다.</p></div>
+     <p class="si">직접 확인용 국내 DB:</p>${dbLinks(GROUPS.domestic)}`,false)}
+  ${section(6,"유해성 정보 수집 — 시험항목별 조회","link",`<p class="si">엑셀 시트(물리화학·인체·환경) B열 시험항목입니다. 그룹별 조회 DB를 연결하며 결과에 출처가 함께 표시됩니다.</p>${legend}${testGroups()}`,false)}
+  <div class="disclaimer">1·3·5번은 NAS 중계 서버가 PubChem에서 실시간 조회한 값입니다(GHS는 ECHA C&L Inventory 등 제조사 신고 집계). 2·4·6번은 개방형 API가 없는 정부 DB라 자동 링크로 연결합니다. 서버의 fetch_korea()에 스크래핑을 붙이면 국내 규제도 자동 표시할 수 있습니다.</div>`;
+  window.scrollTo({top:0,behavior:"instant"});
+}
+
+function summaryFromGHS(sts){
+  const has=(re)=>sts&&sts.some(s=>re.test(s.h));
+  const flags=[];
+  if(has(/H350/))flags.push(["발암성 (H350)","암을 일으킬 수 있음 — 발암성 분류"]);
+  if(has(/H340|H341/))flags.push(["생식세포 변이원성","유전물질 손상 우려"]);
+  if(has(/H360|H361/))flags.push(["생식독성","생식능력·태아 영향 우려"]);
+  if(has(/H300|H310|H330|H301|H311|H331/))flags.push(["급성독성","단회 노출로 유해"]);
+  if(has(/H370|H372/))flags.push(["표적장기독성","반복·단회 노출로 장기 손상"]);
+  if(has(/H400|H410|H411/))flags.push(["수생환경유해성","수생생물에 유독"]);
+  const body=flags.length
+    ?`<div class="block"><h4><span class="tick" style="background:var(--verify)"></span>확인된 유해성 (GHS 분류 기반)</h4><div class="chips">${flags.map(f=>`<span class="chip haz">${f[0]}</span>`).join("")}</div><ul>${flags.map(f=>`<li><b>${f[0]}</b> — ${f[1]}</li>`).join("")}</ul></div><div class="evidence"><span class="lab">근거</span> 중계 서버가 집계한 GHS 분류(위 §5). 상세 시험자료는 §6 및 아래 DB에서 확인.</div>`
+    :`<p class="si">집계된 GHS 분류가 없어 자동 요약이 어렵습니다. 아래 DB에서 핵심 종말점을 교차 확인하세요.</p>`;
+  return body+`<div class="src" style="margin:12px 0 2px">유해성 근거 확인 DB</div>${dbLinks(GROUPS.human)}`;
+}
+
+async function lookup(q){
+  shell(q); goBtn.disabled=true;
+  try{
+    const r=await fetch(`${API}?q=${encodeURIComponent(Q)}`);
+    if(!r.ok)throw new Error("서버 응답 "+r.status);
+    const d=await r.json();
+    if(!d.found){ return renderNone(d); }
+    renderData(d);
+  }catch(e){
+    $("#sec1").innerHTML=`<div class="errbox">중계 서버 호출 실패: ${e.message}. 컨테이너가 켜져 있는지, 주소가 맞는지 확인하세요.</div>`;
+  }finally{ goBtn.disabled=false; }
+}
+function renderNone(d){
+  $("#struct").innerHTML=`<div class="ph">구조식<br>레코드 없음</div>`;
+  $("#idname").innerHTML=`${Q}<small>개별 레코드 없음 — 혼합물/UVCB이거나 표기가 다를 수 있음</small>`;
+  $("#idkv").innerHTML=`<div class="cell"><div class="k">비고</div><div class="v">구조 기반 DB에 없음. 아래 DB에서 직접 확인.</div></div>`;
+  $("#idsrc").innerHTML=`<span class="livepill">SERVER</span> 조회됨 · 개별 레코드 없음`;
+  $("#sec1").innerHTML=`<div class="errbox">개별 화합물 레코드가 없습니다(석유유분 등 UVCB에서 흔함).</div><div style="margin-top:12px">${dbLinks(["cas_cc","echa","comptox","kreach","kosha","nite"])}</div>`;
+  $("#sec5").innerHTML=`<div class="errbox">자동 GHS 분류 없음. 아래 DB에서 확인하세요.</div><div style="margin-top:12px">${dbLinks(GROUPS.regulation)}</div>`;
+  $("#sec3").innerHTML=`<p class="si">아래 DB에서 핵심 종말점을 교차 확인해 유해성 근거를 정리하세요.</p>${dbLinks(GROUPS.human)}`;
+}
+function renderData(d){
+  const id=d.identity||{}, g=d.ghs||{};
+  Q=id.cas||Q;
+  // 기본정보 카드
+  if(id.structure_url) $("#struct").innerHTML=`<img src="${id.structure_url}" alt="구조식" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;>구조식<br>없음</div>'">`;
+  else $("#struct").innerHTML=`<div class="ph">${id.formula&&id.formula.includes('UVCB')?'UVCB<br>구조식 없음':'구조식<br>없음'}</div>`;
+  $("#idname").innerHTML=`${id.title||Q}${id.title_ko?`<small>${id.title_ko}</small>`:(id.cid?`<small class="mono">CID ${id.cid}</small>`:"")}`;
+  const isFallback=(d.source||"").includes("규제자료");
+  $("#idsrc").innerHTML=`<span class="livepill" ${isFallback?'style="background:var(--amber)"':''}>${isFallback?'예시':'SERVER'}</span> 출처: ${d.source||"NAS 중계 서버"}${id.cid?` · <a class="dbname" href="${d.record_url}" target="_blank" rel="noopener">전체 레코드 ↗</a>`:""}${d._cache?' · (캐시)':''}`;
+  const kv=[["CAS No.",id.cas||"—",1]];
+  if(id.ec)kv.push(["EC No.",id.ec,1]);
+  if(id.ke)kv.push(["국내번호",id.ke,1]);
+  kv.push(["화학식",id.formula||"—",1]);
+  if(id.mw)kv.push(["분자량",id.mw+" g/mol",0]);
+  if(id.iupac)kv.push(["IUPAC명",id.iupac,0]);
+  if(id.cid)kv.push(["PubChem CID",id.cid,1]);
+  $("#idkv").innerHTML=kv.map(([k,v,m])=>`<div class="cell"><div class="k">${k}</div><div class="v ${m?'mono':''}">${v}</div></div>`).join("");
+  $("#sec1").innerHTML=`${d.note?`<div class="inference"><span class="lab">참고</span> ${d.note}</div>`:""}
+    <table class="tbl"><tr><td style="width:120px"><b>물질명</b></td><td>${id.title||Q}</td></tr>
+    <tr><td><b>CAS No.</b></td><td class="mono">${id.cas||"—"}</td></tr>
+    <tr><td><b>화학식</b></td><td class="mono">${id.formula||"—"}</td></tr>
+    ${id.iupac?`<tr><td><b>IUPAC명</b></td><td>${id.iupac}</td></tr>`:""}</table>
+    <div class="evidence"><span class="lab">출처</span> ${d.source||"NAS 중계 서버"}${id.cid?` · PubChem CID ${id.cid}`:""}</div>
+    <div class="src" style="margin:12px 0 2px">국내 식별정보 교차확인</div>${dbLinks(["cas_cc","kreach","kosha","echa"])}`;
+  // GHS
+  const sts=g.statements||[];
+  if(!g.signal && !sts.length){
+    $("#sec5").innerHTML=`<div class="errbox">집계된 GHS 분류가 없습니다. 아래 DB에서 확인하세요.</div><div style="margin-top:12px">${dbLinks(GROUPS.regulation)}</div>`;
+  }else{
+    const sig=/danger/i.test(g.signal)?"danger":"warning";
+    $("#sec5").innerHTML=`<p class="si">중계 서버가 집계한 GHS 분류입니다. 신고된 유해·위험문구를 모두 표시합니다.</p>
+    ${g.signal?`<div style="margin:6px 0 12px"><span class="signal ${sig}">${/danger/i.test(g.signal)?"위험 · Danger":"경고 · Warning"}</span></div>`:""}
+    ${(g.pictos&&g.pictos.length)?`<div class="pictos">${g.pictos.map(p=>`<div class="picto"><div class="dia"><span>${pictoIcon(p)}</span></div><small>${p}</small></div>`).join("")}</div>`:""}
+    <table class="tbl"><thead><tr><th>유해·위험문구</th><th>내용</th><th>출처 DB</th></tr></thead><tbody>
+    ${sts.map(s=>`<tr><td><span class="hcode">${s.h}</span></td><td>${s.t||"—"}</td><td class="dbname">${s.src||"—"}</td></tr>`).join("")}
+    </tbody></table>
+    <div class="evidence"><span class="lab">출처</span> ${g.provenance||"GHS Classification (제조사 신고 집계)"}${g.source_url?` · <a class="dbname" href="${g.source_url}" target="_blank" rel="noopener">원본 ↗</a>`:""}</div>
+    <div class="src" style="margin:14px 0 2px">국내·조화분류 교차확인 DB</div>${dbLinks(["kreach","echa_clh","iarc","ntp","kosha"])}`;
+  }
+  // 요약
+  $("#sec3").innerHTML=summaryFromGHS(sts);
+  // 국내(폴백에 korea 있으면 §2 상단에 표시)
+  if(d.korea){
+    const sec2=$("#sec2");
+    sec2.insertAdjacentHTML("afterbegin",`<div class="inference" style="margin-bottom:14px"><span class="lab">국내(기후부)</span> ${d.korea.status||""} — ${d.korea.detail||""}</div>`);
+  }
+}
+
+async function enrichDetail(){
+  const btn=$("#gen2"); if(btn){btn.disabled=true;btn.textContent="생성 중…";}
+  const box2=$("#enrich2"), box4=$("#enrich4");
+  box2.innerHTML=`<div class="loading"><span class="spin"></span>Claude가 규제·우려를 정리하는 중… (10~20초)</div>`;
+  try{
+    const r=await fetch(`/api/enrich?q=${encodeURIComponent(Q)}`);
+    const res=await r.json();
+    if(!res.ok){
+      const msg = res.error==="no_api_key"
+        ? "서버에 API 키가 설정되지 않았습니다. docker-compose.yml의 ANTHROPIC_API_KEY를 채우고 프로젝트를 재시작하세요."
+        : (res.message||"생성 실패");
+      box2.innerHTML=`<div class="errbox">${msg}</div>`;
+      return;
+    }
+    const d=res.data||{};
+    const conf=(d.confidence||"medium");
+    const cbadge=`<span class="conf ${conf}">신뢰도 ${conf}</span>`;
+    // 2. 규제현황 표
+    const regs=(d.regulations||[]);
+    box2.innerHTML = (regs.length
+      ? `<div style="margin-bottom:6px"><b style="font-size:13px">규제현황</b>${cbadge}${res._cache?'<span class="conf medium">캐시</span>':''}</div>
+         <table class="tbl"><thead><tr><th>지역</th><th>규정/기관</th><th>상태</th><th>출처</th></tr></thead><tbody>
+         ${regs.map(x=>`<tr><td><span class="chip neutral">${x.region||"—"}</span></td><td><b>${x.body||"—"}</b><div class="src">${x.detail||""}</div></td><td>${x.status||"—"}</td><td class="dbname">${x.source||"—"}</td></tr>`).join("")}
+         </tbody></table>`
+      : `<div class="inference"><span class="lab">결과</span> 명확한 규제현황을 특정하지 못했습니다. 아래 DB에서 직접 확인하세요.</div>`)
+      + (d.caveat?`<div class="inference"><span class="lab">검수 주의</span> ${d.caveat}</div>`:"")
+      + `<div class="src" style="margin-top:8px">⚠ Claude 생성 초안입니다. 게시 전 출처 확인·검수를 권장합니다.</div>`;
+    // 4. 국내 우려·노출경로
+    const dm=d.domestic||{};
+    box4.innerHTML=`
+      ${(dm.issue&&dm.issue.length)?`<div class="block"><h4><span class="tick" style="background:var(--hazard)"></span>국내 우려 이슈 ${cbadge}</h4><ul>${dm.issue.map(i=>`<li>${i}</li>`).join("")}</ul></div>`:""}
+      ${(dm.uses&&dm.uses.length)?`<div class="block"><h4><span class="tick" style="background:var(--ink)"></span>주요 용도</h4><div class="chips">${dm.uses.map(u=>`<span class="chip neutral">${u}</span>`).join("")}</div></div>`:""}
+      ${(dm.routes&&dm.routes.length)?`<div class="block"><h4><span class="tick" style="background:var(--ink)"></span>노출경로</h4><table class="tbl">${dm.routes.map(x=>`<tr><td style="width:80px"><b>${x.r||"—"}</b></td><td>${x.d||""}</td></tr>`).join("")}</table></div>`:""}
+      ${(dm.tox&&dm.tox.length)?`<div class="block"><h4><span class="tick" style="background:var(--hazard)"></span>우려 독성</h4><div class="chips">${dm.tox.map(t=>`<span class="chip haz">${t}</span>`).join("")}</div></div>`:""}
+      ${dm.source?`<div class="inference"><span class="lab">출처 / 성격</span> ${dm.source}</div>`:""}
+      <div class="src">직접 확인용 국내 DB:</div>${dbLinks(GROUPS.domestic)}`;
+    // 열어주기
+    $("#sec4").parentNode.classList.add("open");
+  }catch(e){
+    box2.innerHTML=`<div class="errbox">생성 호출 실패: ${e.message}</div>`;
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent="다시 생성";}
+  }
+}
+
+function run(){const v=input.value;if(!v.trim())return;lookup(v);}
+goBtn.addEventListener("click",run);
+input.addEventListener("keydown",e=>{if(e.key==="Enter")run();});
+document.querySelectorAll(".hint code").forEach(c=>c.addEventListener("click",()=>{input.value=c.dataset.fill;run();}));
+</script>
+</body>
+</html>

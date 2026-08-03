@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: chem-relay
+    runtime: docker
+    plan: free
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false          # 대시보드에서 직접 입력(안전). 코드에 노출 안 됨
+      - key: ANTHROPIC_MODEL
+        value: claude-sonnet-5
+      - key: CACHE_DIR
+        value: /tmp/cache
