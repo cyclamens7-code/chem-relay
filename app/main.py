@@ -20,12 +20,12 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response
 import httpx, json, re, hashlib, time, pathlib, asyncio, os, secrets
 
-# ── Anthropic(Claude) 설정 ──────────────────────────────────────────
-# API 키는 서버(NAS) 환경변수로만 주입 → 브라우저에 절대 노출되지 않음.
-# docker-compose.yml 의 environment 에서 설정합니다.
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
-ANTHROPIC_MODEL   = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5")
-ANTHROPIC_URL     = "https://api.anthropic.com/v1/messages"
+# ── Gemini(Google) 설정 ─────────────────────────────────────────────
+# Google AI Studio 무료 API 키를 서버 환경변수로 주입 → 브라우저에 노출 안 됨.
+# 무료 티어(카드 불필요)로 "자세히 생성"을 돌립니다.
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+GEMINI_MODEL   = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
+GEMINI_URL     = "https://generativelanguage.googleapis.com/v1beta/models"
 
 # ── 접속 잠금(비밀번호) ─────────────────────────────────────────────
 # 아이디/비밀번호를 환경변수로 설정하면 전체 사이트에 로그인창이 걸립니다.
@@ -327,29 +327,34 @@ CAS: {cas}
 - 근거가 불명확하면 regulations 를 빈 배열로 두고 domestic.issue 에 '공개 자료에서 규제현황 확인 필요'라고 적으세요.
 - 절대 없는 규제를 지어내지 마세요. 확실한 것만."""
 
-async def enrich_with_claude(name: str, cas: str, ghs_summary: str) -> dict:
-    if not ANTHROPIC_API_KEY:
+async def enrich_with_gemini(name: str, cas: str, ghs_summary: str) -> dict:
+    if not GEMINI_API_KEY:
         return {"ok": False, "error": "no_api_key",
-                "message": "서버에 ANTHROPIC_API_KEY가 설정되지 않았습니다. docker-compose.yml 참고."}
+                "message": "서버에 GEMINI_API_KEY가 설정되지 않았습니다. Render 환경변수에 추가하세요."}
+    prompt = ENRICH_SYSTEM + "\n\n" + ENRICH_INSTRUCT.format(
+        name=name, cas=cas, ghs=ghs_summary or "정보 없음")
     payload = {
-        "model": ANTHROPIC_MODEL,
-        "max_tokens": 1500,
-        "system": ENRICH_SYSTEM,
-        "messages": [{"role": "user",
-                      "content": ENRICH_INSTRUCT.format(name=name, cas=cas, ghs=ghs_summary or "정보 없음")}],
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "temperature": 0.2,
+            "maxOutputTokens": 1500,
+            "responseMimeType": "application/json",  # JSON만 출력하도록 강제
+        },
     }
-    headers = {
-        "x-api-key": ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
-    }
+    headers = {"x-goog-api-key": GEMINI_API_KEY, "Content-Type": "application/json"}
+    url = f"{GEMINI_URL}/{GEMINI_MODEL}:generateContent"
     async with httpx.AsyncClient() as client:
-        r = await client.post(ANTHROPIC_URL, headers=headers, json=payload, timeout=60)
+        r = await client.post(url, headers=headers, json=payload, timeout=60)
         if r.status_code != 200:
             return {"ok": False, "error": "api_error",
-                    "message": f"Anthropic API 오류 {r.status_code}", "detail": r.text[:400]}
+                    "message": f"Gemini API 오류 {r.status_code}", "detail": r.text[:400]}
         data = r.json()
-        text = "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text")
+        try:
+            parts = data["candidates"][0]["content"]["parts"]
+            text = "".join(p.get("text", "") for p in parts)
+        except Exception:
+            return {"ok": False, "error": "parse_error", "message": "응답 형식이 예상과 다릅니다.",
+                    "raw": json.dumps(data)[:400]}
         text = re.sub(r"^```(json)?|```$", "", text.strip(), flags=re.M).strip()
         try:
             parsed = json.loads(text)
@@ -377,7 +382,7 @@ async def api_enrich(q: str = Query(..., min_length=1)):
     ghs  = chem.get("ghs", {}) if chem else {}
     ghs_summary = ", ".join(s.get("h", "") for s in ghs.get("statements", [])) or ""
 
-    result = await enrich_with_claude(name, cas, ghs_summary)
+    result = await enrich_with_gemini(name, cas, ghs_summary)
     result["query"] = q
     if result.get("ok"):
         cache_set(key, result)
@@ -385,7 +390,7 @@ async def api_enrich(q: str = Query(..., min_length=1)):
 
 @app.get("/api/health")
 async def health():
-    return {"ok": True, "api_key_set": bool(ANTHROPIC_API_KEY), "model": ANTHROPIC_MODEL}
+    return {"ok": True, "api_key_set": bool(GEMINI_API_KEY), "model": GEMINI_MODEL}
 
 # 정적 콘솔(UI)을 루트에 마운트 — API 라우트 뒤에 둬야 함
 app.mount("/", StaticFiles(directory=str(STATIC), html=True), name="static")
