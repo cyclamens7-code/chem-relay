@@ -115,11 +115,66 @@ def _load_json(name):
         return {}
 EXISTING_CHEM = _load_json("existing_chemicals.json")   # {CAS: {keno, name, table}}
 HAZARD_REVIEW = _load_json("hazard_review.json")         # {CAS: {no, 해당여부, 분류표시, 구분}}
+# 지정물질 마스터: 화학물질_20260804.xlsx 변환. {CAS: {desig:[{label,note}], detail, name}}
+#   유독물질·사고대비·제한·금지·중점·잔류·등록대상 등을 CAS로 대조.
+DESIG_MASTER = _load_json("designated_master.json")
+
+# 지정물질 목록: app/data/designated/*.json 을 모두 로드.
+#   각 파일 형식: {"label":"제한물질","source":"환경부고시 제....","cas":["50-00-0", ...]}
+#   또는 {"label":..., "source":..., "items":{"50-00-0":"비고/조건", ...}}
+# 파일을 추가/교체하면 자동 반영(코드 수정 불필요).
+DESIGNATED = []   # [{label, source, cas:set}]
+def _load_designated():
+    out = []
+    ddir = DATA_DIR / "designated"
+    if ddir.is_dir():
+        for fp in sorted(ddir.glob("*.json")):
+            try:
+                d = json.loads(fp.read_text("utf-8"))
+                cas = set(d.get("cas") or list((d.get("items") or {}).keys()))
+                out.append({"label": d.get("label", fp.stem),
+                            "source": d.get("source", ""),
+                            "cas": cas,
+                            "items": d.get("items") or {}})
+            except Exception:
+                pass
+    return out
+DESIGNATED = _load_designated()
+
+def designated_hits(cas: str):
+    """CAS가 포함된 모든 지정물질 목록을 반환."""
+    hits = []
+    for g in DESIGNATED:
+        if cas and cas in g["cas"]:
+            hits.append({"label": g["label"], "source": g["source"],
+                         "note": g["items"].get(cas, "")})
+    return hits
 
 def korea_notice_lookup(cas: str) -> dict:
-    """CAS로 기존화학물질 여부 + 유해성심사 여부를 고시 데이터에서 대조."""
+    """CAS로 기존화학물질·유해성심사·지정물질 현황을 고시 데이터에서 대조."""
     ex = EXISTING_CHEM.get(cas or "")
     rv = HAZARD_REVIEW.get(cas or "")
+    hits = designated_hits(cas or "")
+    # 지정물질 마스터(화학물질_20260804) 대조 결과 병합
+    dm = DESIG_MASTER.get(cas or "")
+    master_detail = ""
+    if dm:
+        master_detail = dm.get("detail", "")
+        for x in dm.get("desig", []):
+            hits.append({"label": x.get("label"), "source": "화학물질 지정 마스터(기후부 자료)",
+                         "note": x.get("note", "")})
+    # 유해성심사에서 '인체등유해성물질 해당'이면 지정물질 목록에도 추가 표기
+    if rv and "해당함" in str(rv.get("해당여부", "")):
+        hits = [{"label": "인체등유해성물질", "source": "화학물질의 유해성심사결과 고시",
+                 "note": rv.get("해당여부", "")}] + hits
+    if ex:
+        hits = [{"label": "기존화학물질", "source": f"기존화학물질 고시 {ex.get('table','')}",
+                 "note": f"고유번호 {ex.get('keno','')}"}] + hits
+    # 라벨 중복 제거(첫 출처 유지)
+    seen, uniq = set(), []
+    for h in hits:
+        if h["label"] in seen: continue
+        seen.add(h["label"]); uniq.append(h)
     return {
         "existing": ({
             "is_existing": True,
@@ -134,7 +189,10 @@ def korea_notice_lookup(cas: str) -> dict:
             "classification": (rv.get("분류표시") or "")[:600],
             "category": rv.get("구분"),
         } if rv else {"reviewed": False}),
-        "counts": {"existing_db": len(EXISTING_CHEM), "review_db": len(HAZARD_REVIEW)},
+        "designated": uniq,          # 지정물질 현황(전체)
+        "designated_detail": master_detail,   # 유해특성·함량기준 상세
+        "counts": {"existing_db": len(EXISTING_CHEM), "review_db": len(HAZARD_REVIEW),
+                   "designated_master": len(DESIG_MASTER), "designated_lists": len(DESIGNATED)},
     }
 
 # ----------------------------------------------------------------------
@@ -372,6 +430,9 @@ CAS: {cas}
     "keno":"KE-No. 있으면 기재, 없으면 빈 문자열",
     "source":"기존화학물질 고시(환경부/기후부) 및 대조 결과"
   }},
+  "designated_estimate": [
+    {{"label":"제한물질|금지물질|사고대비물질|중점관리물질|유독물질|등록대상기존화학물질|기타","likely":"예|아니오|불확실","basis":"근거","source":"고시명"}}
+  ],
   "regulations": [
     {{"region":"EU|국내|미국|일본|기타","body":"규정/기관명","status":"지정 상태","detail":"핵심 내용","source":"출처"}}
   ],
@@ -389,6 +450,7 @@ CAS: {cas}
 규칙:
 - existing_new.verdict 는 위 [고시 대조 사실]을 최우선으로 판단하세요. 별표에 CAS가 있으면 '기존화학물질'.
 - 별표에 없더라도 제3조 각 호(수화물/무수물, 반응생성물, 이성질체)에 해당할 수 있으면 '판단보류'로 하고 basis에 이유를 적으세요. 함부로 '신규'로 단정하지 마세요.
+- designated_estimate: [고시 대조 사실]에 이미 확정된 지정은 제외하고, 확정되지 않은 지정물질(제한·금지·사고대비·중점관리·유독물질 등)에 대해서만 '예/아니오/불확실'로 추정하세요. 규제는 틀리면 위험하므로 확실하지 않으면 '불확실'로 하고 반드시 확인 권고를 남기세요.
 - 근거가 불명확하면 regulations 를 빈 배열로 두세요. 절대 없는 규제를 지어내지 마세요."""
 
 def _notice_facts_text(notice: dict) -> str:
@@ -404,7 +466,66 @@ def _notice_facts_text(notice: dict) -> str:
         lines.append(f"- 유해성심사: 심사됨 ({rv.get('category')}, 번호 {rv.get('no')}). 결과: {rv.get('result')}.")
     else:
         lines.append("- 유해성심사결과 고시에서 해당 CAS 미검색 → 심사 이력 미확인.")
+    des = notice.get("designated") or []
+    if des:
+        lines.append("- 파일 대조로 확정된 지정물질: " +
+                     ", ".join(f"{h['label']}({h.get('note','')})" for h in des))
+    else:
+        lines.append("- 파일 대조된 지정물질 없음(제한·사고대비·중점관리 등은 미확인 → 추정 대상).")
     return "\n".join(lines)
+
+def _extract_json(text: str):
+    """마크다운 감싸기·앞뒤 잡텍스트·잘림을 견디며 JSON 객체를 최대한 복구."""
+    if not text:
+        return None
+    t = text.strip()
+    # 코드펜스 제거
+    t = re.sub(r"^```(?:json)?\s*", "", t, flags=re.I).strip()
+    t = re.sub(r"\s*```$", "", t).strip()
+    # 1) 그대로 파싱
+    try:
+        return json.loads(t)
+    except Exception:
+        pass
+    # 2) 첫 '{' 부터 마지막 '}' 까지
+    i = t.find("{")
+    if i == -1:
+        return None
+    frag = t[i:]
+    j = frag.rfind("}")
+    if j != -1:
+        try:
+            return json.loads(frag[:j + 1])
+        except Exception:
+            pass
+    # 3) 잘린 JSON 복구: 여는 괄호를 스택으로 추적해 올바른 짝으로 닫는다(문자열 밖에서만).
+    stack = []; in_str = False; esc = False; buf = []
+    for ch in frag:
+        buf.append(ch)
+        if esc:
+            esc = False; continue
+        if ch == "\\":
+            esc = True; continue
+        if ch == '"':
+            in_str = not in_str
+        elif not in_str:
+            if ch == "{":
+                stack.append("}")
+            elif ch == "[":
+                stack.append("]")
+            elif ch in "}]":
+                if stack:
+                    stack.pop()
+    s = "".join(buf)
+    if in_str:
+        s += '"'
+    if stack:
+        s = s.rstrip().rstrip(",")
+        s += "".join(reversed(stack))
+    try:
+        return json.loads(s)
+    except Exception:
+        return None
 
 async def enrich_with_gemini(name: str, cas: str, ghs_summary: str, notice: dict = None) -> dict:
     if not GEMINI_API_KEY:
@@ -417,7 +538,7 @@ async def enrich_with_gemini(name: str, cas: str, ghs_summary: str, notice: dict
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
             "temperature": 0.2,
-            "maxOutputTokens": 1500,
+            "maxOutputTokens": 4096,
             "responseMimeType": "application/json",  # JSON만 출력하도록 강제
         },
     }
@@ -429,18 +550,25 @@ async def enrich_with_gemini(name: str, cas: str, ghs_summary: str, notice: dict
             return {"ok": False, "error": "api_error",
                     "message": f"Gemini API 오류 {r.status_code}", "detail": r.text[:400]}
         data = r.json()
-        try:
-            parts = data["candidates"][0]["content"]["parts"]
-            text = "".join(p.get("text", "") for p in parts)
-        except Exception:
-            return {"ok": False, "error": "parse_error", "message": "응답 형식이 예상과 다릅니다.",
-                    "raw": json.dumps(data)[:400]}
-        text = re.sub(r"^```(json)?|```$", "", text.strip(), flags=re.M).strip()
-        try:
-            parsed = json.loads(text)
-        except Exception:
-            return {"ok": False, "error": "parse_error", "message": "응답 파싱 실패", "raw": text[:400]}
-        return {"ok": True, "data": parsed}
+        cand = (data.get("candidates") or [{}])[0]
+        finish = cand.get("finishReason", "")
+        parts = (cand.get("content") or {}).get("parts") or []
+        text = "".join(p.get("text", "") for p in parts if isinstance(p, dict))
+        # 콘텐츠가 비었을 때(안전차단 등) 안내
+        if not text:
+            if finish in ("SAFETY", "PROHIBITED_CONTENT", "BLOCKLIST"):
+                return {"ok": False, "error": "blocked",
+                        "message": "AI가 안전상 이유로 응답을 생성하지 않았습니다. 아래 DB로 직접 확인하세요."}
+            pf = data.get("promptFeedback", {})
+            return {"ok": False, "error": "empty",
+                    "message": f"AI 응답이 비어 있습니다(사유 {finish or pf.get('blockReason','')}).",
+                    "raw": json.dumps(data)[:300]}
+        parsed = _extract_json(text)
+        if parsed is None:
+            note = " (응답이 길어 잘렸을 수 있습니다. 다시 시도해 주세요.)" if finish == "MAX_TOKENS" else ""
+            return {"ok": False, "error": "parse_error",
+                    "message": "AI 응답 파싱 실패" + note, "raw": text[:400]}
+        return {"ok": True, "data": parsed, "_finish": finish}
 
 @app.get("/api/enrich")
 async def api_enrich(q: str = Query(..., min_length=1)):
