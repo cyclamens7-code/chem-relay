@@ -5,7 +5,7 @@
   1) 브라우저가 직접 못 부르는 공개 DB(PubChem 등)를 서버가 대신 조회 → CORS 우회
   2) 조회 결과를 하나의 JSON으로 정리해서 프런트(콘솔)에 반환
   3) 디스크 캐시로 반복 조회를 빠르게 + PubChem 호출량 절감
-  4) 국내 정부 DB(기후부/KOSHA 등) 스크래핑을 붙일 수 있는 자리 마련(fetch_korea_*)
+  4) 국내 정부 DB(기후에너지환경부/KOSHA 등) 스크래핑을 붙일 수 있는 자리 마련(fetch_korea_*)
 
 이 서버는 UI(정적 콘솔)와 API를 동시에 제공합니다.
   - UI  :  GET /            → app/static/index.html
@@ -120,7 +120,7 @@ HAZARD_REVIEW = _load_json("hazard_review.json")         # {CAS: {no, 해당여�
 DESIG_MASTER = _load_json("designated_master.json")
 
 # 지정물질 목록: app/data/designated/*.json 을 모두 로드.
-#   각 파일 형식: {"label":"제한물질","source":"환경부고시 제....","cas":["50-00-0", ...]}
+#   각 파일 형식: {"label":"제한물질","source":"기후에너지환경부 고시 제....","cas":["50-00-0", ...]}
 #   또는 {"label":..., "source":..., "items":{"50-00-0":"비고/조건", ...}}
 # 파일을 추가/교체하면 자동 반영(코드 수정 불필요).
 DESIGNATED = []   # [{label, source, cas:set}]
@@ -161,7 +161,7 @@ def korea_notice_lookup(cas: str) -> dict:
     if dm:
         master_detail = dm.get("detail", "")
         for x in dm.get("desig", []):
-            hits.append({"label": x.get("label"), "source": "화학물질 지정 마스터(기후부 자료)",
+            hits.append({"label": x.get("label"), "source": "화학물질 지정 마스터(기후에너지환경부 자료)",
                          "note": x.get("note", "")})
     # 유해성심사에서 '인체등유해성물질 해당'이면 지정물질 목록에도 추가 표기
     if rv and "해당함" in str(rv.get("해당여부", "")):
@@ -314,6 +314,22 @@ async def fetch_pubchem(q: str) -> dict:
             info = syn.get("InformationList", {}).get("Information", [])
             syns = info[0].get("Synonyms", []) if info else []
         cas = next((s for s in syns if CAS_RE.match(s)), q if CAS_RE.match(q) else None)
+        # EC(EINECS) 번호: 3-3-1 자릿수 패턴
+        EC_RE = re.compile(r"^\d{3}-\d{3}-\d$")
+        ec = next((re.sub(r"^EINECS\s*", "", s) for s in syns
+                   if EC_RE.match(re.sub(r"^EINECS\s*", "", s.strip()))), None)
+        # 다른 이름(Other names): CAS·EC·순수숫자코드·타이틀 제외한 대표 동의어 몇 개
+        title = p.get("Title") or q
+        other = []
+        for s in syns:
+            s2 = s.strip()
+            if not s2 or s2 == title: continue
+            if CAS_RE.match(s2) or EC_RE.match(s2): continue
+            if re.match(r"^[\d\-\s]+$", s2): continue          # 숫자코드
+            if re.match(r"^(EINECS|UNII|DTXSID|CHEBI|CHEMBL|MFCD|DSSTox|NSC)\b", s2, re.I): continue
+            if len(s2) > 60: continue
+            other.append(s2)
+            if len(other) >= 8: break
 
         # 3) GHS
         ghs = {"signal": "", "pictos": [], "statements": [], "provenance": ""}
@@ -327,12 +343,13 @@ async def fetch_pubchem(q: str) -> dict:
             "found": True, "source": "PubChem (실시간)",
             "identity": {
                 "title": p.get("Title") or q, "title_ko": None,
-                "cas": cas, "ec": None, "ke": None,
+                "cas": cas, "ec": ec, "ke": None,
                 "formula": p.get("MolecularFormula"),
                 "mw": p.get("MolecularWeight"),
                 "iupac": p.get("IUPACName"),
                 "smiles": p.get("IsomericSMILES") or p.get("CanonicalSMILES"),
                 "inchikey": p.get("InChIKey"),
+                "other_names": other,
                 "cid": cid,
                 "structure_url": f"{PC}/compound/cid/{cid}/PNG?image_size=300x300",
             },
@@ -346,7 +363,7 @@ async def fetch_pubchem(q: str) -> dict:
 # ----------------------------------------------------------------------
 async def fetch_korea(cas: str) -> dict:
     """
-    기후부(KREACH)/KOSHA MSDS 등은 공개 API가 없어 HTML 스크래핑이 필요합니다.
+    기후에너지환경부(KREACH)/KOSHA MSDS 등은 공개 API가 없어 HTML 스크래핑이 필요합니다.
     사이트 개편 때 깨질 수 있으므로 별도 함수로 분리해 둡니다.
     실제 구현 시: httpx로 검색 요청 → HTML 파싱(BeautifulSoup) → 분류/표시 추출.
     지금은 링크 안내만 반환합니다.
@@ -354,7 +371,7 @@ async def fetch_korea(cas: str) -> dict:
     return {
         "implemented": False,
         "links": {
-            "기후부 화학물질정보처리시스템": "https://kreach.mcee.go.kr/repwrt/index.do",
+            "기후에너지환경부 화학물질정보처리시스템": "https://kreach.mcee.go.kr/repwrt/index.do",
             "고용노동부 MSDS": "https://msds.kosha.or.kr/MSDSInfo/",
             "소방청 국가위험물통합정보": "https://hazmat.nfa.go.kr/",
         },
@@ -428,7 +445,7 @@ CAS: {cas}
     "verdict":"기존화학물질|신규화학물질|판단보류",
     "basis":"판단 근거(별표1/2/3 수록 여부, KE-No., 제3조 각 호 해당 여부 등)",
     "keno":"KE-No. 있으면 기재, 없으면 빈 문자열",
-    "source":"기존화학물질 고시(환경부/기후부) 및 대조 결과"
+    "source":"기존화학물질 고시(기후에너지환경부) 및 대조 결과"
   }},
   "designated_estimate": [
     {{"label":"제한물질|금지물질|사고대비물질|중점관리물질|유독물질|등록대상기존화학물질|기타","likely":"예|아니오|불확실","basis":"근거","source":"고시명"}}
