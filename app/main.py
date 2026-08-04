@@ -103,6 +103,41 @@ def cache_set(key: str, value: dict):
         pass
 
 # ----------------------------------------------------------------------
+# 국내 고시 조회 데이터 (기존화학물질 별표1~3 · 유해성심사결과)
+#   app/data/*.json 은 업로드된 고시 엑셀/hwpx를 CAS 조회용으로 변환한 것.
+#   정부 공개 API가 없으므로, 공식 고시 파일을 서버에 내장해 CAS로 즉시 대조.
+# ----------------------------------------------------------------------
+DATA_DIR = APP_DIR / "data"
+def _load_json(name):
+    try:
+        return json.loads((DATA_DIR / name).read_text("utf-8"))
+    except Exception:
+        return {}
+EXISTING_CHEM = _load_json("existing_chemicals.json")   # {CAS: {keno, name, table}}
+HAZARD_REVIEW = _load_json("hazard_review.json")         # {CAS: {no, 해당여부, 분류표시, 구분}}
+
+def korea_notice_lookup(cas: str) -> dict:
+    """CAS로 기존화학물질 여부 + 유해성심사 여부를 고시 데이터에서 대조."""
+    ex = EXISTING_CHEM.get(cas or "")
+    rv = HAZARD_REVIEW.get(cas or "")
+    return {
+        "existing": ({
+            "is_existing": True,
+            "keno": ex.get("keno"),
+            "table": ex.get("table"),
+            "name": ex.get("name"),
+        } if ex else {"is_existing": False}),
+        "review": ({
+            "reviewed": True,
+            "no": rv.get("no"),
+            "result": rv.get("해당여부"),
+            "classification": (rv.get("분류표시") or "")[:600],
+            "category": rv.get("구분"),
+        } if rv else {"reviewed": False}),
+        "counts": {"existing_db": len(EXISTING_CHEM), "review_db": len(HAZARD_REVIEW)},
+    }
+
+# ----------------------------------------------------------------------
 # UVCB 등 PubChem 미수록 물질 폴백 (엑셀 예시 물질)
 # ----------------------------------------------------------------------
 FALLBACK = {
@@ -206,7 +241,8 @@ async def fetch_pubchem(q: str) -> dict:
 
         # 2) 속성 + 동의어 병렬
         prop_url = (f"{PC}/compound/cid/{cid}/property/"
-                    "MolecularFormula,MolecularWeight,IUPACName,Title/JSON")
+                    "MolecularFormula,MolecularWeight,IUPACName,Title,"
+                    "CanonicalSMILES,IsomericSMILES,InChIKey/JSON")
         syn_url  = f"{PC}/compound/cid/{cid}/synonyms/JSON"
         prop, syn = await asyncio.gather(
             _get_json(client, prop_url), _get_json(client, syn_url),
@@ -237,6 +273,8 @@ async def fetch_pubchem(q: str) -> dict:
                 "formula": p.get("MolecularFormula"),
                 "mw": p.get("MolecularWeight"),
                 "iupac": p.get("IUPACName"),
+                "smiles": p.get("IsomericSMILES") or p.get("CanonicalSMILES"),
+                "inchikey": p.get("InChIKey"),
                 "cid": cid,
                 "structure_url": f"{PC}/compound/cid/{cid}/PNG?image_size=300x300",
             },
@@ -280,15 +318,20 @@ async def api_chem(q: str = Query(..., min_length=1)):
     fb = FALLBACK.get(q) or FALLBACK.get(q.lower())
     if fb:
         result = dict(fb); result["query"] = q
+        fbcas = (result.get("identity") or {}).get("cas") or (q if CAS_RE.match(q) else None)
+        if fbcas:
+            result["notice"] = korea_notice_lookup(fbcas)
         cache_set(key, result)
         return JSONResponse(result)
 
     data = await fetch_pubchem(q)
     data["query"] = q
+    cas = (data.get("identity") or {}).get("cas") or (q if CAS_RE.match(q) else None)
+    # 국내 고시 대조(기존화학물질/유해성심사) — CAS가 있으면 항상 수행
+    if cas:
+        data["notice"] = korea_notice_lookup(cas)
+        data["korea"] = await fetch_korea(cas)
     if data.get("found"):
-        cas = (data.get("identity") or {}).get("cas") or (q if CAS_RE.match(q) else None)
-        if cas:
-            data["korea"] = await fetch_korea(cas)
         cache_set(key, data)
     return JSONResponse(data)
 
@@ -297,9 +340,18 @@ async def api_chem(q: str = Query(..., min_length=1)):
 # ----------------------------------------------------------------------
 ENRICH_SYSTEM = (
     "당신은 한국 화학물질 규제 전문가입니다. 주어진 물질에 대해 "
-    "①국내외 규제현황 ②국내 우려 이슈·용도·노출경로 를 정리합니다. "
+    "①화평법상 기존/신규 판단 ②국내외 규제현황 ③국내 우려 이슈·용도·노출경로 를 정리합니다. "
     "반드시 사실에 기반하고, 확실하지 않은 것은 추론임을 명확히 표시하세요. "
     "각 항목에 출처(기관·규정명)를 함께 적으세요. 과장하지 마세요."
+)
+# 기존화학물질 고시 제3조(기존화학물질 인정) 판단 기준
+EXISTING_CRITERIA = (
+    "【기존화학물질 고시 제3조(기존화학물질 인정) 판단기준】 다음은 기존화학물질로 본다: "
+    "1) 기존화학물질의 수화물 또는 무수물, "
+    "2) 모든 성분이 기존화학물질인 반응생성물(분리가 기술적으로 어렵고 그 자체로 유통·취급되는 경우), "
+    "3) 기존화학물질의 이성질체, "
+    "4) 별표3에 규정된 물질. "
+    "또한 별표1(가목)·별표2(나목) 목록에 CAS가 있으면 기존화학물질(KE-No. 부여)."
 )
 ENRICH_INSTRUCT = """다음 물질에 대해 JSON만 출력하세요(설명·마크다운 금지).
 
@@ -307,8 +359,19 @@ ENRICH_INSTRUCT = """다음 물질에 대해 JSON만 출력하세요(설명·마
 CAS: {cas}
 알려진 GHS: {ghs}
 
+[서버가 고시 데이터에서 대조한 사실 — 이 값을 최우선 근거로 삼으세요]
+{notice_facts}
+
+{criteria}
+
 출력 JSON 스키마:
 {{
+  "existing_new": {{
+    "verdict":"기존화학물질|신규화학물질|판단보류",
+    "basis":"판단 근거(별표1/2/3 수록 여부, KE-No., 제3조 각 호 해당 여부 등)",
+    "keno":"KE-No. 있으면 기재, 없으면 빈 문자열",
+    "source":"기존화학물질 고시(환경부/기후부) 및 대조 결과"
+  }},
   "regulations": [
     {{"region":"EU|국내|미국|일본|기타","body":"규정/기관명","status":"지정 상태","detail":"핵심 내용","source":"출처"}}
   ],
@@ -320,19 +383,36 @@ CAS: {cas}
     "source": "전반 출처 및 성격(확인/추론 구분)"
   }},
   "confidence": "high|medium|low",
-  "caveat": "검수 시 주의할 점"
+  "caveat": "검수 시 주의할 점(특히 반응생성물·이성질체·수화물은 제3조 해당 여부를 사람이 확인 필요)"
 }}
 
 규칙:
-- 근거가 불명확하면 regulations 를 빈 배열로 두고 domestic.issue 에 '공개 자료에서 규제현황 확인 필요'라고 적으세요.
-- 절대 없는 규제를 지어내지 마세요. 확실한 것만."""
+- existing_new.verdict 는 위 [고시 대조 사실]을 최우선으로 판단하세요. 별표에 CAS가 있으면 '기존화학물질'.
+- 별표에 없더라도 제3조 각 호(수화물/무수물, 반응생성물, 이성질체)에 해당할 수 있으면 '판단보류'로 하고 basis에 이유를 적으세요. 함부로 '신규'로 단정하지 마세요.
+- 근거가 불명확하면 regulations 를 빈 배열로 두세요. 절대 없는 규제를 지어내지 마세요."""
 
-async def enrich_with_gemini(name: str, cas: str, ghs_summary: str) -> dict:
+def _notice_facts_text(notice: dict) -> str:
+    if not notice:
+        return "고시 대조 데이터 없음(CAS 미확인)."
+    ex = notice.get("existing", {}); rv = notice.get("review", {})
+    lines = []
+    if ex.get("is_existing"):
+        lines.append(f"- 기존화학물질 목록 수록: 예 (구분 {ex.get('table')}, 고유번호 {ex.get('keno')}).")
+    else:
+        lines.append("- 기존화학물질 목록(별표1/2/3)에서 해당 CAS 미검색 → 신규 가능성 있으나 제3조(수화물·반응생성물·이성질체) 해당 여부 확인 필요.")
+    if rv.get("reviewed"):
+        lines.append(f"- 유해성심사: 심사됨 ({rv.get('category')}, 번호 {rv.get('no')}). 결과: {rv.get('result')}.")
+    else:
+        lines.append("- 유해성심사결과 고시에서 해당 CAS 미검색 → 심사 이력 미확인.")
+    return "\n".join(lines)
+
+async def enrich_with_gemini(name: str, cas: str, ghs_summary: str, notice: dict = None) -> dict:
     if not GEMINI_API_KEY:
         return {"ok": False, "error": "no_api_key",
                 "message": "서버에 GEMINI_API_KEY가 설정되지 않았습니다. Render 환경변수에 추가하세요."}
     prompt = ENRICH_SYSTEM + "\n\n" + ENRICH_INSTRUCT.format(
-        name=name, cas=cas, ghs=ghs_summary or "정보 없음")
+        name=name, cas=cas, ghs=ghs_summary or "정보 없음",
+        notice_facts=_notice_facts_text(notice), criteria=EXISTING_CRITERIA)
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
@@ -382,8 +462,11 @@ async def api_enrich(q: str = Query(..., min_length=1)):
     ghs  = chem.get("ghs", {}) if chem else {}
     ghs_summary = ", ".join(s.get("h", "") for s in ghs.get("statements", [])) or ""
 
-    result = await enrich_with_gemini(name, cas, ghs_summary)
+    notice = korea_notice_lookup(cas) if cas else None
+    result = await enrich_with_gemini(name, cas, ghs_summary, notice)
     result["query"] = q
+    if notice:
+        result["notice"] = notice   # 프런트에서 사실 근거로 함께 표시
     if result.get("ok"):
         cache_set(key, result)
     return JSONResponse(result)
