@@ -27,6 +27,14 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 GEMINI_MODEL   = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
 GEMINI_URL     = "https://generativelanguage.googleapis.com/v1beta/models"
 
+# ── CAS Common Chemistry API 설정 ──────────────────────────────────
+# 참고자료 우선순위: 1) CAS Common Chemistry  2) PubChem
+# https://www.cas.org/services/commonchemistry-api 에서 API 키를 발급받아
+# CAS_CC_API_KEY 환경변수로 주입하면 자동으로 1순위 출처가 됩니다.
+# 키가 없으면 자동으로 PubChem(2순위)만 사용합니다(기존 동작과 동일).
+CAS_CC_API_KEY = os.getenv("CAS_CC_API_KEY", "")
+CAS_CC_BASE    = "https://commonchemistry.cas.org/api"
+
 # ── 접속 잠금(비밀번호) ─────────────────────────────────────────────
 # 아이디/비밀번호를 환경변수로 설정하면 전체 사이트에 로그인창이 걸립니다.
 # 둘 중 하나라도 비어 있으면 잠금은 꺼진 상태(누구나 접속)로 동작합니다.
@@ -140,6 +148,52 @@ def _load_designated():
                 pass
     return out
 DESIGNATED = _load_designated()
+
+# 각 물질 결과물 엑셀의 '(참고) 분류표시' 시트(국외 DB별 유해성 분류·표시)를
+# scripts/build_classification_reference.py 로 미리 추출한 결과.
+# {CAS: {"name":..., "rows":[{"category","item","grade","db","source_url"}, ...]}}
+CLASSIFICATION_REF = _load_json("classification_reference.json")
+
+# ----------------------------------------------------------------------
+# 이성질체·무수물·수화물 매칭 (CAS 기준 기존화학물질 판단 보완용)
+#   입력 CAS로 유추한 물질명에서 cis/trans/(E)/(Z) 같은 이성질체 표기와
+#   수화물·무수물 표기를 제거한 뒤, 기존화학물질 목록의 물질명과 대조한다.
+#   매칭되면(다른 CAS인데 같은 base name) 고시 제3조(이성질체·수화물·무수물)
+#   해당 가능성이 있으므로 화학물질정보처리시스템에서 반드시 확인하도록 안내한다.
+# ----------------------------------------------------------------------
+_ISOMER_PREFIX_RE = re.compile(r"(?i)\b(cis|trans)\b[-\s]*|\(\s*[EZRS]\s*\)[-\s]*")
+_HYDRATE_RE = re.compile(
+    r"(?i)\b(mono|di|tri|tetra|penta|hexa|hepta|octa|nona|deca)?\s*hydrate\b|\banhydrous\b")
+
+def _normalize_isomer_name(name: str) -> str:
+    if not name:
+        return ""
+    s = name.lower()
+    s = _ISOMER_PREFIX_RE.sub(" ", s)
+    s = _HYDRATE_RE.sub(" ", s)
+    s = re.sub(r"[^a-z0-9]+", " ", s).strip()
+    s = re.sub(r"\s+", " ", s)
+    return s
+
+def _build_name_index():
+    idx = {}
+    for cas, rec in EXISTING_CHEM.items():
+        key = _normalize_isomer_name(rec.get("name") or "")
+        if not key:
+            continue
+        idx.setdefault(key, []).append({
+            "cas": cas, "name": rec.get("name"),
+            "keno": rec.get("keno"), "table": rec.get("table"),
+        })
+    return idx
+EXISTING_NAME_INDEX = _build_name_index()
+
+def isomer_hydrate_check(name: str, exclude_cas: str = None) -> dict:
+    key = _normalize_isomer_name(name)
+    if not key:
+        return {"matched": False, "candidates": []}
+    hits = [h for h in EXISTING_NAME_INDEX.get(key, []) if h["cas"] != exclude_cas]
+    return {"matched": bool(hits), "candidates": hits}
 
 def designated_hits(cas: str):
     """CAS가 포함된 모든 지정물질 목록을 반환."""
@@ -312,7 +366,7 @@ async def fetch_pubchem(q: str) -> dict:
         syns = []
         if isinstance(syn, dict):
             info = syn.get("InformationList", {}).get("Information", [])
-            syns = info[0].get("Synonyms", []) if info else []
+            syns = info[0].get("Synonym", []) if info else []
         cas = next((s for s in syns if CAS_RE.match(s)), q if CAS_RE.match(q) else None)
         # EC(EINECS) 번호: 3-3-1 자릿수 패턴
         EC_RE = re.compile(r"^\d{3}-\d{3}-\d$")
@@ -323,7 +377,7 @@ async def fetch_pubchem(q: str) -> dict:
         other = []
         for s in syns:
             s2 = s.strip()
-            if not s2 or s2 == title: continue
+            if not s2 or s2.lower() == title.lower(): continue
             if CAS_RE.match(s2) or EC_RE.match(s2): continue
             if re.match(r"^[\d\-\s]+$", s2): continue          # 숫자코드
             if re.match(r"^(EINECS|UNII|DTXSID|CHEBI|CHEMBL|MFCD|DSSTox|NSC)\b", s2, re.I): continue
@@ -359,22 +413,177 @@ async def fetch_pubchem(q: str) -> dict:
         }
 
 # ----------------------------------------------------------------------
-# 국내 정부 DB 훅 (스크래핑을 붙일 자리) — 지금은 안내 링크만 반환
+# CAS Common Chemistry 조회 (참고자료 1순위)
+#   공식 API는 X-API-KEY 헤더가 필요합니다(무료/유료 등록:
+#   https://www.cas.org/services/commonchemistry-api). 키가 없으면
+#   자동으로 건너뛰고 PubChem(2순위)만 사용합니다.
 # ----------------------------------------------------------------------
-async def fetch_korea(cas: str) -> dict:
-    """
-    기후에너지환경부(KREACH)/KOSHA MSDS 등은 공개 API가 없어 HTML 스크래핑이 필요합니다.
-    사이트 개편 때 깨질 수 있으므로 별도 함수로 분리해 둡니다.
-    실제 구현 시: httpx로 검색 요청 → HTML 파싱(BeautifulSoup) → 분류/표시 추출.
-    지금은 링크 안내만 반환합니다.
-    """
+_TAG_RE = re.compile(r"</?[a-zA-Z][^>]*>")
+def _strip_tags(s):
+    return _TAG_RE.sub("", s or "").strip()
+
+async def fetch_cas_cc(q: str) -> dict:
+    if not CAS_CC_API_KEY:
+        return {"found": False, "reason": "no_api_key"}
+    headers = {**UA, "X-API-KEY": CAS_CC_API_KEY}
+    try:
+        async with httpx.AsyncClient() as client:
+            if CAS_RE.match(q):
+                r = await client.get(f"{CAS_CC_BASE}/detail", params={"cas_rn": q},
+                                      headers=headers, timeout=15)
+                if r.status_code != 200:
+                    return {"found": False, "reason": f"http_{r.status_code}"}
+                d = r.json()
+            else:
+                r = await client.get(f"{CAS_CC_BASE}/search", params={"q": q},
+                                      headers=headers, timeout=15)
+                if r.status_code != 200:
+                    return {"found": False, "reason": f"http_{r.status_code}"}
+                results = (r.json() or {}).get("results") or []
+                rn = results[0].get("rn") if results else None
+                if not rn:
+                    return {"found": False, "reason": "no_match"}
+                r2 = await client.get(f"{CAS_CC_BASE}/detail", params={"cas_rn": rn},
+                                       headers=headers, timeout=15)
+                if r2.status_code != 200:
+                    return {"found": False, "reason": f"http_{r2.status_code}"}
+                d = r2.json()
+    except Exception as e:
+        return {"found": False, "reason": f"error:{e}"}
+
+    other = [_strip_tags(s) for s in (d.get("synonyms") or [])]
+    other = [s for s in other if s][:8]
+    rn = d.get("rn")
     return {
-        "implemented": False,
-        "links": {
-            "기후에너지환경부 화학물질정보처리시스템": "https://kreach.mcee.go.kr/repwrt/index.do",
-            "고용노동부 MSDS": "https://msds.kosha.or.kr/MSDSInfo/",
-            "소방청 국가위험물통합정보": "https://hazmat.nfa.go.kr/",
-        },
+        "found": True,
+        "cas": rn,
+        "name": _strip_tags(d.get("name")),
+        "other_names": other,
+        "formula": _strip_tags(d.get("molecularFormula")) or None,
+        "mw": d.get("molecularMass"),
+        "smiles": d.get("canonicalSmile"),
+        "inchikey": d.get("inchiKey"),
+        "record_url": f"https://commonchemistry.cas.org/results/{rn}" if rn else None,
+    }
+
+def _dedup_names(names):
+    seen, out = set(), []
+    for n in names:
+        n2 = (n or "").strip()
+        if not n2 or n2.lower() in seen:
+            continue
+        seen.add(n2.lower())
+        out.append(n2)
+    return out
+
+def merge_identity(casc: dict, pub: dict) -> dict:
+    """참고자료 우선순위 병합: 1) CAS Common Chemistry  2) PubChem.
+    CAS CC에 없는 필드(IUPAC명·분자량·구조식·CID)는 PubChem으로 보완한다."""
+    pid = (pub or {}).get("identity", {}) or {}
+    if casc and casc.get("found"):
+        merged_other = _dedup_names(list(casc.get("other_names") or []) + list(pid.get("other_names") or []))
+        return {
+            "title": casc.get("name") or pid.get("title"),
+            "title_ko": pid.get("title_ko"),
+            "cas": casc.get("cas") or pid.get("cas"),
+            "ec": pid.get("ec"),
+            "formula": casc.get("formula") or pid.get("formula"),
+            "mw": casc.get("mw") or pid.get("mw"),
+            "iupac": pid.get("iupac"),
+            "smiles": casc.get("smiles") or pid.get("smiles"),
+            "inchikey": casc.get("inchikey") or pid.get("inchikey"),
+            "other_names": merged_other[:8],
+            "cid": pid.get("cid"),
+            "structure_url": pid.get("structure_url"),
+            "source_no": 1,
+            "source_label": "1) CAS Common Chemistry",
+            "cas_cc_url": casc.get("record_url"),
+        }
+    ident = dict(pid)
+    ident["source_no"] = 2
+    ident["source_label"] = "2) PubChem" if CAS_CC_API_KEY else "2) PubChem (CAS Common Chemistry API 키 미설정)"
+    ident["cas_cc_url"] = None
+    return ident
+
+# ----------------------------------------------------------------------
+# 화학물질정보처리시스템(KREACH) 정보공개 화면 조회
+#   공개 API가 없어 검색→상세 2단계 폼 POST를 그대로 재현한다.
+#   사이트 개편 시 이 함수만 고치면 되도록 분리해 둔다.
+# ----------------------------------------------------------------------
+KREACH_LIST_URL   = "https://kreach.mcee.go.kr/repwrt/mttrInfoOpen/mttrInfoOpenList.do"
+KREACH_DETAIL_URL = "https://kreach.mcee.go.kr/repwrt/mttrInfoOpen/mttrInfoOpenDetail.do"
+KREACH_LINKS = {
+    "기후에너지환경부 화학물질정보처리시스템": "https://kreach.mcee.go.kr/repwrt/index.do",
+    "고용노동부 MSDS": "https://msds.kosha.or.kr/MSDSInfo/",
+    "소방청 국가위험물통합정보": "https://hazmat.nfa.go.kr/",
+}
+_FN_DETAIL_RE = re.compile(r"fn_detail\('([^']+)'(?:\s*,\s*'([^']*)')?\)")
+
+def _kreach_parse_tab(soup, container_id, tab_label):
+    box = soup.find(id=container_id)
+    if not box:
+        return [], []
+    haz_rows, use_rows = [], []
+    for table in box.find_all("table"):
+        cap = table.find("caption")
+        cap_text = cap.get_text(strip=True) if cap else ""
+        body = table.find("tbody")
+        if not body:
+            continue
+        trs = body.find_all("tr")
+        if "유해성" in cap_text:
+            for tr in trs:
+                tds = [td.get_text(" ", strip=True) for td in tr.find_all("td")]
+                if len(tds) < 6 or "없습니다" in "".join(tds):
+                    continue
+                haz_rows.append({"tab": tab_label, "item": tds[0], "grade": tds[1],
+                                  "picto": tds[2], "signal": tds[3], "hcode_text": tds[4],
+                                  "reason": tds[5] if len(tds) > 5 else ""})
+        elif "용도" in cap_text:
+            for tr in trs:
+                tds = [td.get_text(" ", strip=True) for td in tr.find_all("td")]
+                if len(tds) < 2 or "없습니다" in "".join(tds):
+                    continue
+                use_rows.append({"tab": tab_label, "no": tds[0], "use": tds[1]})
+    return haz_rows, use_rows
+
+async def fetch_kreach(cas: str = None, name: str = None) -> dict:
+    if not cas and not name:
+        return {"implemented": True, "found": False, "reason": "no_query", "links": KREACH_LINKS}
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError:
+        return {"implemented": False, "found": False, "reason": "beautifulsoup4 미설치", "links": KREACH_LINKS}
+
+    search_data = {
+        "currentPageNo": "1", "recordCountPerPage": "20",
+        "MTTR_ID": "", "MNG_NO": "",
+        "searchCasNo": cas or "", "searchChmclsNm": "" if cas else (name or ""),
+    }
+    try:
+        async with httpx.AsyncClient(timeout=20, headers=UA) as client:
+            r = await client.post(KREACH_LIST_URL, data=search_data)
+            r.raise_for_status()
+            m = _FN_DETAIL_RE.search(r.text)
+            if not m:
+                return {"implemented": True, "found": False, "reason": "not_listed", "links": KREACH_LINKS}
+            mttr_id, mng_no = m.group(1), m.group(2) or ""
+            detail_data = {**search_data, "MTTR_ID": mttr_id, "MNG_NO": mng_no}
+            r2 = await client.post(KREACH_DETAIL_URL, data=detail_data)
+            r2.raise_for_status()
+            html = r2.text
+    except Exception as e:
+        return {"implemented": True, "found": False, "reason": f"error:{e}", "links": KREACH_LINKS}
+
+    soup = BeautifulSoup(html, "html.parser")
+    haz1, use1 = _kreach_parse_tab(soup, "tab1-contents", "신고")
+    haz2, use2 = _kreach_parse_tab(soup, "tab2-contents", "등록")
+    return {
+        "implemented": True, "found": True,
+        "hazard": haz1 + haz2,
+        "uses": use1 + use2,
+        "detail_url": KREACH_LIST_URL,
+        "links": KREACH_LINKS,
     }
 
 # ----------------------------------------------------------------------
@@ -383,6 +592,7 @@ async def fetch_korea(cas: str) -> dict:
 @app.get("/api/chem")
 async def api_chem(q: str = Query(..., min_length=1)):
     q = q.strip()
+    q_is_cas = bool(CAS_RE.match(q))
     key = f"chem::{q.lower()}"
     cached = cache_get(key)
     if cached:
@@ -392,20 +602,54 @@ async def api_chem(q: str = Query(..., min_length=1)):
     # 폴백(UVCB 예시) 우선
     fb = FALLBACK.get(q) or FALLBACK.get(q.lower())
     if fb:
-        result = dict(fb); result["query"] = q
-        fbcas = (result.get("identity") or {}).get("cas") or (q if CAS_RE.match(q) else None)
+        result = dict(fb); result["query"] = q; result["q_is_cas"] = q_is_cas
+        fbcas = (result.get("identity") or {}).get("cas") if q_is_cas else None
+        fbcas = fbcas or (q if q_is_cas else None)
         if fbcas:
             result["notice"] = korea_notice_lookup(fbcas)
+            result["isomer_check"] = isomer_hydrate_check(
+                (result.get("identity") or {}).get("title"), exclude_cas=fbcas)
+            result["classification_ref"] = (CLASSIFICATION_REF.get(fbcas) or {}).get("rows", [])
+            result["kreach"] = await fetch_kreach(cas=fbcas)
+        else:
+            result["notice"] = {"existing": {"is_existing": None}, "review": {"reviewed": False},
+                                 "designated": [], "designated_detail": "", "name_query": True}
+            result["isomer_check"] = {"matched": False, "candidates": []}
+            result["classification_ref"] = []
+            result["kreach"] = {"implemented": True, "found": False, "reason": "name_query",
+                                 "links": KREACH_LINKS}
         cache_set(key, result)
         return JSONResponse(result)
 
-    data = await fetch_pubchem(q)
-    data["query"] = q
-    cas = (data.get("identity") or {}).get("cas") or (q if CAS_RE.match(q) else None)
-    # 국내 고시 대조(기존화학물질/유해성심사) — CAS가 있으면 항상 수행
-    if cas:
-        data["notice"] = korea_notice_lookup(cas)
-        data["korea"] = await fetch_korea(cas)
+    casc = await fetch_cas_cc(q)
+    pub = await fetch_pubchem(q)
+    identity = merge_identity(casc, pub)
+    data = {
+        "found": bool(pub.get("found") or casc.get("found")),
+        "source": identity.get("source_label", ""),
+        "identity": identity,
+        "ghs": pub.get("ghs", {}),
+        "record_url": pub.get("record_url"),
+        "query": q,
+        "q_is_cas": q_is_cas,
+    }
+
+    # 기존/신규화학물질 판단: 입력값이 CAS No.일 때만 그 CAS로 자동 판단한다.
+    # 물질명 입력은 혼합물(A and B 형태) 표기에서 성분 A의 CAS로 오판될 수 있어
+    # 자동판단을 하지 않고, 화학물질정보처리시스템에서 직접 확인하도록 안내한다.
+    if q_is_cas:
+        data["notice"] = korea_notice_lookup(q)
+        data["isomer_check"] = isomer_hydrate_check(identity.get("title"), exclude_cas=q)
+        data["classification_ref"] = (CLASSIFICATION_REF.get(q) or {}).get("rows", [])
+        data["kreach"] = await fetch_kreach(cas=q)
+    else:
+        data["notice"] = {"existing": {"is_existing": None}, "review": {"reviewed": False},
+                           "designated": [], "designated_detail": "", "name_query": True}
+        data["isomer_check"] = {"matched": False, "candidates": []}
+        data["classification_ref"] = []
+        data["kreach"] = {"implemented": True, "found": False, "reason": "name_query",
+                           "links": KREACH_LINKS}
+
     if data.get("found"):
         cache_set(key, data)
     return JSONResponse(data)

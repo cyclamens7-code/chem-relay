@@ -151,7 +151,7 @@ const DB={
   kosha:{name:"고용노동부 MSDS(안전보건공단)",url:"https://msds.kosha.or.kr/MSDSInfo/"},
   nfa:{name:"소방청 국가위험물통합정보",url:"https://hazmat.nfa.go.kr/"},
   nifds:{name:"식약처 독성정보시스템",url:"https://www.nifds.go.kr/toxinfo/tcd/initial/list.do"},
-  echa:{name:"ECHA 등록물질",url:"https://chem.echa.europa.eu/"},
+  echa:{name:"ECHA CHEM",url:"https://chem.echa.europa.eu/"},
   echa_clh:{name:"EU CLP 조화분류(CLH)",url:"https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"},
   echa_rar:{name:"EU RAR 위해성평가",url:"https://echa.europa.eu/information-on-chemicals/information-from-existing-substances-regulation"},
   iarc:{name:"IARC Monograph",url:"https://monographs.iarc.who.int/list-of-classifications/"},
@@ -217,7 +217,9 @@ function stnButtons(){
 }
 function renderInventory(notice){
   const nx=(notice&&notice.existing)||{};
-  const keci = nx.is_existing
+  const keci = notice&&notice.name_query
+    ? `<span class="invno">미확인</span> <span class="src">물질명 검색이라 CAS 기준 자동판단을 하지 않았습니다(위 1번 참고)</span>`
+    : nx.is_existing
     ? `<span class="invok">등재 ✓</span> <span class="src">국내 기존화학물질(KECI) — KE-No. ${nx.keno||""}</span>`
     : `<span class="invno">미검색</span> <span class="src">국내 기존화학물질 목록에서 미확인(제3조 확인 필요)</span>`;
   return `<div class="invbox">
@@ -228,6 +230,17 @@ function renderInventory(notice){
     <div class="src" style="margin:12px 0 4px">CHEMLIST·Locator(등재목록 일괄) — STN 계정 필요:</div>
     ${stnButtons()}
   </div>`;
+}
+function renderKreachUses(kreach){
+  const uses=(kreach&&kreach.uses)||[];
+  if(!uses.length){
+    return `<div class="inference"><span class="lab">화평법 신고 및 등록된 용도정보</span> 화학물질정보처리시스템에서 확인된 신고ㆍ등록 용도정보가 없습니다.</div>`;
+  }
+  return `<div class="evidence"><span class="lab">화평법 신고 및 등록된 용도정보</span>
+    <table class="tbl" style="margin-top:8px"><thead><tr><th style="width:80px">구분</th><th>용도</th></tr></thead><tbody>
+    ${uses.map(u=>`<tr><td><span class="chip ${u.tab==='등록'?'warn':'neutral'}">${u.tab} 정보</span></td><td>${u.use}</td></tr>`).join("")}
+    </tbody></table>
+    <div class="src" style="margin-top:5px">출처: 화학물질정보처리시스템(KREACH) 정보공개 — ${uses.map(u=>u.tab).filter((v,i,a)=>a.indexOf(v)===i).join("ㆍ")} 정보 탭</div></div>`;
 }
 function testGroups(){
   return Object.entries(TESTITEMS).map(([g,o])=>{
@@ -254,7 +267,7 @@ function shell(q){
     `<div id="enrich4"><div class="loading"><span class="spin"></span>국내 우려·용도·노출경로 자동 정리 중…</div></div>
      <p class="si">직접 확인용 국내 DB:</p>${dbLinks(GROUPS.domestic)}`,false)}
   ${section(6,"유해성 정보 수집 — 특성별 Reference DB","link",`<p class="si">물리화학적 특성·인체(건강) 유해성·환경 유해성 3가지로 나눈 시험자료 조회 Reference DB입니다.</p>${legend}${testGroups()}`,false)}
-  <div class="disclaimer">1·3·4번은 NAS 중계 서버가 PubChem·국내 고시 대조로 채웁니다. 2·5·6번은 개방형 API가 없는 정부 DB라 자동 링크·고시 대조·AI 생성으로 연결합니다.</div>`;
+  <div class="disclaimer">참고자료 우선순위: 1) CAS Common Chemistry 2) PubChem. 1·3·4·5번(용도정보)은 NAS 중계 서버가 CAS Common Chemistry·PubChem·국내 고시·화학물질정보처리시스템(KREACH) 대조로 채웁니다. 기존/신규화학물질 판단은 CAS No. 입력일 때만 자동 수행합니다(물질명은 혼합물 오판 방지를 위해 수동 확인 안내). 2·5·6번의 나머지 항목은 개방형 API가 없는 정부 DB라 자동 링크·AI 생성으로 연결합니다.</div>`;
   window.scrollTo({top:0,behavior:"instant"});
 }
 
@@ -302,17 +315,6 @@ function hcodeFor(item,grade){
   }
   return "";
 }
-// PubChem GHS statement 배열 → 국내형식 [{item,grade,h}]
-function ghsFromPubchem(sts){
-  const out=[]; const seen=new Set();
-  (sts||[]).forEach(s=>{
-    const h=(s.h||"").toUpperCase().trim();
-    const m=HMAP[h];
-    if(m){ const key=h; if(seen.has(key))return; seen.add(key);
-      out.push({item:m.c,grade:m.g,h:h}); }
-  });
-  return out;
-}
 // 국내 유해성심사 '분류 및 표시' 텍스트 → [{item, code, grade}]
 function parseKGhs(text){
   if(!text) return [];
@@ -337,31 +339,26 @@ function parseContent(detail){
     return {label:seg.slice(0,i).trim(), criteria:seg.slice(i+1).trim()};
   }).filter(Boolean);
 }
-function summaryFromRows(rows, isDomestic, sts){
-  if(!rows || !rows.length){
-    // 국내·매핑 분류가 없으면 기존 PubChem 요약으로 폴백
-    return summaryFromGHS(sts);
+// 4번(유해성 요약)은 국내외에서 "평가가 완료"된 자료만 근거로 삼는다:
+// 국내 유해성심사 결과 + EU CLH(조화분류). 미확정 국제 매핑은 사용하지 않는다.
+function summaryFromEvaluated(domRows, clhRows, sts){
+  const domItems = (domRows||[]).map(r=>`<li><b>${r.item}</b> — <span class="gradechip">${r.grade||"—"}</span>${r.h?` <span class="hcode">${r.h}</span>`:""}</li>`).join("");
+  const clhItems = (clhRows||[]).map(r=>{const h=hcodeFor(r.item,r.grade);return `<li><b>${r.item}</b> — <span class="gradechip">${r.grade||"—"}</span>${h?` <span class="hcode">${h}</span>`:""}</li>`;}).join("");
+  if(!domRows.length && !clhRows.length){
+    return `<p class="si">국내 유해성심사·EU CLH(조화분류) 중 평가가 완료된 자료가 확인되지 않습니다. 아래 DB에서 핵심 종말점을 직접 확인하세요.</p>
+      <div class="src" style="margin:12px 0 2px">유해성 근거 확인 DB</div>${dbLinks(GROUPS.human)}`;
   }
-  const src = isDomestic ? "국내 유해성심사에서 평가·확정된 GHS 분류" : "국제(PubChem) 분류를 국내 형식으로 매핑한 GHS 분류(참고)";
-  const cls = isDomestic ? "evidence" : "inference";
-  const items = rows.map(r=>`<li><b>${r.item}</b> — <span class="gradechip">${r.grade||"—"}</span>${r.h?` <span class="hcode">${r.h}</span>`:""}</li>`).join("");
-  return `<div class="${cls}"><span class="lab">${isDomestic?"확인된 유해성(평가 완료)":"참고 유해성(국제 매핑)"}</span> ${src}</div>
-    <ul class="hazsum">${items}</ul>
-    <div class="src">위 항목은 3번(GHS 분류·표시)에서 확인된 분류를 요약한 것입니다.${isDomestic?"":" 국내 유해성심사 자료가 없어 국제 분류를 참고로 표시했습니다."}</div>`;
-}
-function summaryFromGHS(sts){
-  const has=(re)=>sts&&sts.some(s=>re.test(s.h));
-  const flags=[];
-  if(has(/H350/))flags.push(["발암성 (H350)","암을 일으킬 수 있음 — 발암성 분류"]);
-  if(has(/H340|H341/))flags.push(["생식세포 변이원성","유전물질 손상 우려"]);
-  if(has(/H360|H361/))flags.push(["생식독성","생식능력·태아 영향 우려"]);
-  if(has(/H300|H310|H330|H301|H311|H331/))flags.push(["급성독성","단회 노출로 유해"]);
-  if(has(/H370|H372/))flags.push(["표적장기독성","반복·단회 노출로 장기 손상"]);
-  if(has(/H400|H410|H411/))flags.push(["수생환경유해성","수생생물에 유독"]);
-  const body=flags.length
-    ?`<div class="block"><h4><span class="tick" style="background:var(--verify)"></span>확인된 유해성 (GHS 분류 기반)</h4><div class="chips">${flags.map(f=>`<span class="chip haz">${f[0]}</span>`).join("")}</div><ul>${flags.map(f=>`<li><b>${f[0]}</b> — ${f[1]}</li>`).join("")}</ul></div><div class="evidence"><span class="lab">근거</span> 중계 서버가 집계한 GHS 분류(위 §5). 상세 시험자료는 §6 및 아래 DB에서 확인.</div>`
-    :`<p class="si">집계된 GHS 분류가 없어 자동 요약이 어렵습니다. 아래 DB에서 핵심 종말점을 교차 확인하세요.</p>`;
-  return body+`<div class="src" style="margin:12px 0 2px">유해성 근거 확인 DB</div>${dbLinks(GROUPS.human)}`;
+  let body="";
+  if(domRows.length){
+    body+=`<div class="evidence"><span class="lab">확인된 유해성 — 국내 유해성심사</span> 화학물질의 유해성심사결과 고시(별표) · 기후에너지환경부</div>
+      <ul class="hazsum">${domItems}</ul>`;
+  }
+  if(clhRows.length){
+    body+=`<div class="evidence"><span class="lab">확인된 유해성 — EU CLH(조화분류)</span> EU CLP(Harmonised classification and labelling) · ECHA</div>
+      <ul class="hazsum">${clhItems}</ul>`;
+  }
+  body+=`<div class="src">위 항목은 3번(유해성 분류 및 표시)에서 국내외 평가가 완료된 자료만 요약한 것입니다. 그 외 국외 DB 대조 결과는 3번의 "2) 기타 국외 유해성 분류 및 표시"를 참고하세요.</div>`;
+  return body;
 }
 
 async function lookup(q){
@@ -382,43 +379,87 @@ function renderNone(d){
   $("#idname").innerHTML=`${Q}<small>개별 레코드 없음 — 혼합물/UVCB이거나 표기가 다를 수 있음</small>`;
   const nx=(d.notice&&d.notice.existing)||{}; const nr=(d.notice&&d.notice.review)||{};
   let kvhtml=`<div class="cell"><div class="k">비고</div><div class="v">구조 기반 DB에 없음. 아래 DB에서 직접 확인.</div></div>`;
-  if(nx.is_existing)kvhtml=`<div class="cell"><div class="k">기존/신규화학물질</div><div class="v">기존화학물질</div></div><div class="cell"><div class="k">KE-No.</div><div class="v mono">${nx.keno}</div></div>`;
+  if(!d.q_is_cas) kvhtml=`<div class="cell"><div class="k">기존/신규화학물질</div><div class="v">CAS No. 확인 필요(물질명 검색)</div></div>`;
+  else if(nx.is_existing)kvhtml=`<div class="cell"><div class="k">기존/신규화학물질</div><div class="v">기존화학물질</div></div><div class="cell"><div class="k">KE-No.</div><div class="v mono">${nx.keno}</div></div>`;
   else if(d.notice)kvhtml=`<div class="cell"><div class="k">기존/신규화학물질</div><div class="v">신규화학물질로 추정</div></div>`;
   $("#idkv").innerHTML=kvhtml;
   $("#idsrc").innerHTML=`<span class="livepill">SERVER</span> 조회됨 · 개별 레코드 없음`;
-  const existBanner = nx.is_existing
-    ? `<div class="evidence"><span class="lab">화평법 구분</span> <b>기존화학물질</b> — 고시 ${nx.table} 수록 (${nx.keno}).</div>`
-    : (d.notice?`<div class="inference"><span class="lab">화평법 구분</span> <b>신규화학물질로 추정</b> — 기존화학물질 목록 미검색. 제3조 해당 여부 확인 필요.</div>`:"");
-  $("#sec1").innerHTML=`${existBanner}<div class="errbox">PubChem에 개별 화합물 레코드가 없습니다(UVCB·혼합물에서 흔함). SMILES·InChIKey는 조회 불가.</div><div style="margin-top:12px">${legend}${dbLinks(GROUPS.ident)}</div>`;
-  $("#sec3").innerHTML=`<div class="errbox">자동 GHS 분류 없음. 아래 DB에서 확인하세요.</div><div style="margin-top:12px">${dbLinks(GROUPS.regulation)}</div>`;
-  $("#sec4").innerHTML=`<p class="si">아래 DB에서 핵심 종말점을 교차 확인해 유해성 근거를 정리하세요.</p>${dbLinks(GROUPS.human)}`;
+  let existBanner="";
+  if(!d.q_is_cas){
+    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>CAS No. 기준 재확인 필요</b> — 물질명 검색은 혼합물(A and B 형태) 오판 우려로 자동판단을 하지 않습니다. CAS No.로 다시 검색하거나 아래에서 직접 확인하세요.<div style="margin-top:8px">${dbLinks(["kreach_open"])}</div></div>`;
+  }else if(nx.is_existing){
+    existBanner=`<div class="evidence"><span class="lab">화평법 구분</span> <b>기존화학물질</b> — 고시 ${nx.table} 수록 (${nx.keno}). <span class="src">CAS No. ${Q} 기준</span></div>`;
+  }else if(d.notice){
+    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>신규화학물질로 추정</b> — 기존화학물질 목록 미검색(CAS No. ${Q} 기준). 제3조 해당 여부 확인 필요.</div>`;
+  }
+  const iso=(d.q_is_cas&&d.isomer_check)||{};
+  if(iso.matched && (iso.candidates||[]).length){
+    existBanner+=`<div class="inference"><span class="lab">⚠ 이성질체·수화물·무수물 확인 필요</span> 기존화학물질 목록의 다른 CAS와 이름(이성질체·수화물 표기 제외)이 일치합니다. 화학물질정보처리시스템에서 반드시 확인하세요.
+      <ul style="margin:8px 0 4px;padding-left:18px">${iso.candidates.map(c=>`<li><b>${c.name||''}</b> — CAS ${c.cas} (${c.keno||''}${c.table?`, ${c.table}`:''})</li>`).join("")}</ul>
+      <div style="margin-top:6px">${dbLinks(["kreach_open"])}</div></div>`;
+  }
+  $("#sec1").innerHTML=`${existBanner}<div class="errbox">PubChem·CAS Common Chemistry에 개별 화합물 레코드가 없습니다(UVCB·혼합물에서 흔함). SMILES·InChIKey는 조회 불가.</div><div style="margin-top:12px">${legend}${dbLinks(GROUPS.ident)}</div>`;
+
+  const domRows = parseKGhs((nr.classification)||"").map(x=>({item:x.item, code:x.code, grade:x.grade, h:hcodeFor(x.item,x.grade)}));
+  const classRef = d.classification_ref||[];
+  const clhRows = classRef.filter(x=>/EU CLP\(Harmonised/i.test(x.db||""));
+  const kreachHaz = (d.kreach&&d.kreach.hazard)||[];
+  let s3=`<div class="gt" style="margin-top:0">1) 국내 유해성심사 결과<span class="badge">기후에너지환경부 고시</span></div>`;
+  s3+= domRows.length
+    ? `<table class="tbl"><thead><tr><th>유해성 분류 (항목)</th><th style="width:150px">구분</th><th style="width:90px">H-code</th></tr></thead><tbody>${domRows.map(x=>`<tr><td>${x.item}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.h?`<span class="hcode">${x.h}</span>`:"—"}</td></tr>`).join("")}</tbody></table><div class="evidence"><span class="lab">출처</span> 화학물질의 유해성심사결과 고시(별표)</div>`
+    : `<div class="errbox">국내 유해성심사결과 고시(별표)에서 확인된 분류가 없습니다.</div>`;
+  s3+=`<div class="gt">2) 기타 국외 유해성 분류 및 표시<span class="badge">DB별 대조</span></div>`;
+  s3+= classRef.length
+    ? `<table class="tbl"><thead><tr><th>유해성 분류 (항목)</th><th style="width:130px">구분</th><th style="width:90px">H-code</th><th>출처</th></tr></thead><tbody>${classRef.map(x=>{const h=hcodeFor(x.item,x.grade);return `<tr><td>${x.item}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${h?`<span class="hcode">${h}</span>`:"—"}</td><td>${x.source_url?`<a class="dbname" href="${x.source_url}" target="_blank" rel="noopener">${x.db}</a>`:`<span class="src">${x.db}</span>`}</td></tr>`;}).join("")}</tbody></table>`
+    : `<div class="errbox">대조된 국외 DB 유해성 분류가 없습니다.</div>`;
+  if(kreachHaz.length){
+    s3+=`<div class="src" style="margin:16px 0 6px"><b>화학물질정보처리시스템 신고ㆍ등록 정보</b></div>
+      <table class="tbl"><thead><tr><th style="width:70px">구분</th><th>유해성 분류(항목)</th><th style="width:110px">등급</th><th>유해ㆍ위험문구</th></tr></thead><tbody>
+      ${kreachHaz.map(x=>`<tr><td><span class="chip ${x.tab==='등록'?'warn':'neutral'}">${x.tab} 정보</span></td><td>${x.item||""}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.hcode_text||""}</td></tr>`).join("")}
+      </tbody></table>`;
+  }
+  s3+=`<div class="src" style="margin:14px 0 2px">국내·조화분류 교차확인 DB</div>${dbLinks(["kreach","echa_clh","iarc","ntp","kosha"])}`;
+  $("#sec3").innerHTML=s3;
+  $("#sec4").innerHTML=summaryFromEvaluated(domRows, clhRows, []);
   // §2 유해성심사 + 기관 분리
   const sec2=$("#sec2");
   if(sec2 && d.notice){
-    const rvBox = nr.reviewed
+    const rvBox = d.notice.name_query
+      ? `<div class="inference"><span class="lab">국내 유해성심사</span> 물질명 검색이라 확인하지 않았습니다 — CAS No.로 다시 검색하세요.</div>`
+      : nr.reviewed
       ? `<div class="evidence"><span class="lab">국내 유해성심사</span> <b>심사됨</b> (${nr.category||""}). 결과: <b>${nr.result||"—"}</b>.</div>`
       : `<div class="inference"><span class="lab">국내 유해성심사</span> 고시 별표에서 미검색 — 심사 이력 미확인.</div>`;
     sec2.insertAdjacentHTML("afterbegin", rvBox);
     sec2.insertAdjacentHTML("beforeend", renderInventory(d.notice));
   }
+  const sec5=$("#sec5");
+  if(sec5) sec5.insertAdjacentHTML("afterbegin", renderKreachUses(d.kreach));
 }
 function renderData(d){
   const id=d.identity||{}, g=d.ghs||{};
-  Q=id.cas||Q;
+  // 물질명(이름) 검색은 혼합물 A and B 표기에서 성분 A의 CAS로 잘못 대체될 수 있어
+  // Q(화면·링크에 쓰이는 조회어)를 CAS로 덮어쓰지 않는다. CAS 입력일 때만 정규화.
+  if(d.q_is_cas) Q=id.cas||Q;
   // 기본정보 카드
   if(id.structure_url) $("#struct").innerHTML=`<img src="${id.structure_url}" alt="구조식" onerror="this.parentNode.innerHTML='<div class=&quot;ph&quot;>구조식<br>없음</div>'">`;
   else $("#struct").innerHTML=`<div class="ph">${id.formula&&id.formula.includes('UVCB')?'UVCB<br>구조식 없음':'구조식<br>없음'}</div>`;
   $("#idname").innerHTML=`${id.title||Q}${id.title_ko?`<small>${id.title_ko}</small>`:""}${(id.other_names&&id.other_names.length)?`<small class="othernames">이명: ${id.other_names.slice(0,5).join(" · ")}</small>`:""}`;
   const isFallback=(d.source||"").includes("규제자료");
-  $("#idsrc").innerHTML=`<span class="livepill" ${isFallback?'style="background:var(--amber)"':''}>${isFallback?'예시':'SERVER'}</span> 출처: ${d.source||"NAS 중계 서버"}${id.cid?` · <a class="dbname" href="${d.record_url}" target="_blank" rel="noopener">전체 레코드 ↗</a>`:""}${d._cache?' · (캐시)':''}`;
+  $("#idsrc").innerHTML=`<span class="livepill" ${isFallback?'style="background:var(--amber)"':''}>${isFallback?'예시':'SERVER'}</span> 출처: ${d.source||"NAS 중계 서버"}${id.cid?` · <a class="dbname" href="${d.record_url}" target="_blank" rel="noopener">PubChem 전체 레코드 ↗</a>`:""}${id.cas_cc_url?` · <a class="dbname" href="${id.cas_cc_url}" target="_blank" rel="noopener">CAS Common Chemistry ↗</a>`:""}${d._cache?' · (캐시)':''}`;
   const kv=[["CAS No.",id.cas||"—",1]];
   if(id.ec)kv.push(["EC No.",id.ec,1]);
-  // 국내 고시 대조 결과(기존/신규 · KE-No.)
+  // 국내 고시 대조 결과(기존/신규 · KE-No.) — CAS No. 입력일 때만 자동판단
   const nx=(d.notice&&d.notice.existing)||{};
   const nr=(d.notice&&d.notice.review)||{};
   const des=(d.notice&&d.notice.designated)||[];
-  if(nx.is_existing)kv.push(["기존/신규화학물질","기존화학물질",1]),kv.push(["KE-No.",(nx.keno||"—")+" ("+(nx.table||"")+")",1]);
-  else if(d.notice)kv.push(["기존/신규화학물질","신규화학물질로 추정",1]);
+  if(!d.q_is_cas){
+    kv.push(["기존/신규화학물질","CAS No. 확인 필요(물질명 검색)",1]);
+  }else if(nx.is_existing){
+    kv.push(["기존/신규화학물질","기존화학물질",1]);
+    kv.push(["KE-No.",(nx.keno||"—")+" ("+(nx.table||"")+")",1]);
+  }else{
+    kv.push(["기존/신규화학물질","신규화학물질로 추정",1]);
+  }
   kv.push(["화학식",id.formula||"—",1]);
   if(id.mw)kv.push(["분자량",id.mw+" g/mol",0]);
   if(id.iupac)kv.push(["IUPAC명",id.iupac,0]);
@@ -428,21 +469,32 @@ function renderData(d){
   const desDetail=(d.notice&&d.notice.designated_detail)||"";
   const desBanner = des.length
     ? `<div class="evidence"><span class="lab">국내 지정물질 현황(확정)</span><div class="chips" style="margin-top:6px">${des.map(h=>`<span class="chip haz" title="${(h.source||'')} ${(h.note||'')}">${h.label}${h.note?` · ${h.note}`:''}</span>`).join("")}</div>${desDetail?`<div style="margin-top:7px;font-size:12px;white-space:pre-line">${desDetail}</div>`:""}<div class="src" style="margin-top:5px">출처: 화학물질 지정 마스터·고시 대조 · 파일에 없는 지정은 아래 2번에서 AI 추정</div></div>`
-    : (d.notice?`<div class="inference"><span class="lab">국내 지정물질 현황</span> 대조된 지정물질이 없습니다. 2번 항목에서 AI 추정으로 보완됩니다.</div>`:"");
+    : (d.q_is_cas?`<div class="inference"><span class="lab">국내 지정물질 현황</span> 대조된 지정물질이 없습니다. 2번 항목에서 AI 추정으로 보완됩니다.</div>`:"");
 
-  // 기존/신규 판단 배너
+  // 기존/신규 판단 배너 — CAS No. 입력일 때만 자동판단(물질명은 혼합물 오판 우려로 보류)
   let existBanner="";
-  if(nx.is_existing){
-    existBanner=`<div class="evidence"><span class="lab">화평법 구분</span> <b>기존화학물질</b> — 기존화학물질 고시 ${nx.table} 수록 (고유번호 ${nx.keno}). <span class="src">출처: 기존화학물질 고시(별표 대조)</span></div>`;
+  if(!d.q_is_cas){
+    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>CAS No. 기준 재확인 필요</b> — 물질명으로 검색되어 기존/신규 자동판단을 하지 않습니다. 물질명이 혼합물(A and B 형태)로 표기된 경우 성분 하나의 CAS로 잘못 매칭되어 오판될 수 있습니다. 가능하면 <b>CAS No.로 다시 검색</b>하고, 혼합물 여부는 화학물질정보처리시스템에서 직접 확인하세요.
+      <div style="margin-top:8px">${dbLinks(["kreach_open"])}</div></div>`;
+  }else if(nx.is_existing){
+    existBanner=`<div class="evidence"><span class="lab">화평법 구분</span> <b>기존화학물질</b> — 기존화학물질 고시 ${nx.table} 수록 (고유번호 ${nx.keno}). <span class="src">출처: 기존화학물질 고시(별표 대조) · CAS No. ${id.cas||Q} 기준</span></div>`;
   }else if(d.notice){
-    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>신규화학물질로 추정</b> — 기존화학물질 목록(별표1~3)에서 미검색. 단, 고시 제3조(수화물·무수물, 반응생성물, 이성질체) 해당 시 기존으로 인정될 수 있어 확인 필요. <span class="src">기후에너지환경부 통합검색·자동 판단으로 보완</span></div>`;
+    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>신규화학물질로 추정</b> — 기존화학물질 목록(별표1~3)에서 CAS No. ${id.cas||Q} 미검색. 단, 고시 제3조(수화물·무수물, 반응생성물, 이성질체) 해당 시 기존으로 인정될 수 있어 확인 필요. <span class="src">CAS No. 기준 판단(물질명은 참고만)</span></div>`;
   }
-  const existBannerAll = existBanner + desBanner;
+  // 이성질체·무수물·수화물 매칭 — 다른 CAS인데 기존화학물질 목록의 이름과 일치(cis/trans/(E)/(Z)·수화물 표기 제외 비교)
+  const iso=(d.q_is_cas&&d.isomer_check)||{};
+  let isoBanner="";
+  if(iso.matched && (iso.candidates||[]).length){
+    isoBanner=`<div class="inference"><span class="lab">⚠ 이성질체·수화물·무수물 확인 필요</span> 이 CAS의 물질명에서 이성질체 표기(cis/trans/(E)/(Z))·수화물·무수물 표기를 제외한 이름이 기존화학물질 목록의 다른 CAS와 일치합니다. 고시 제3조(이성질체·수화물·무수물) 해당 여부를 <b>반드시 화학물질정보처리시스템에서 확인</b>하세요.
+      <ul style="margin:8px 0 4px;padding-left:18px">${iso.candidates.map(c=>`<li><b>${c.name||''}</b> — CAS ${c.cas} (${c.keno||''}${c.table?`, ${c.table}`:''})</li>`).join("")}</ul>
+      <div style="margin-top:6px">${dbLinks(["kreach_open"])}</div></div>`;
+  }
+  const existBannerAll = existBanner + isoBanner + desBanner;
 
   $("#sec1").innerHTML=`${d.note?`<div class="inference"><span class="lab">참고</span> ${d.note}</div>`:""}
     ${existBannerAll}
     <table class="tbl"><tr><td style="width:120px"><b>물질명</b></td><td>${id.title||Q}</td></tr>
-    ${(id.other_names&&id.other_names.length)?`<tr><td><b>다른 이름</b></td><td>${id.other_names.map(n=>`<span class="altname">${n}</span>`).join("")}<div class="src" style="margin-top:3px">출처: CAS Common Chemistry / PubChem 동의어</div></td></tr>`:""}
+    <tr><td><b>이명 (Other name)</b></td><td>${(id.other_names&&id.other_names.length)?id.other_names.map(n=>`<span class="altname">${n}</span>`).join(""):'<span class="src">확인된 이명 없음</span>'}<div class="src" style="margin-top:3px">출처: ${id.source_label||"PubChem"} 이명(동의어) 목록</div></td></tr>
     <tr><td><b>CAS No.</b></td><td class="mono">${id.cas||"—"}</td></tr>
     ${id.ec?`<tr><td><b>EC No.</b></td><td class="mono">${id.ec}</td></tr>`:""}
     <tr><td><b>화학식</b></td><td class="mono">${id.formula||"—"}</td></tr>
@@ -450,37 +502,29 @@ function renderData(d){
     ${id.smiles?`<tr><td><b>SMILES</b></td><td class="mono" style="word-break:break-all">${id.smiles}</td></tr>`:""}
     ${id.inchikey?`<tr><td><b>InChIKey</b></td><td class="mono">${id.inchikey}</td></tr>`:""}
     ${id.cid?`<tr><td><b>PubChem CID</b></td><td class="mono">${id.cid}</td></tr>`:""}</table>
-    <div class="evidence"><span class="lab">출처</span> ${d.source||"NAS 중계 서버"} · 기존/신규: 기존화학물질 고시 대조</div>
+    <div class="evidence"><span class="lab">참고자료 출처</span> ${id.source_label||d.source||"NAS 중계 서버"}${(id.source_no===1)?' <span class="src">(2순위 PubChem으로 IUPAC명·구조식·CID 보완)</span>':''} · 기존/신규 판단: ${d.q_is_cas?"CAS No. 기준 · 기존화학물질 고시 대조":"물질명 검색(자동판단 보류)"}</div>
     <div class="src" style="margin:12px 0 2px">식별정보·KE-No. 교차확인</div>${legend}${dbLinks(GROUPS.ident)}`;
   // GHS
   const sts=g.statements||[];
   // 국내 유해성심사 분류(카테고리+구분) / 함량기준 파싱
   const kghs = parseKGhs((d.notice&&d.notice.review&&d.notice.review.classification)||"");
   const content = parseContent((d.notice&&d.notice.designated_detail)||"");
-  const sig=/danger/i.test(g.signal)?"danger":"warning";
-  // GHS 표 행: 국내심사 우선, 없으면 PubChem→국내형식 매핑
-  let rows=[], ghsSourceLabel="", isDomestic=false;
-  if(kghs.length){
-    isDomestic=true;
-    ghsSourceLabel="화학물질의 유해성심사결과 고시(별표) · 기후에너지환경부";
-    rows=kghs.map(x=>({item:x.item, code:x.code, grade:x.grade, h:hcodeFor(x.item,x.grade)}));
-  } else {
-    const mapped=ghsFromPubchem(sts);
-    if(mapped.length){
-      ghsSourceLabel="PubChem GHS 집계(ECHA C&L 등) → 국내 분류·표시 형식으로 매핑 · 국제 참고용";
-      rows=mapped.map(x=>({item:x.item, code:"", grade:x.grade, h:x.h}));
-    }
-  }
-  let ghsHtml="";
-  if(rows.length){
-    ghsHtml=`<p class="si">${isDomestic?"국내 유해성심사결과 고시 기준":"국제(PubChem) 분류를 국내 형식으로 매핑한"} GHS 분류·표시입니다. 유해성 항목·구분값과 함께 H-code를 정리합니다.</p>
-      ${(!isDomestic&&g.signal)?`<div style="margin:6px 0 12px"><span class="signal ${sig}">${/danger/i.test(g.signal)?"위험 · Danger":"경고 · Warning"}</span></div>`:""}
+  const domRows = kghs.map(x=>({item:x.item, code:x.code, grade:x.grade, h:hcodeFor(x.item,x.grade)}));
+  const classRef = d.classification_ref||[];   // '(참고) 분류표시' 시트 추출본: [{category,item,grade,db,source_url}]
+  const clhRows = classRef.filter(x=>/EU CLP\(Harmonised/i.test(x.db||""));   // EU CLH(조화분류)
+  const kreach = d.kreach||{};
+  const kreachHaz = kreach.hazard||[];
+
+  // 1) 국내 유해성심사 결과
+  let ghsHtml = `<div class="gt" style="margin-top:0">1) 국내 유해성심사 결과<span class="badge">기후에너지환경부 고시</span></div>`;
+  if(domRows.length){
+    ghsHtml += `<p class="si">국내 유해성심사결과 고시(별표) 기준 GHS 분류·표시입니다.</p>
       <table class="tbl"><thead><tr><th>유해성 분류 (항목)</th><th style="width:150px">구분</th><th style="width:90px">H-code</th></tr></thead><tbody>
-      ${rows.map(x=>`<tr><td>${x.item}${x.code?` <span class="src">(${x.code})</span>`:""}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.h?`<span class="hcode">${x.h}</span>`:"—"}</td></tr>`).join("")}
+      ${domRows.map(x=>`<tr><td>${x.item}${x.code?` <span class="src">(${x.code})</span>`:""}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.h?`<span class="hcode">${x.h}</span>`:"—"}</td></tr>`).join("")}
       </tbody></table>
-      <div class="evidence"><span class="lab">출처</span> ${ghsSourceLabel}</div>`;
+      <div class="evidence"><span class="lab">출처</span> 화학물질의 유해성심사결과 고시(별표) · 기후에너지환경부</div>`;
   } else {
-    ghsHtml=`<div class="errbox">국내·국제 GHS 분류가 확인되지 않습니다. 아래 DB에서 확인하세요.</div>`;
+    ghsHtml += `<div class="errbox">국내 유해성심사결과 고시(별표)에서 확인된 분류가 없습니다.</div>`;
   }
   if(content.length){
     ghsHtml+=`<div class="src" style="margin:16px 0 6px"><b>혼합물 함량기준</b> (지정물질별)</div>
@@ -489,15 +533,37 @@ function renderData(d){
       </tbody></table>
       <div class="src" style="margin-top:5px">출처: 화학물질 지정 마스터(기후에너지환경부 자료)의 유해특성분류·혼합물 함량기준</div>`;
   }
+
+  // 2) 기타 국외 유해성 분류 및 표시
+  ghsHtml += `<div class="gt">2) 기타 국외 유해성 분류 및 표시<span class="badge">DB별 대조</span></div>`;
+  if(classRef.length){
+    ghsHtml += `<table class="tbl"><thead><tr><th>유해성 분류 (항목)</th><th style="width:130px">구분</th><th style="width:90px">H-code</th><th>출처</th></tr></thead><tbody>
+      ${classRef.map(x=>{const h=hcodeFor(x.item,x.grade);return `<tr><td>${x.item}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${h?`<span class="hcode">${h}</span>`:"—"}</td><td>${x.source_url?`<a class="dbname" href="${x.source_url}" target="_blank" rel="noopener">${x.db}</a>`:`<span class="src">${x.db}</span>`}</td></tr>`;}).join("")}
+      </tbody></table>
+      <div class="src" style="margin-top:5px">출처: 물질별 제출 자료('참고 분류표시' 시트) — 각 DB 링크에서 원문 확인</div>`;
+  } else {
+    ghsHtml += `<div class="errbox">대조된 국외 DB 유해성 분류가 없습니다.</div>`;
+  }
+  if(kreachHaz.length){
+    ghsHtml += `<div class="src" style="margin:16px 0 6px"><b>화학물질정보처리시스템 신고ㆍ등록 정보</b></div>
+      <table class="tbl"><thead><tr><th style="width:70px">구분</th><th>유해성 분류(항목)</th><th style="width:110px">등급</th><th>유해ㆍ위험문구</th></tr></thead><tbody>
+      ${kreachHaz.map(x=>`<tr><td><span class="chip ${x.tab==='등록'?'warn':'neutral'}">${x.tab} 정보</span></td><td>${x.item||""}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.hcode_text||""}</td></tr>`).join("")}
+      </tbody></table>
+      <div class="src" style="margin-top:5px">출처: 화학물질정보처리시스템(KREACH) 정보공개 — ${kreachHaz.map(x=>x.tab).filter((v,i,a)=>a.indexOf(v)===i).join("ㆍ")} 정보 탭</div>`;
+  } else if(kreach.implemented && kreach.reason!=="name_query"){
+    ghsHtml += `<div class="src" style="margin:16px 0 4px">화학물질정보처리시스템 신고ㆍ등록 정보: 확인된 유해성 분류 신고·등록 자료 없음</div>`;
+  }
   ghsHtml+=`<div class="src" style="margin:14px 0 2px">국내·조화분류 교차확인 DB</div>${dbLinks(["kreach","echa_clh","iarc","ntp","kosha"])}`;
   $("#sec3").innerHTML=ghsHtml;
-  // 4번 유해성 요약 — 3번에서 확인된(평가완료) GHS 분류를 보여줌
-  window.__ghsRows=rows; window.__ghsDomestic=isDomestic;
-  $("#sec4").innerHTML=summaryFromRows(rows, isDomestic, sts);
+
+  // 4번 유해성 요약 — 국내외에서 평가가 "완료"된 자료만: 국내 유해성심사 + EU CLH(조화분류)
+  $("#sec4").innerHTML=summaryFromEvaluated(domRows, clhRows, sts);
   // §2 국내 규제현황 상단에 유해성심사 결과 + 기후에너지환경부/고용노동부 분리 표시
   const sec2=$("#sec2");
   if(sec2 && d.notice){
-    const rvBox = nr.reviewed
+    const rvBox = d.notice.name_query
+      ? `<div class="inference"><span class="lab">국내 유해성심사</span> 물질명 검색이라 확인하지 않았습니다 — CAS No.로 다시 검색하세요.</div>`
+      : nr.reviewed
       ? `<div class="evidence"><span class="lab">국내 유해성심사</span> <b>심사됨</b> (${nr.category||""}, 번호 ${nr.no||"—"}). 결과: <b>${nr.result||"—"}</b>. <span class="src">출처: 화학물질의 유해성심사결과 고시(별표) · 3번 항목에 분류·표시 상세</span></div>`
       : `<div class="inference"><span class="lab">국내 유해성심사</span> 유해성심사결과 고시(별표)에서 <b>미검색</b> — 심사 이력 미확인. 최신 고시·기후에너지환경부 DB에서 확인 권장.</div>`;
     const orgSplit = `<div class="orgrow">
@@ -507,6 +573,8 @@ function renderData(d){
     sec2.insertAdjacentHTML("afterbegin", rvBox + orgSplit);
     sec2.insertAdjacentHTML("beforeend", renderInventory(d.notice));
   }
+  const sec5=$("#sec5");
+  if(sec5) sec5.insertAdjacentHTML("afterbegin", renderKreachUses(d.kreach));
 }
 
 async function enrichDetail(){

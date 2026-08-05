@@ -1,0 +1,5229 @@
+{
+ "100684-03-5": {
+  "name": "Extracts (petroleum), light paraffinic distillate solvent, clay-treated",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "100684-04-6": {
+  "name": "Extracts (petroleum), light vacuum, gas oil solvent, carbon-treated",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "100684-37-5": {
+  "name": "Residual oils (petroleum), carbon-treated solvent-dewaxed",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "100684-38-6": {
+  "name": "Residual oils (petroleum), clay-treated solvent-dewaxed",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1A",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "100801-70-5": {
+  "name": "Plastics, wastes, pyrolyzed, pitch residue fraction",
+  "rows": []
+ },
+ "101316-70-5": {
+  "name": "Lubricating oils (petroleum), (C=17-32), solvent-extd., dewaxed, hydrogenated",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "101316-71-6": {
+  "name": "Lubricating oils (petroleum), (C=20-35), solvent-extd., dewaxed, hydrogenated",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "102783-01-7": {
+  "name": "Siloxanes and Silicones, di-Me, 3-hydroxypropyl group-terminated, ethoxylated",
+  "rows": []
+ },
+ "119432-41-6": {
+  "name": "α-Sulfo-ω-[2,4,6-tris(1-phenylethyl)phenoxy]poly(oxy-1,2-ethanediyl) ammonium salt",
+  "rows": []
+ },
+ "119564-97-5": {
+  "name": "α,α'-[1,6-Hexanediylbis(iminocarbonyl)]bis[ω-[(2-methyl-1-oxo-2-propen-1-yl)oxy]-poly[oxy(methyl-1,2-ethanediyl)]]",
+  "rows": []
+ },
+ "12025-99-9": {
+  "name": "Manganese hydroxide oxide",
+  "rows": []
+ },
+ "12055-62-8": {
+  "name": "Holmium oxide",
+  "rows": []
+ },
+ "12227-67-7": {
+  "name": "C.I. solvent yellow 082",
+  "rows": []
+ },
+ "12325-84-7": {
+  "name": "Lithium nickel oxide(Li2NiO2)",
+  "rows": []
+ },
+ "125826-44-0": {
+  "name": "Hexanedioic acid polymer with 2,2-dimethyl-1,3-propanediol, 1,6-hexanediol, hydrazine, 3-hydroxy-2-(hydroxymethyl)-2-methylpropanoic acid and 1,1'-methylenebis[4-isocyanatocyclohexane], compd. with N,N-diethylethanamine",
+  "rows": []
+ },
+ "1262044-76-7": {
+  "name": "2,5-Furandione polymer with 1,3-diisocyanatomethylbenzene and α-hydro-ω-hydroxypoly(oxy-1,2-ethanediyl), 2-butanol- and  1H-imidazole-1-propanamine- and 2-oxepanone homopolymer cetyl ester-blocked",
+  "rows": []
+ },
+ "15000-59-6": {
+  "name": "C.I. basic blue 054",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "생식세포_변이원성",
+    "grade": "구분 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   }
+  ]
+ },
+ "151662-01-0": {
+  "name": "Siloxanes and Silicones, di-Me, 3-hydroxypropyl group-terminated, ethoxylated propoxylated",
+  "rows": []
+ },
+ "160875-66-1": {
+  "name": "α-(2-Propylheptyl)-ω-hydroxy-poly(oxy-1,2-ethanediyl)",
+  "rows": []
+ },
+ "163702-01-0": {
+  "name": "(1-Methylethenyl)benzene homopolymer, ar-(2-hydroxy-2-methyl-1-oxopropyl) derivs.",
+  "rows": [
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "16627-68-2": {
+  "name": "1,1,2,2-Tetrafluoro-3-(1,1,2,2-tetrafluoroethoxy)propane",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   }
+  ]
+ },
+ "200808-68-0": {
+  "name": "1,1-Dimethylethyl 2-propenoate polymer with ethenylbenzene and 4-ethenylphenol",
+  "rows": []
+ },
+ "203742-97-6": {
+  "name": "Formaldehyde reaction products with branched 4-nonylphenol and 1-dodecanethiol",
+  "rows": []
+ },
+ "222416-17-3": {
+  "name": "Siloxanes and Silicones, di-Me, 3-(2-hydroxyethoxy)propyl group-terminated",
+  "rows": []
+ },
+ "25034-71-3": {
+  "name": "3a,4,7,7a-Tetrahydro-4,7-methano-1H-indene polymer with ethene and 1-propene",
+  "rows": []
+ },
+ "25134-86-5": {
+  "name": "Formaldehyde polymer with methyloxirane, oxirane and phenol",
+  "rows": []
+ },
+ "25189-56-4": {
+  "name": "Hexanedioic acid polymer with 2,4-diisocyanato-1-methylbenzene, 1,2-ethanediol and 2,2'-oxybis[ethanol]",
+  "rows": []
+ },
+ "254756-81-5": {
+  "name": "Siloxanes and silicones, di-Me, 3-hydroxypropyl group-terminated, ethoxylated polymers with 2,2'-[1,2-ethanediylbis(oxy)]bis[ethanamine], 1,1'-methylenebis[4-isocyanatocyclohexane], 1,4-piperazinedipropanamine and polyethylene glycol",
+  "rows": []
+ },
+ "25585-70-0": {
+  "name": "2-Propenoic acid polymer with ethenylbenzene, ethyl 2-propenoate and N-(hydroxymethyl)-2-propenamide",
+  "rows": []
+ },
+ "26184-07-6": {
+  "name": "2-Methyl-2-propenoic acid polymer with butyl 2-methyl-2-propenoate, butyl 2-propenoate and methyl 2-methyl-2-propenoate",
+  "rows": []
+ },
+ "26354-09-6": {
+  "name": "Formaldehyde polymer with phenol, 6-phenyl-1,3,5-triazine-2,4-diamine and 1,3,5-triazine-2,4,6-triamine",
+  "rows": []
+ },
+ "26355-74-8": {
+  "name": "Benzaldehyde polymer with phenol",
+  "rows": []
+ },
+ "27776-21-2": {
+  "name": "2,2'-Azobis(2-imidazoline-2-yl)propane dihydrochloride; 2,2'-[Azobis(1-methylethylidene)]bis[4,5-dihydro-1H-imidazole] dihydrochloride",
+  "rows": [
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   }
+  ]
+ },
+ "28805-58-5": {
+  "name": "Octenylbutanedioic acid",
+  "rows": [
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "29661-89-0": {
+  "name": "Formaldehyde polymer with 1,3-dimethylbenzene and phenol",
+  "rows": []
+ },
+ "29763-02-8": {
+  "name": "2-Methyl-2-propenoic acid methyl ester polymer with butyl 2-propenoate, ethenylbenzene and ethyl 2-propenoate",
+  "rows": []
+ },
+ "30396-85-1": {
+  "name": "2-Methyl-2-propenoic acid methyl ester polymer with 2-propenenitrile",
+  "rows": []
+ },
+ "31807-55-3": {
+  "name": "Isododecane",
+  "rows": [
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 4",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   }
+  ]
+ },
+ "344562-80-7": {
+  "name": "(4-Methylphenyl) [4-(2-methylpropyl)phenyl] iodonium hexafluorophosphate",
+  "rows": []
+ },
+ "35227-05-5": {
+  "name": "2-Methyl-2-propenoic acid polymer with butyl 2-methyl-2-propenoate, 2-hydroxyethyl 2-methyl-2-propenoate and methyl 2-methyl-2-propenoate",
+  "rows": []
+ },
+ "352535-01-4": {
+  "name": "N-Methylethanamine, hafnium(4+) salt",
+  "rows": []
+ },
+ "403983-53-9": {
+  "name": "α-Sulfo-ω-[1-(hydroxymethyl)-2-(2-propenyloxy)ethoxy]poly(oxy-1,2-ethanediyl), (C=11)-rich and (C=10~14)-branched alkyl ethers, ammonium salts",
+  "rows": []
+ },
+ "51994-93-5": {
+  "name": "2-Methyl-2-propenoic acid butyl ester polymer with butyl 2-propenoate, 2-hydroxyethyl 2-methyl-2-propenoate and methyl 2-methyl-2-propenoate",
+  "rows": []
+ },
+ "52933-07-0": {
+  "name": "Phosphoric acid isotridecyl ester",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   }
+  ]
+ },
+ "54243-98-0": {
+  "name": "Formaldehyde polymer with methylphenol and 1,3,5-triazine-2,4,6-triamine",
+  "rows": []
+ },
+ "56292-26-3": {
+  "name": "Styrene, n-butyl methacrylate, 2-hydroxyethyl methacrylate, acrylic acid copolymer",
+  "rows": []
+ },
+ "57596-50-6": {
+  "name": "α-Hydro-ω-hydroxypoly[oxy(methyl-1,2-ethanediyl)] ether with 2-ethyl-2-(hydroxymethyl)-1,3-propanediol (3:1) polymer with 1,1'-methylenebis[4-isocyanatobenzene]",
+  "rows": []
+ },
+ "60778-99-6": {
+  "name": "Sulfuric acid aluminum magnesium salt",
+  "rows": []
+ },
+ "61791-04-6": {
+  "name": "Fatty acids, coco, sesquiesters with polyethylene glycol",
+  "rows": []
+ },
+ "64051-29-2": {
+  "name": "Phosphonic acid di-9-octadecenyl ester",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "생식독성",
+    "grade": "구분 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   }
+  ]
+ },
+ "65497-29-2": {
+  "name": "Guar gum, 2-hydroxy-3-(trimethylammonio)propyl ether chloride",
+  "rows": []
+ },
+ "66070-73-3": {
+  "name": "Fatty acids, soya polymers with benzoic acid, glycerol and phthalic anhydride",
+  "rows": []
+ },
+ "66070-75-5": {
+  "name": "Fatty acids, tall oil polymers with bisphenol A and epichlorohydrin",
+  "rows": []
+ },
+ "67701-19-3": {
+  "name": "Fatty acids, (C=18)-unsatd., dimers potassium salts",
+  "rows": []
+ },
+ "68037-26-3": {
+  "name": "Diethenylbenzene polymer with ethenylbenzene, sulfonated",
+  "rows": []
+ },
+ "68083-14-7": {
+  "name": "Siloxanes and Silicones, di-Me, di-Ph",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "68132-16-1": {
+  "name": "Rosin polymer with glycerol, maleic anhydride and soybean oil",
+  "rows": []
+ },
+ "68154-81-4": {
+  "name": "Fatty acids, soya polymers with glycerol and phthalic anhydride",
+  "rows": []
+ },
+ "68201-46-7": {
+  "name": "Glycerides, coco mono and diethoxylated",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "68309-10-4": {
+  "name": "Fatty acids, soya polymers with maleic anhydride, pentaerythritol, phthalic anhydride and tung oil",
+  "rows": []
+ },
+ "68425-03-6": {
+  "name": "Rosin, maleated polymer with formaldehyde, pentaerythritol and phenol",
+  "rows": []
+ },
+ "68427-35-0": {
+  "name": "2-[7-(Diethylamino)-2-oxo-2H-1-benzopyran-3-yl]-5-benzoxazolesulfonamide",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   }
+  ]
+ },
+ "68439-30-5": {
+  "name": "Methyloxirane polymer with oxirane, 8-methylnonyl ether",
+  "rows": []
+ },
+ "68440-36-8": {
+  "name": "Glycerides, mixed soya and tung-oil mono-, di- and tri",
+  "rows": []
+ },
+ "68512-68-5": {
+  "name": "Rosin, polymd., polymer with glycerol and pentaerythritol",
+  "rows": []
+ },
+ "68525-85-9": {
+  "name": "Corn, flour, acid-modified",
+  "rows": []
+ },
+ "68552-16-9": {
+  "name": "Fatty acids, (C=18)-unsatd., dimers polymers with ethylene glycol, linoleic acid, linolenic acid, maleic anhydride, oleic acid, pentaerythritol, phthalic anhydride and rosin",
+  "rows": []
+ },
+ "68584-83-8": {
+  "name": "Silicic acid sodium salt hydrolysis products with chlorotrimethylsilane and dichloroethenylmethylsilane",
+  "rows": []
+ },
+ "68891-61-2": {
+  "name": "1-Propene polymer with ethene oxidized",
+  "rows": []
+ },
+ "68911-35-3": {
+  "name": "Fatty acids, tail oil compds. with polyalkylenepolyamines",
+  "rows": [
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "68957-04-0": {
+  "name": "Siloxanes and silicones, di-Me, methoxy Ph polymers with Ph silsesquioxanes, methoxy-terminated",
+  "rows": []
+ },
+ "70248-31-6": {
+  "name": "Fatty acids, mixed tallow and vegetable-oil, distin. residues",
+  "rows": [
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "70294-19-8": {
+  "name": "C.I. disperse red 277",
+  "rows": []
+ },
+ "71603-79-7": {
+  "name": "C.I. acid yellow 220",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "71750-80-6": {
+  "name": "Siloxanes and Silicones, di-Me, [[[3-[(2-aminoethyl)amino]propyl]dimethoxysilyl]oxy]-terminated",
+  "rows": [
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "71799-50-3": {
+  "name": "1-Deoxy-1-(methylamino)-D-glucitol reaction products with chloromethylated divinylbenzene-ethenylethylbenzene-styrene polymer",
+  "rows": []
+ },
+ "71872-43-0": {
+  "name": "C.I. disperse blue 284",
+  "rows": []
+ },
+ "72030-25-2": {
+  "name": "Molybdenum, bis[O,O-bis(2-ethylhexyl)phosphorodithioato-S]dioxodi-μ-thioxodi-",
+  "rows": []
+ },
+ "73138-40-6": {
+  "name": "Fatty acids, coco, esters with trimethylolpropane",
+  "rows": [
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "778577-35-8": {
+  "name": "Fatty acids, linseed-oil polymers with glycidyl neodecanoate, iso-Bu methacrylate, methacrylic acid, phthalic anhydride, polyethylene glycol, trimethylolpropane and p-vinyltoluene, compds. with 2-(dimethylamino)ethanol",
+  "rows": []
+ },
+ "77907-28-9": {
+  "name": "C.I. disperse red 311",
+  "rows": []
+ },
+ "78564-86-0": {
+  "name": "C.I. disperse red 152",
+  "rows": []
+ },
+ "8021-56-5": {
+  "name": "Waxes and Waxy substances, palm",
+  "rows": []
+ },
+ "85954-11-6": {
+  "name": "4,4'-Bis(2,3-epoxypropoxy)-3,3',5,5'-tetramethyl(1,1'-biphenyl)",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경피",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 2",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 2",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "90387-00-1": {
+  "name": "Dichlorosilane polymer with ammonia",
+  "rows": []
+ },
+ "9046-16-6": {
+  "name": "Butyl 2-propenoate polymer with diethenylbenzene, ethenylbenzene and 2-propenenitrile",
+  "rows": []
+ },
+ "9047-32-9": {
+  "name": "2-Methyl-2-propenoic acid butyl ester polymer with butyl 2-propenoate, ethenylbenzene, methyl 2-methyl-2-propenoate and 1,2-propanediol mono(2-methyl-2-propenoate)",
+  "rows": []
+ },
+ "90640-95-2": {
+  "name": "Hydrocarbons, (C=20-50), solvent dewaxed heavy paraffinic, hydrotreated",
+  "rows": [
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   },
+   {
+    "category": "건강유해성",
+    "item": "생식독성",
+    "grade": "구분 2",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   }
+  ]
+ },
+ "90641-09-1": {
+  "name": "Extracts (petroleum), light paraffinic distillate solvent, hydrotreated",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   },
+   {
+    "category": "건강유해성",
+    "item": "생식독성",
+    "grade": "구분 2",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "91053-43-9": {
+  "name": "Sulfonated lard, sodium salt",
+  "rows": []
+ },
+ "91995-73-2": {
+  "name": "Extracts (petroleum), hydrotreated light paraffinic distillate solvent",
+  "rows": [
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "91995-76-5": {
+  "name": "Extracts (petroleum), light paraffinic distillate solvent, acid-treated",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "91995-78-7": {
+  "name": "Extracts (petroleum), light vacuum gas oil solvent",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   }
+  ]
+ },
+ "91995-79-8": {
+  "name": "Extracts (petroleum), light vacuum gas oil solvent, hydrotreated",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "92045-12-0": {
+  "name": "Foots oil (petroleum), hydrotreated",
+  "rows": [
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "92045-42-6": {
+  "name": "Lubricating oils (petroleum), (C=17-35), solvent-extd., dewaxed, hydrotreated",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "92045-45-9": {
+  "name": "Lubricating oils (petroleum), hydrotreated solvent-refined bright stock based",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_반복노출",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "92061-86-4": {
+  "name": "Residual oils (petroleum), hydrocracked acid-treated solvent-dewaxed",
+  "rows": [
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "92062-35-6": {
+  "name": "White mineral oil (petroleum), light",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_반복노출",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "93-82-3": {
+  "name": "N,N-Bis(2-hydroxyethyl)octadecanamide; N,N-Bis(2-hydroxyethyl)stearamide",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   }
+  ]
+ },
+ "93841-48-6": {
+  "name": "Isooctadecyl 2-propenoate",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   }
+  ]
+ },
+ "93924-61-9": {
+  "name": "Hydrocarbons, (C=20-50), residual oil hydrogenation vacuum distillate",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "941596-80-1": {
+  "name": "(η5-2,4-Cyclopentadien-1-yl)tris(N-methylmethanaminato)hafnium",
+  "rows": []
+ },
+ "949495-39-0": {
+  "name": "Aluminoxanes, Me, Me group-terminated",
+  "rows": []
+ },
+ "95371-04-3": {
+  "name": "Hydrocarbons, (C=13-30), arom.-rich, solvent-extd. naphthenic distillate",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "95371-08-7": {
+  "name": "Hydrocarbons, (C=37-65), hydrotreated deasphalted vacuum distn. residues",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "생식세포_변이원성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "97358-61-7": {
+  "name": "Unsatd. (C=8-21) and (C=8-21) fatty acids esters with sorbitan",
+  "rows": []
+ },
+ "97675-87-1": {
+  "name": "Hydrocarbons, (C=17-30) hydrotreated solvent-deasphalted atm. distn. residue, distn. lights",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "생식세포_변이원성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_반복노출",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "97722-04-8": {
+  "name": "Hydrocarbons, (C=26-55), arom.-rich",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "97722-10-6": {
+  "name": "Hydrocarbons, (C=14-29), solvent-extd. light naphthenic",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "97862-81-2": {
+  "name": "Hydrocarbons, (C=27-42), dearomatized",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "97862-83-4": {
+  "name": "Hydrocarbons (C=27-45), naphthenic vacuum distn.",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "97926-70-0": {
+  "name": "Hydrocarbons, (C=20-58), hydrotreated",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "97926-71-1": {
+  "name": "Hydrocarbons, (C=27-42), naphthenic",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/activity-lists/clhProcess?pageIndex=1&pageSize=100"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "Note L",
+    "db": "EU CLP 설명 Code",
+    "source_url": null
+   }
+  ]
+ },
+ "98653-93-1": {
+  "name": "Fatty acids, (C=6-10), esters with triethylene glycol",
+  "rows": []
+ },
+ "104810-48-2": {
+  "name": "α-[3-[3-(2H-Benzotriazol-2-yl)-5-(1,1-dimethylethyl)-4-hydroxyphenyl]-1-oxopropyl]-ω-hydroxypoly(oxy-1,2-ethanediyl)",
+  "rows": []
+ },
+ "13446-03-2": {
+  "name": "Manganese dibromide",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_반복노출",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 1",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   }
+  ]
+ },
+ "13502-13-1": {
+  "name": "Sodium tetradecene-1-sulfonate",
+  "rows": []
+ },
+ "15214-89-8": {
+  "name": "2-Acrylamido-2-methylpropane sulfonic acid",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "생식독성",
+    "grade": "구분 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   }
+  ]
+ },
+ "16969-10-1": {
+  "name": "2-Hydroxy-3-phenoxypropylacrylate",
+  "rows": []
+ },
+ "2052358-63-9": {
+  "name": "1,4-Benzenedicarboxylic acid, di(C=8~10)-branched alkyl esters",
+  "rows": []
+ },
+ "3851-87-4": {
+  "name": "Bis(3,5,5-trimethyl-1-oxohexyl)peroxide; Bis(3,5,5-trimethylhexanoyl) peroxide",
+  "rows": [
+   {
+    "category": "물리적 위험성",
+    "item": "유기과산화물",
+    "grade": "구분 4 (형식 D)",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "유기과산화물",
+    "grade": "구분 4 (형식 D)",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   }
+  ]
+ },
+ "39354-45-5": {
+  "name": "α-(3-Carboxy-1-oxo-3-sulfopropyl)-ω-(dodecyloxy)poly(oxy-1,2-ethanediyl) disodium salt",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "4731-53-7": {
+  "name": "Trioctylphosphine",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 3",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 3",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   }
+  ]
+ },
+ "52497-24-2": {
+  "name": "2-[(2-Hydroxyethyl)octadecylamino]ethyl stearate",
+  "rows": []
+ },
+ "53880-05-0": {
+  "name": "5-Isocyanato-1-(isocyanatomethyl)-1,3,3-trimethylcyclohexane homopolymer",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   }
+  ]
+ },
+ "617-84-5": {
+  "name": "N,N-Diethylformamide",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   }
+  ]
+ },
+ "6674-22-2": {
+  "name": "2,3,4,6,7,8,9,10-Octahydropyrimido[1,2-a]azepine; 1,8-Diazabicyclo[5.4.0]undec-7-ene",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1C",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "소방청 국가위험물 통합 정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 3",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   }
+  ]
+ },
+ "67784-74-1": {
+  "name": "Formaldehyde polymer with benzenamine, maleated, cyclized",
+  "rows": []
+ },
+ "84170-74-1": {
+  "name": "Poly[oxy(methyl-1,2-ethanediyl)], α,α'-(2,2-dimethyl-1,3-propanediyl)bis[ω-[(1-oxo-2-propenyl)oxy]-",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "생식세포_변이원성",
+    "grade": "구분 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "뉴질랜드 CCID",
+    "source_url": "https://www.epa.govt.nz/database-search/chemical-classification-and-information-database-ccid/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   }
+  ]
+ },
+ "88477-37-6": {
+  "name": "2,2'-[[(Methyl-1H-benzotriazol-1-yl)methyl]imino]bisethanol",
+  "rows": [
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "93820-60-1": {
+  "name": "Benzenesulfonic acid monoalkyl(C=10-26) derivs.",
+  "rows": []
+ },
+ "100085-78-7": {
+  "name": "Transferrins, blood plasma",
+  "rows": []
+ },
+ "105186-99-0": {
+  "name": "L-Alanine, L-valyl-L-valyl-L-seryl-L-histidyl-L-phenylalanyl-L-asparaginyl-L-α-aspartyl-L-cysteinyl-L-prolyl-L-α-aspartyl-L-seryl-L-histidyl-L-threonyl-L-glutaminyl-L-phenylalanyl-L-cysteinyl-L-phenylalanyl-L-histidylglycyl-L-threonyl-L-cysteinyl-L-arginyl-L-phenylalanyl-L-leucyl-L-valyl-L-glutaminyl-L-α-glutamyl-L-α-aspartyl-L-lysyl-L-prolyl-L-alanyl-L-cysteinyl-L-valyl-L-cysteinyl-L-histidyl-L-serylglycyl-L-tyrosyl-L-valylglycyl-L-alanyl-L-arginyl-L-cysteinyl-L-α-glutamyl-L-histidyl-L-alanyl-L-α-aspartyl-L-leucyl-L-leucyl-, cyclic (8→21),(16→32),(34→43)-tris(disulfide)",
+  "rows": []
+ },
+ "110532-37-1": {
+  "name": "Vinyl acetal polymers, glutarals",
+  "rows": []
+ },
+ "1204421-87-3": {
+  "name": "1,4-Cyclohexanedicarboxylic acid, polymer with tricyclodecanedimethanol, bis(2-methyl-2-propenoate)",
+  "rows": []
+ },
+ "1234579-04-4": {
+  "name": "Silane, bis(3-bromopropyl)dimethyl-",
+  "rows": []
+ },
+ "1248571-53-0": {
+  "name": "N3,N3'-diphenyl-[1,1'-biphenyl]-3,3'-diamine",
+  "rows": []
+ },
+ "127120-70-1": {
+  "name": "Ethenol, polymer with ethene, N-octadecylcarbamate",
+  "rows": []
+ },
+ "136542-14-8": {
+  "name": "Hexanedioic acid, polymer with 1,2-propanediol, benzoate",
+  "rows": []
+ },
+ "1376257-03-2": {
+  "name": "Poly(oxy-1,4-butanediyl), α-hydro-ω-hydroxy-, polymer with 1,1′-methylenebis[4-isocyanatocyclohexane], 2-hydroxyethylacrylate-blocked",
+  "rows": []
+ },
+ "1696425-30-5": {
+  "name": "2-[1,1'-Biphenyl]-4-yl-4-phenyl-6-[3-(4,4,5,5-tetramethyl-1,3,2-dioxaborolan-2-yl)phenyl]-1,3,5-triazine",
+  "rows": []
+ },
+ "1869141-97-8": {
+  "name": "Pyrimidine, 4-chloro-6-(1-naphthalenyl)-2-phenyl-",
+  "rows": []
+ },
+ "187412-41-5": {
+  "name": "Pentaerythritol, dipentaerythritol, fatty acids, C6-10, mixed esters  with adipic acid, heptanoic acid and isostearic acid",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "194216-52-9": {
+  "name": "2,5-Bis(4-aminophenyl)tetrahydro-3a,6a-dimethylcyclobuta[1,2-c:3,4-c']dipyrrole-1,3,4,6(2H,5H)-tetrone",
+  "rows": []
+ },
+ "2192306-81-1": {
+  "name": "Spiro[11H-benzo[b]fluorene-11,9'-[9H]xanthene],3-(4,4,5,5-tetramethyl-1,3,2-dioxaborolan-2-yl)-",
+  "rows": []
+ },
+ "2222684-05-9": {
+  "name": "Cellulose, reaction products with dextran hydrogen sulfate sodium salt and epichlorohydrin",
+  "rows": []
+ },
+ "2230015-90-2": {
+  "name": "Benzene, 2,4-diisocyanato-1,3,5-tris(1-methylethyl)-, homopolymer, 2-isocyanato-1,3,5-tris(1-methylethyl)benzene-blocked",
+  "rows": []
+ },
+ "2247239-04-7": {
+  "name": "Oils, guaiac wood, oxidized dehydrated",
+  "rows": []
+ },
+ "240799-13-7": {
+  "name": "2-Propenoic acid, 1,1'-[9H-fluoren-9-ylidenebis[4,1-phenyleneoxy-2,1- ethanediyloxy(2-hydroxy-3,1-propanediyl)]] ester",
+  "rows": []
+ },
+ "2413799-01-4": {
+  "name": "1-Phenyl-6-(4,4,5,5-tetramethyl-1,3,2-dioxaborolan-2-yl)dibenzofuran",
+  "rows": []
+ },
+ "2617703-98-5": {
+  "name": "2-(2-Chlorophenyl)-4-(naphthalen-2-yl)-6-phenyl-1,3,5-triazine",
+  "rows": []
+ },
+ "2632234-79-6": {
+  "name": "Hexanamide, 2-ethyl-N-[3-hydroxy-4-[5-(phenylthio)-2H-benzotriazol-2-yl]phenyl]-",
+  "rows": []
+ },
+ "2738893-27-9": {
+  "name": "Silane, bis(3-chloropropyl)dimethyl-",
+  "rows": []
+ },
+ "276691-75-9": {
+  "name": "1,2-Ethanediamine, N-[3-(trimethoxysilyl)propyl]-, hydrolyzed, polymd",
+  "rows": []
+ },
+ "2820436-99-3": {
+  "name": "2,7-Naphthalenedisulfonic acid, 5-[2-(hexahydro-2,4,6-trioxo-5-pyrimidinyl)diazenyl] -4-hydroxy-3-[2-(2-hydroxy-3,5-dinitrophenyl)diazenyl]-, sodium salt (1:2)",
+  "rows": []
+ },
+ "2820437-01-0": {
+  "name": "2,7-Naphthalenedisulfonic acid, 4-hydroxy-3-[2-(2-hydroxy-3,5-dinitrophenyl) diazenyl]-5-[2-(1-hydroxy-3,6-disulfo-2-naphthalenyl)diazenyl]-, sodium salt (1:4)",
+  "rows": []
+ },
+ "2924630-95-3": {
+  "name": "2-([1,1':4',1''-terphenyl]-3-yl-d13)-4,4,5,5-tetramethyl-1,3,2-dioxaborolane",
+  "rows": []
+ },
+ "2951720-65-1": {
+  "name": "2-(dibenzo[b,d]furan-1-yl)-4-phenyl-6-(3-(6-phenylnaphthalen-2-yl)phenyl)-1,3,5-triazine",
+  "rows": []
+ },
+ "3024353-31-6": {
+  "name": "Benzenediamine, ar,ar-diethyl-ar-methyl-, reaction products with 2-[[(2-ethylhexyl)oxy]methyl]oxirane",
+  "rows": []
+ },
+ "303765-85-7": {
+  "name": "Propanoic acid, 3-hydroxy-2-(hydroxymethyl)-2-methyl-, homopolymer, ester with α-hydro-ω-hydroxypoly(oxy-1,2-ethanediyl) ether with 2,2-bis(hydroxymethyl)-1,3-propanediol (?:4:1), 2-propenoate",
+  "rows": []
+ },
+ "308070-02-2": {
+  "name": "Polyester rubber, cyclohexanedicarboxylic acid-cyclohexanedime thanol-polytetramethylene glycol, block",
+  "rows": []
+ },
+ "3108843-14-4": {
+  "name": "1-Hexanaminium, N,N,N-trihexyl-, 1,1-cyclobutanedicarboxylate (1:1)",
+  "rows": []
+ },
+ "3109885-96-0": {
+  "name": "Cellulose, reaction products with dextran 2-hydroxy-3-(trimethylammonio)propyl ether chloride and epichlorohydrin",
+  "rows": []
+ },
+ "3115015-67-0": {
+  "name": "Ethene, 1,1,2,2-tetrafluoro-, oxidized, polymd., reduced, Me esters, reduced, fluorinated, 2-[[4,6-bis[bis[2-[[[1-methyl-2-[(1-oxo-2-propen-1-yl)oxy]-1-[(1-oxo-2-propen-1-yl)oxy]methyl]ethyl]amino]carbonyl]oxy]ethyl]amino]-1,3,5-triazin-2-yl]oxy]ethyl amides",
+  "rows": []
+ },
+ "31975-60-7": {
+  "name": "1H,3H-Benzo[1,2-c:4,5-c']difuran-1,3,5,7-tetrone, polymer with 1,4-benzenediamine and 4,4'-oxybis[benzenamine]",
+  "rows": []
+ },
+ "34503-04-3": {
+  "name": "2-Propenoic acid, 2-methyl-, methyl ester, polymer with butyl 2-propenoate, ethenylbenzene, 2-ethylhexyl 2-propenoate and 2-propenenitrile",
+  "rows": []
+ },
+ "40104-76-5": {
+  "name": "Sulfurous acid,monosodium salt,polyme rwith formal dehyde and 2-propanone",
+  "rows": []
+ },
+ "615250-33-4": {
+  "name": "Octanethioic acid, S -[3-(triethoxysilyl)propyl] ester, homopolymer",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "70226-26-5": {
+  "name": "Dodecanoic acid, ester with oxybis[propanediol]",
+  "rows": []
+ },
+ "80455-45-4": {
+  "name": "Cellulose, hexadecyl 2-hydroxyethyl ether",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "854083-20-8": {
+  "name": "Silsesquioxanes, 3-[(2-methyl-1-oxo-2-propenyl)oxy]propyl], polymers with 1,6-hexanediyl dimethacrylate and styrene",
+  "rows": []
+ },
+ "98437-24-2": {
+  "name": "1-Benzofuran-2-ylboronic acid",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경피",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2A",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "114601-77-3": {
+  "name": "Ammonium bis(fluorosulfonyl) imide",
+  "rows": []
+ },
+ "132054-41-2": {
+  "name": "2,4-Difluoro-4''-pentyl-1,1':4',1''-terphenyl",
+  "rows": []
+ },
+ "13859-65-9": {
+  "name": "Tetrakis(trifluorophosphine)nickel",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "호흡기_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "147398-31-0": {
+  "name": "Hexanoic acid, 3-hydroxy-, polymer with 3-hydroxybutanoic acid",
+  "rows": []
+ },
+ "1563172-99-5": {
+  "name": "trans-5-Cyclopentyl-2-[4-[difluoro(3,4,5-trifluorophenoxy)methyl]-3,5-difluorophenyl]-1 ,3-dioxane",
+  "rows": []
+ },
+ "1708094-29-4": {
+  "name": "4''-(Cyclopropylmethyl)-4-[difluoro(3,4,5-trifluorophenoxy)methyl]-2',3,5-trifluoro-1,1 ':4',1''-terphenyl",
+  "rows": []
+ },
+ "176589-81-4": {
+  "name": "1-Naphthalenesulfonic acid, 6-diazo-5,6-dihydro-5-oxo-, ester with 4,4',4''-(3-methyl-1-propanyl-3-ylidene)tris[phenol]",
+  "rows": []
+ },
+ "17863-38-6": {
+  "name": "ethanol, 2-amino-, 2-hydroxy-1,2,3-propanetricarboxylate (salt)",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "183435-43-0": {
+  "name": "1,3-Benzenedicarboxylic acid, polymer with 1,4-benzenedic arboxylic acid, 1,3-dihydro-1,3-dioxo-5-isobenzofurancarboxylic acid, 1,6-hexanediol and 2-methyl-1,3-propanediol",
+  "rows": []
+ },
+ "186205-78-7": {
+  "name": "Siloxanes and Silicones, di-Me, 3-hydroxypropyl Me, Me      3-(2-oxiranylmethoxy)propyl, ethers with polyethylene glycol mono-Me ether",
+  "rows": []
+ },
+ "1877378-04-5": {
+  "name": "1,10-Phenanthroline,2-[4-[10-[4-(2-pyrimidinyl)phenyl]-9-anthracenyl]-1-naphthalenyl]",
+  "rows": []
+ },
+ "1883769-74-1": {
+  "name": "2-Propenoic acid, 2-methyl-, 3-hydroxytricyclo[3.3.1.13,7]dec-1-yl ester, polymer with 1-methylcyclopentyl 2-methyl-2-propenoate, 1-methyl-1-tricyclo[3.3.1.13,7]dec-1-ylethyl 2-methyl-2-propenoate, octahydro-3-oxo-4,7-epoxyisobenzofuran-5-yl 2-methyl-2-propenoate and tetrahydro-2-oxo-3-furanyl 2-methyl-2-propenoate",
+  "rows": []
+ },
+ "1929559-33-0": {
+  "name": "2',6'-Difluoro-4''-(trans-4-propylcyclohexyl)-4-(trifluoromethoxy)-1,1':4',1''-terphenyl",
+  "rows": []
+ },
+ "194944-42-8": {
+  "name": "2-Propenoic acid, polymer with 2-aminoethanol, 2-(chloromethyl) oxirane, 2-ethyl-2-(hydroxymethyl)-1,3-propanediol, 4,4'-(1-methylethylidene) bis [phenol] and oxirane",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "1959631-07-2": {
+  "name": "2-(2'-Bromo[1,1'-biphenyl]-3-yl)-4,6-diphenyl-1,3,5-triazine",
+  "rows": []
+ },
+ "204865-43-0": {
+  "name": "Butanoic acid, 4-(trimethoxysilyl)-, 1,1-dimethylethyl ester",
+  "rows": []
+ },
+ "2377798-35-9": {
+  "name": "2-[1,1'-Biphenyl]-3-yl-4-(2-bromophenyl)-6-phenyl-1,3,5-triazine",
+  "rows": []
+ },
+ "2410292-24-7": {
+  "name": "Siloxanes and Silicones, di-Me, Bu group- and 2-(triethoxysilyl)ethyl group-terminated",
+  "rows": []
+ },
+ "26247-06-3": {
+  "name": "Poly[imino-1,4-butanediylimino(1,10-dioxo-1,10-decanediyl)]",
+  "rows": []
+ },
+ "2665-13-6": {
+  "name": "2,2'-[(1-Methyl-1,3-propanediyl)bis(oxy)]bis[4-methyl-1,3,2-dioxaborinane]",
+  "rows": [
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "생식독성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "2829271-24-9": {
+  "name": "4,4,5,5-Tetramethyl-2-(5,9,9-triphenyl-9H-fluoren-2-yl)-1,3,2-dioxaborolane",
+  "rows": []
+ },
+ "28473-19-0": {
+  "name": "Decanedioic acid, 1,10-diisodecyl ester",
+  "rows": []
+ },
+ "2909-84-4": {
+  "name": "2,4-Di-tert-butylaniline",
+  "rows": []
+ },
+ "2921699-46-7": {
+  "name": "2-(2-Fluorophenyl)-4-phenyl-6-(9-phenyl-3-dibenzofuranyl)-1,3,5-triazine",
+  "rows": []
+ },
+ "2978784-04-0": {
+  "name": "Benzo[b]phenanthro[3,2-d]furan, 2-chloro-",
+  "rows": []
+ },
+ "3029330-11-5": {
+  "name": "Perfluoro-2-methyl-3,6,8-trioxanonanoic acid Ammonium Salt",
+  "rows": []
+ },
+ "3034528-06-5": {
+  "name": "Aspartic acid, N,N'-(1,4-cyclohexanediamine)bistetraethyl ester",
+  "rows": []
+ },
+ "3049563-50-7": {
+  "name": "1,3,2-Dioxaborolane, 2-[3-(4,9-diphenyl-9H-fluoren-9-yl)phenyl]-4,4,5,5-tetramethyl-",
+  "rows": []
+ },
+ "3077900-21-8": {
+  "name": "2-([1,2'-binaphthalen]-6'-yl)-4-phenyl-6-(7-phenylnaphthalen-1-yl)-1,3,5-triazine",
+  "rows": []
+ },
+ "3078315-51-9": {
+  "name": "4-[3,5-bis(1,1-dimethylethyl) phenyl]-2-chloro-9,9-dimethyl-9H-Fluorene",
+  "rows": []
+ },
+ "3091803-31-2": {
+  "name": "2-Propenoic acid, 2-methyl-, methyl ester, polymer with 2-ethylhexyl 2-propenoate, α-(2-methyl-1-oxo-2-propen-1-yl)-ω-methoxypoly(oxy-1,2-ethanediyl), α-(2-methyl-1-oxo-2-propen-1-yl)-ω-[(2-methyl-1-oxo-2-propen-1-yl)oxy]poly(oxy-1,2-ethanediyl), and 3-[3,3,3-trimethyl-1,1-bis[(trimethylsilyl)oxy]-1-disiloxanyl]propyl 2-propenoate, tert-Bu 2-ethylhexaneperoxoate-initiated",
+  "rows": []
+ },
+ "31119-77-4": {
+  "name": "Copper, [μ-[2-(hydroxy-κO)-1,2,3-propanetricarboxylato(4-)-κO1:κO2,κO3]]di-",
+  "rows": []
+ },
+ "31898-68-7": {
+  "name": "Oxirane, 2,2-bis(trifluoromethyl)-",
+  "rows": [
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경피",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "325991-26-2": {
+  "name": "2-Propenoic acid, 2-methyl-, 1-methyl-1-tricyclo[3.3.1.1 3,7]dec-1-ylpropyl ester",
+  "rows": []
+ },
+ "34540-22-2": {
+  "name": "Madecassoside",
+  "rows": [
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   }
+  ]
+ },
+ "4835-96-5": {
+  "name": "2-Propenoic acid, (1R,2S,5R)-5-methyl-2-(1-methylethyl)cyclohexyl ester",
+  "rows": []
+ },
+ "55940-05-1": {
+  "name": "Cobaltocene, 1,1′-diethyl-",
+  "rows": [
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경피",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "호흡기_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "생식세포_변이원성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "발암성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "58421-55-9": {
+  "name": "Phenol, methylenebis-, polymer with 2-(chloromethyl)oxirane",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "생식세포_변이원성",
+    "grade": "구분 1B",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "생식독성",
+    "grade": "구분 2",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "5905-52-2": {
+  "name": "Iron, bis[2-(hydroxy-κO)propanoato-κO]-, (T-4)-",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "63302-43-2": {
+  "name": "1,4-Benzenediamine, N-(1,4-dimethylpentyl)-",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "68611-34-7": {
+  "name": "Poly[oxy(methyl-1,2-ethanediyl)], α,α',α''-1,2,3-propanetriyltris[ω-hydroxy-, polymer with 1,3-diisocyanatomethylbenzene and α-hydro-ω-hydroxypoly[oxy(methyl-1,2-ethanediyl)], isocyanate-terminated",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 2",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2A",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "호흡기_과민성",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   }
+  ]
+ },
+ "70103-35-4": {
+  "name": "Sebacic Acid, Compound With 2,2',2''-Nitrilotriethanol",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "75-54-7": {
+  "name": "Silane, dichloromethyl-",
+  "rows": [
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 2",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 2",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "소방청 국가위험물 통합정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 2",
+    "db": "소방청 국가위험물 통합정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "물반응성_물질",
+    "grade": "구분1",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "물반응성_물질",
+    "grade": "구분1",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "물반응성_물질",
+    "grade": "구분1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "물반응성_물질",
+    "grade": "구분1",
+    "db": "소방청 국가위험물 통합정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "물반응성_물질",
+    "grade": "구분3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "물반응성_물질",
+    "grade": "구분2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "물반응성_물질",
+    "grade": "구분3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "소방청 국가위험물 통합정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 1",
+    "db": "소방청 국가위험물 통합정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 2",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "소방청 국가위험물 통합정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "소방청 국가위험물 통합정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1",
+    "db": "기후부 (화학물질안전원 고시)",
+    "source_url": "https://kreach.mcee.go.kr/repwrt/index.do"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1",
+    "db": "소방청 국가위험물 통합정보시스템",
+    "source_url": "https://hazmat.nfa.go.kr/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1A",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1A",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1A",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "일본 NITE",
+    "source_url": "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+   }
+  ]
+ },
+ "84656-23-5": {
+  "name": "Benzene, 1-methyl-4-[4-(4-propylcyclohexyl)-1-cyclohexen-1-yl]-, trans-",
+  "rows": []
+ },
+ "85085-75-2": {
+  "name": "Thyme, Thymus zygis, ext.",
+  "rows": [
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1C",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "흡인_유해성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "흡인_유해성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "흡인_유해성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "85702-90-5": {
+  "name": "2,9,11,13-Tetraazanonadecanethioic acid, 19-isocyanato-11-(6-isocyanatohexyl)-10,12-dioxo-, S-[3-(trimethoxysilyl)propyl] ester",
+  "rows": [
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 2",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "인화성_액체",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "물리적 위험성",
+    "item": "인화성_물질",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "호흡기_과민성",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "호흡기_과민성",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "호흡기_과민성",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "호흡기_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "호주 HCIS",
+    "source_url": "https://hcis.safeworkaustralia.gov.au/HazardousChemical"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Harmonised classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 4",
+    "db": "고용노동부 화학물질정보시스템",
+    "source_url": "https://msds.kosha.or.kr/MSDSInfo/"
+   }
+  ]
+ },
+ "874388-30-4": {
+  "name": "Siloxanes and Silicones, di-Me, Me 3-(2,2,3,3,3-pentafluoropropoxy)propyl, Me 3-(trimethoxysilyl)propyl",
+  "rows": []
+ },
+ "90-01-7": {
+  "name": "2-Hydroxybenzyl alcohol",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2A",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "90244-89-6": {
+  "name": "Cistus ladaniferus, ext., sapond.",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "흡인_유해성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "흡인_유해성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "90278-32-3": {
+  "name": "Benzene, 1-[4-(4-propylcyclohexyl)-1-cyclohexen-1-yl]-4-(trifluoromethyl)-, trans-",
+  "rows": []
+ },
+ "90506-69-7": {
+  "name": "Phosphoric acid, mono- and bis(2-ethylhexyl) esters",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 1C",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ },
+ "919004-95-8": {
+  "name": "Acetic acid, 2-[[difluoro(trifluoromethoxy)methoxy]difluoro methoxy]-2,2-difluoro-, ammonium salt (1: 1)",
+  "rows": []
+ },
+ "935279-75-7": {
+  "name": "1-Propanesulfonic acid, 1,1,3,3,3-pentafluoro-2-hydroxy-, sodium salt (1:1)",
+  "rows": []
+ },
+ "1620783-76-7": {
+  "name": "Benzenemethanaminium, N,N-dimethyl-N-[2-[(2-methyl-1-oxo-2-propen-1-yl) oxy]ethyl]-, chloride (1:1), polymer with butyl 2-methyl-2-propenoate, 2-(dimethylamino)ethyl 2-methyl-2-propenoate, 2-ethylhexyl 2-methyl-2-propenoate, methyl 2-methyl-2-propenoate, 2-[(2-methyl-1-oxo-2-propen-1-yl)oxy]ethyl 2-oxepanone homopolymer, 2-methyl-2-propenoic acid and phenylmethyl 2-methyl-2-propenoate",
+  "rows": []
+ },
+ "174254-16-1": {
+  "name": "Siloxanes and Silicones, di-Me, hydrogen-terminated, reaction products with 2,2,4,4,6,6,8,8,10,10-decamethylcyclopentasiloxane and trimethylolpropane triacrylate",
+  "rows": []
+ },
+ "1911605-95-2": {
+  "name": "1H-Pyrrole-2,5-dione, 1,1'-C36-alkylenebis-",
+  "rows": []
+ },
+ "2852672-93-4": {
+  "name": "1,3,2-Dioxaborolane, 4,4,5,5-tetramethyl-2-[6-(phenyl-2,3,4,5,6-d5)-2-naphthalenyl]-",
+  "rows": []
+ },
+ "2922453-81-2": {
+  "name": "N-(4-(bicyclo[2.2.1]heptan-2-yl)phenyl)-9,9-dimethyl-9H-fluoren-2-amine",
+  "rows": []
+ },
+ "68845-16-9": {
+  "name": "1,2-Ethanediamine, N1,N2-bis[3-(trimethoxysilyl)propyl]-",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_흡입",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1A",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "호흡기_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1B",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_반복노출",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 2",
+    "db": "AICIS",
+    "source_url": "https://services.industrialchemicals.gov.au/search-assessments/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_반복노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "급성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   },
+   {
+    "category": "환경유해성",
+    "item": "수생환경유해성",
+    "grade": "만성 1",
+    "db": "덴마크 CLP 데이터베이스",
+    "source_url": "https://clp-vejlliste.mst.dk/default.aspx"
+   }
+  ]
+ },
+ "693252-50-5": {
+  "name": "3-Cyclohexene-1-carboxaldehyde, 1-methyl-3-(4-methylpentyl)-",
+  "rows": []
+ },
+ "89382-86-5": {
+  "name": "Hectorite Clay, Smectite Clay",
+  "rows": []
+ },
+ "921213-39-0": {
+  "name": "1,3-Benzenedicarboxylic acid, polymer with tricyclodecanedimethanol, mixed bis(acrylates and methacrylates)",
+  "rows": [
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경구",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경피",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "급성독성_경피",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "급성독성",
+    "grade": "구분 4",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "피부_부식성_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "심한_눈_손상_눈_자극성",
+    "grade": "구분 2",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "피부_과민성",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "호흡기_또는_피부_과민성",
+    "grade": "구분 1",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "특정표적장기독성_1회노출",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   },
+   {
+    "category": "건강유해성",
+    "item": "특정표적장기_독성",
+    "grade": "구분 3",
+    "db": "EU CLP(Notified classification and labelling)",
+    "source_url": "https://chem.echa.europa.eu/"
+   }
+  ]
+ }
+}
