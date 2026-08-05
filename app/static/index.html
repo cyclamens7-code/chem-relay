@@ -177,7 +177,15 @@ const DB={
   echa_ec:{name:"EU EC Inventory/EINECS",url:"https://echa.europa.eu/information-on-chemicals/ec-inventory"},
   dsl:{name:"캐나다 DSL",url:"https://pollution-waste.canada.ca/substances-search/Substance?lang=en"},
   aiic:{name:"호주 AIIC 인벤토리",url:"https://www.industrialchemicals.gov.au/search-inventory"},
-  nzioc:{name:"뉴질랜드 NZIoC",url:"https://www.epa.govt.nz/database-search/new-zealand-inventory-of-chemicals-nzioc/"}
+  nzioc:{name:"뉴질랜드 NZIoC",url:"https://www.epa.govt.nz/database-search/new-zealand-inventory-of-chemicals-nzioc/"},
+  // '(참고) 분류표시' 시트 1행 DB 중 기존 목록에 없던 것들
+  echa_biocidal:{name:"ECHA Biocidal Assessment Report",url:"https://echa.europa.eu/information-on-chemicals/biocidal-active-substances"},
+  epa_red:{name:"US EPA RED(농약 재등록결정)",url:"https://iaspub.epa.gov/apex/pesticides/f?p=chemicalsearch:1"},
+  nite_imcg:{name:"일본 NITE IMCG",url:"https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"},
+  efsa:{name:"EFSA(OpenFoodTox)",url:"https://www.efsa.europa.eu/en/microstrategy/openfoodtox"},
+  echa_clp_notified:{name:"EU CLP(Notified classification and labelling)",url:"https://chem.echa.europa.eu/"},
+  denmark_clp:{name:"덴마크 CLP 데이터베이스",url:"https://clp-vejlliste.mst.dk/default.aspx"},
+  nifds_carc:{name:"식약처 발암성정보(독성정보시스템)",url:"https://www.nifds.go.kr/toxinfo/carcinogenicity/info/list.do"}
 };
 const GROUPS={
   regulation:["kreach","kosha","echa_clh","iarc","ntp","epa_iris","aicis","hcis","ccid","nfa"],
@@ -186,7 +194,11 @@ const GROUPS={
   phys:["kreach","kosha","echa","comptox","nite","oecd","echemportal","scholar"],
   human:["kreach","kosha","echa","echa_rar","iarc","ntp","epa_iris","atsdr","oecd","nite","jcheck","nifds","comptox","echemportal","scholar"],
   env:["kreach","echa","echa_rar","ecotox","oecd","nite","jcheck","comptox","echemportal","scholar"],
-  inventory:["comptox","echa_ec","nite","dsl","aiic","nzioc"]
+  inventory:["comptox","echa_ec","nite","dsl","aiic","nzioc"],
+  // '(참고) 분류표시' 시트 1행 DB 순서 그대로(기후부→...→EU CLP(Notified))
+  classificationRefDbs:["kreach","echa_rar","echa_biocidal","iarc","ntp","epa_red","nite","nite_imcg",
+    "atsdr","aicis","oecd","epa_iris","efsa","echa_clh","kosha","nfa","hcis","ccid","denmark_clp",
+    "nifds_carc","echa_clp_notified"]
 };
 const TESTITEMS={
   "물리화학적 특성":{code:"E0301",group:"phys",items:["물질의 상태","물용해도","녹는점/어는점","끓는점","증기압","Log Kow","밀도","입도분석","인화성","폭발성","산화성","점도","해리상수"]},
@@ -230,6 +242,19 @@ function renderInventory(notice){
     <div class="src" style="margin:12px 0 4px">CHEMLIST·Locator(등재목록 일괄) — STN 계정 필요:</div>
     ${stnButtons()}
   </div>`;
+}
+// 기존/신규화학물질 3단계 판정: 완전일치(기존) / 이성질체·수화물·무수물·반응생성물 유사명칭 매칭(검토 필요) / 그외(신규 추정)
+function existingStatus(d){
+  const nx=(d.notice&&d.notice.existing)||{};
+  const iso=(d.q_is_cas&&d.isomer_check)||{};
+  if(!d.q_is_cas) return {label:"CAS No. 확인 필요(물질명 검색)", detail:"", kind:"query"};
+  if(nx.is_existing) return {label:"기존화학물질", detail:`KE-No. ${nx.keno||"—"} (${nx.table||""})`, kind:"existing"};
+  if(iso.matched && (iso.candidates||[]).length){
+    return {label:"기존화학물질 등재 추가 검토 필요",
+      detail: iso.candidates.map(c=>`${c.name||''} — KE-No. ${c.keno||'—'}${c.table?` (${c.table})`:''}, CAS ${c.cas}`).join(" · "),
+      kind:"review"};
+  }
+  return {label:"신규화학물질로 추정됨", detail:"", kind:"new"};
 }
 function renderKreachUses(kreach){
   const uses=(kreach&&kreach.uses)||[];
@@ -323,6 +348,8 @@ function parseKGhs(text){
     const t=line.trim();
     if(!t.startsWith("-")) return;
     if(t.includes("안전관리")||t.includes("준수")) return;
+    // "- 적용 불가", "- 없음" 등은 분류 항목이 아니라 서술형 답변이므로 표에서 제외
+    if(/^-\s*(적용\s*불가|없음|해당\s*없음)\s*$/.test(t)) return;
     // 예: "- 급성독성-경구(3.1) 구분 3"  /  "- 수생환경 유해성(4.1) 만성 구분 2"
     const m=t.match(/^-\s*(.+?)\s*\(([\d.]+)\)\s*(.*)$/);
     if(m){ out.push({item:m[1].trim(), code:m[2], grade:(m[3]||"").trim()}); }
@@ -411,7 +438,8 @@ function renderNone(d){
   s3+=`<div class="gt">2) 기타 국외 유해성 분류 및 표시<span class="badge">DB별 대조</span></div>`;
   s3+= classRef.length
     ? `<table class="tbl"><thead><tr><th>유해성 분류 (항목)</th><th style="width:130px">구분</th><th style="width:90px">H-code</th><th>출처</th></tr></thead><tbody>${classRef.map(x=>{const h=hcodeFor(x.item,x.grade);return `<tr><td>${x.item}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${h?`<span class="hcode">${h}</span>`:"—"}</td><td>${x.source_url?`<a class="dbname" href="${x.source_url}" target="_blank" rel="noopener">${x.db}</a>`:`<span class="src">${x.db}</span>`}</td></tr>`;}).join("")}</tbody></table>`
-    : `<div class="errbox">대조된 국외 DB 유해성 분류가 없습니다.</div>`;
+    : `<div class="errbox">이 물질은 제출 자료('참고 분류표시' 시트)에서 자동 대조된 국외 DB 분류가 없습니다. 아래 DB에서 직접 확인하세요.</div>`;
+  s3+= `<p class="si" style="margin:14px 0 8px">'(참고) 분류표시' 시트 1행 기준 국외 유해성 분류 DB(EU CLP·덴마크 CLP 포함) — 직접 검색용:</p>${dbLinks(GROUPS.classificationRefDbs)}`;
   if(kreachHaz.length){
     s3+=`<div class="src" style="margin:16px 0 6px"><b>화학물질정보처리시스템 신고ㆍ등록 정보</b></div>
       <table class="tbl"><thead><tr><th style="width:70px">구분</th><th>유해성 분류(항목)</th><th style="width:110px">등급</th><th>유해ㆍ위험문구</th></tr></thead><tbody>
@@ -452,14 +480,9 @@ function renderData(d){
   const nx=(d.notice&&d.notice.existing)||{};
   const nr=(d.notice&&d.notice.review)||{};
   const des=(d.notice&&d.notice.designated)||[];
-  if(!d.q_is_cas){
-    kv.push(["기존/신규화학물질","CAS No. 확인 필요(물질명 검색)",1]);
-  }else if(nx.is_existing){
-    kv.push(["기존/신규화학물질","기존화학물질",1]);
-    kv.push(["KE-No.",(nx.keno||"—")+" ("+(nx.table||"")+")",1]);
-  }else{
-    kv.push(["기존/신규화학물질","신규화학물질로 추정",1]);
-  }
+  const est=existingStatus(d);
+  kv.push(["기존/신규화학물질",est.label,1]);
+  if(est.kind==="existing")kv.push(["KE-No.",(nx.keno||"—")+" ("+(nx.table||"")+")",1]);
   kv.push(["화학식",id.formula||"—",1]);
   if(id.mw)kv.push(["분자량",id.mw+" g/mol",0]);
   if(id.iupac)kv.push(["IUPAC명",id.iupac,0]);
@@ -540,10 +563,11 @@ function renderData(d){
     ghsHtml += `<table class="tbl"><thead><tr><th>유해성 분류 (항목)</th><th style="width:130px">구분</th><th style="width:90px">H-code</th><th>출처</th></tr></thead><tbody>
       ${classRef.map(x=>{const h=hcodeFor(x.item,x.grade);return `<tr><td>${x.item}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${h?`<span class="hcode">${h}</span>`:"—"}</td><td>${x.source_url?`<a class="dbname" href="${x.source_url}" target="_blank" rel="noopener">${x.db}</a>`:`<span class="src">${x.db}</span>`}</td></tr>`;}).join("")}
       </tbody></table>
-      <div class="src" style="margin-top:5px">출처: 물질별 제출 자료('참고 분류표시' 시트) — 각 DB 링크에서 원문 확인</div>`;
+      <div class="src" style="margin-top:5px">출처: 물질별 제출 자료('참고 분류표시' 시트) — 자동 대조된 값입니다. 시트에 미기재된 DB는 자동 반영되지 않으니 아래 DB에서 직접 교차 확인하세요.</div>`;
   } else {
-    ghsHtml += `<div class="errbox">대조된 국외 DB 유해성 분류가 없습니다.</div>`;
+    ghsHtml += `<div class="errbox">이 물질은 제출 자료('참고 분류표시' 시트)에서 자동 대조된 국외 DB 분류가 없습니다. 신규 조회 물질이거나 시트가 비어있는 경우입니다 — 아래 DB에서 직접 확인하세요.</div>`;
   }
+  ghsHtml += `<p class="si" style="margin:14px 0 8px">'(참고) 분류표시' 시트 1행 기준 국외 유해성 분류 DB(EU CLP·덴마크 CLP 포함) — 자동 대조 여부와 무관하게 직접 검색용으로 항상 제공됩니다.</p>${dbLinks(GROUPS.classificationRefDbs)}`;
   if(kreachHaz.length){
     ghsHtml += `<div class="src" style="margin:16px 0 6px"><b>화학물질정보처리시스템 신고ㆍ등록 정보</b></div>
       <table class="tbl"><thead><tr><th style="width:70px">구분</th><th>유해성 분류(항목)</th><th style="width:110px">등급</th><th>유해ㆍ위험문구</th></tr></thead><tbody>
