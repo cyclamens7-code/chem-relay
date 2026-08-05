@@ -7,12 +7,13 @@ services:
     volumes:
       - ./cache:/data/cache
     environment:
-      # ── Claude(선택) : 국내 규제·우려 "자세히 생성" 기능용 ──
-      # 아래에 본인 Anthropic API 키를 넣으세요. 비워두면 "자세히 생성"만 비활성,
+      # ── Gemini(선택) : 국내 규제·우려 "자세히 생성" 기능용 ──
+      # https://aistudio.google.com 에서 무료 API 키 발급. 비워두면 "자세히 생성"만 비활성,
       # 나머지(기본정보·구조식·GHS·요약)는 그대로 무료로 동작합니다.
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
-      - ANTHROPIC_MODEL=claude-sonnet-5
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_MODEL=gemini-flash-latest
       # ── CAS Common Chemistry(선택) : 참고자료 1순위 출처 ──
       # https://www.cas.org/services/commonchemistry-api 에서 발급. 비워두면 2순위(PubChem)만 사용.
       - CAS_CC_API_KEY=${CAS_CC_API_KEY:-}
+      - CACHE_DIR=/data/cache
     restart: unless-stopped

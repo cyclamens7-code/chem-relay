@@ -4,9 +4,11 @@ services:
     runtime: docker
     plan: free
     envVars:
-      - key: ANTHROPIC_API_KEY
+      - key: GEMINI_API_KEY
         sync: false          # 대시보드에서 직접 입력(안전). 코드에 노출 안 됨
-      - key: ANTHROPIC_MODEL
-        value: claude-sonnet-5
+      - key: GEMINI_MODEL
+        value: gemini-flash-latest
+      - key: CAS_CC_API_KEY
+        sync: false          # 대시보드에서 직접 입력. 비워두면 자동으로 2)PubChem만 사용
       - key: CACHE_DIR
         value: /tmp/cache
