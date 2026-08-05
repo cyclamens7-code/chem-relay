@@ -1,0 +1,1512 @@
+{
+ "50-00-0": {
+  "name": "Formaldehyde",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "50-18-0": {
+  "name": "Cyclophosphamide",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "50-28-2": {
+  "name": "Estradiol-17B (see Estrogens, Steroidal)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "50-29-3": {
+  "name": "Dichlorodiphenyltrichloroethane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "50-32-8": {
+  "name": "Benzo[a]pyrene (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "50-55-5": {
+  "name": "Reserpine",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "51-52-5": {
+  "name": "Propylthiouracil",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "51-79-6": {
+  "name": "Urethane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "52-24-4": {
+  "name": "Thiotepa",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "53-16-7": {
+  "name": "Estrone (see Estrogens, Steroidal)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "53-70-3": {
+  "name": "Dibenz[a,h]anthracene (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "53-96-3": {
+  "name": "2-Acetylaminofluorene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "55-18-5": {
+  "name": "N-Nitrosodiethylamine (see N-Nitrosamines: 15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "55-86-7": {
+  "name": "Nitrogen Mustard Hydrochloride",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "55-98-1": {
+  "name": "1,4-Butanediol Dimethanesulfonate",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "56-23-5": {
+  "name": "Carbon Tetrachloride",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "56-53-1": {
+  "name": "Diethylstilbestrol",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "56-55-3": {
+  "name": "Benz[a]anthracene (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "56-75-7": {
+  "name": "Chloramphenicol",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "57-14-7": {
+  "name": "1,1-Dimethylhydrazine",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "57-41-0": {
+  "name": "Phenytoin (see Phenytoin and Phenytoin Sodium)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "57-57-8": {
+  "name": "b-Propiolactone",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "57-63-6": {
+  "name": "Ethinylestradiol (see Estrogens, Steroidal)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "57-83-0": {
+  "name": "Progesterone",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "58-89-9": {
+  "name": "Lindane (see Lindane, Hexachlorocyclohexane [Technical Grade], and Other Hexachlorocyclohexane Isomers)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "59-89-2": {
+  "name": "N-Nitrosomorpholine (see N-Nitrosamines: 15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "60-11-7": {
+  "name": "4-Dimethylaminoazobenzene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "61-82-5": {
+  "name": "Amitrole",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "62-44-2": {
+  "name": "Phenacetin (see Phenacetin and Analgesic Mixtures Containing Phenacetin)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "62-50-0": {
+  "name": "Ethylmethanesulfonate",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "62-55-5": {
+  "name": "Thioacetamide",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "62-56-6": {
+  "name": "Thiourea",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "62-75-9": {
+  "name": "N-Nitrosodimethylamine (see N-Nitrosamines: 15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "63-92-3": {
+  "name": "Phenoxybenzamine Hydrochloride",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "64-67-5": {
+  "name": "Diethyl Sulfate",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "66-27-3": {
+  "name": "Methyl Methanesulfonate",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "67-66-3": {
+  "name": "Chloroform",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "67-72-1": {
+  "name": "Hexachloroethane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "68-22-4": {
+  "name": "Norethisterone",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "70-25-7": {
+  "name": "N-Methyl-N'-nitro-N-nitrosoguanidine (see N-Nitrosamines: 15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "71-43-2": {
+  "name": "Benzene",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "71-48-7": {
+  "name": "Cobalt Acetate (see Cobalt-Related Exposures)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "72-33-3": {
+  "name": "Mestranol (see Estrogens, Steroidal)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "75-01-4": {
+  "name": "Vinyl Chloride (see Vinyl Halides [Selected])",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "75-02-5": {
+  "name": "Vinyl Fluoride (see Vinyl Halides [Selected])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "75-07-0": {
+  "name": "Acetaldehyde",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "75-09-2": {
+  "name": "Dichloromethane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "75-21-8": {
+  "name": "Ethylene Oxide",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "75-27-4": {
+  "name": "Bromodichloromethane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "75-52-5": {
+  "name": "Nitromethane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "75-55-8": {
+  "name": "2-Methylaziridine",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "75-56-9": {
+  "name": "Propylene Oxide",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "75-96-7": {
+  "name": "Tribromoacetic Acid (see Selected Haloacetic Acids Found as Water Disinfection By-Products)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "77-09-8": {
+  "name": "Phenolphthalein",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "77-78-1": {
+  "name": "Dimethyl Sulfate",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "78-00-2": {
+  "name": "Tetraethyl Lead (see Lead and Lead Compounds)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "78-79-5": {
+  "name": "Isoprene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "79-01-6": {
+  "name": "Trichloroethylene",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "79-06-1": {
+  "name": "Acrylamide",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "79-43-6": {
+  "name": "Dichloroacetic Acid (see Selected Haloacetic Acids Found as Water Disinfection By-Products)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "79-44-7": {
+  "name": "Dimethylcarbamoyl Chloride",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "79-46-9": {
+  "name": "2-Nitropropane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "81-49-2": {
+  "name": "1-Amino-2,4-dibromoanthraquinone",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "82-28-0": {
+  "name": "1-Amino-2-methylanthraquinone",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "87-86-5": {
+  "name": "Pentachlorophenol (see Pentachlorophenol and By-products of Its Synthesis)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "88-06-2": {
+  "name": "2,4,6-Trichlorophenol",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "88-72-2": {
+  "name": "o-Nitrotoluene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "90-04-0": {
+  "name": "o-Anisidine (see o-Anisidine and Its Hydrochloride)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "90-94-8": {
+  "name": "Michler's Ketone",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "91-08-7": {
+  "name": "2,6-Toluene Diisocyanate (see Toluene Diisocyanates)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "91-20-3": {
+  "name": "Naphthalene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "91-23-6": {
+  "name": "o-Nitroanisole",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "91-59-8": {
+  "name": "2-Naphthylamine",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "91-94-1": {
+  "name": "3,3'-Dichlorobenzidine (see 3,3'-Dichlorobenzidine and Its Dihydrochloride)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "92-67-1": {
+  "name": "4-Aminobiphenyl",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "92-87-5": {
+  "name": "Benzidine (see Benzidine and Dyes Metabolized to Benzidine)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "93-15-2": {
+  "name": "Methyleugenol",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "94-59-7": {
+  "name": "Safrole",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "95-06-7": {
+  "name": "Sulfallate",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "95-53-4": {
+  "name": "o-Toluidine  (see o-Toluidine and Its Hydrochloride)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "95-69-2": {
+  "name": "p-Chloro-o-toluidine  (see p-Chloro-o-toluidine and Its Hydrochloride)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "95-80-7": {
+  "name": "2,4-Diaminotoluene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "95-83-0": {
+  "name": "4-Chloro-o-phenylenediamine",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "96-09-3": {
+  "name": "Styrene-7,8-oxide",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "96-12-8": {
+  "name": "1,2-Dibromo-3-chloropropane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "96-13-9": {
+  "name": "2,3-Dibromo-1-propanol",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "96-18-4": {
+  "name": "1,2,3-Trichloropropane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "96-45-7": {
+  "name": "Ethylene Thiourea",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "97-56-3": {
+  "name": "o-Aminoazotoluene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "98-07-7": {
+  "name": "Benzotrichloride",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "98-82-8": {
+  "name": "Cumene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "98-95-3": {
+  "name": "Nitrobenzene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "100-42-5": {
+  "name": "Styrene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "100-75-4": {
+  "name": "N-Nitrosopiperidine (see N-Nitrosamines: 15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "101-14-4": {
+  "name": "4,4ʹ-Methylenebis(2-chloraniline)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "101-61-1": {
+  "name": "4,4ʹ-Methylenebis(N,N-dimethyl)benzenamine",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "101-77-9": {
+  "name": "4,4ʹ-Methylenedianiline (see 4,4'-Methylenedianiline and Its Dihydrochloride)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "101-80-4": {
+  "name": "4,4ʹ-Oxydianiline",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "101-90-6": {
+  "name": "Diglycidyl Resorcinol Ether",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "106-46-7": {
+  "name": "1,4-Dichlorobenzene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "106-87-6": {
+  "name": "4-Vinyl-1-cyclohexene Diepoxide",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "106-89-8": {
+  "name": "Epichlorohydrin",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "106-93-4": {
+  "name": "1,2-Dibromoethane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "106-94-5": {
+  "name": "1-Bromopropane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "106-99-0": {
+  "name": "1,3-Butadiene",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "107-06-2": {
+  "name": "1,2-Dichloroethane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "107-13-1": {
+  "name": "Acrylonitrile",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "107-30-2": {
+  "name": "Chloromethyl Methyl Ether (see Bis(chloromethyl) Ether and Technical-Grade Chloromethyl Methyl Ether)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "110-00-9": {
+  "name": "Furan",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "115-28-6": {
+  "name": "Chlorendic Acid",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "116-14-3": {
+  "name": "Tetrafluoroethylene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "117-10-2": {
+  "name": "Danthron",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "117-79-3": {
+  "name": "2-Aminoanthraquinone",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "117-81-7": {
+  "name": "Di(2-ethylhexyl) Phthalate",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "118-74-1": {
+  "name": "Hexachlorobenzene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "119-90-4": {
+  "name": "3,3ʹ-Dimethoxybenzidine (see 3,3ʹ-Dimethoxybenzidine and Dyes Metabolized to 3,3'-Dimethoxybenzidine)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "119-93-7": {
+  "name": "3,3ʹ-Dimethylbenzidine (see 3,3ʹ-Dimethylbenzidine and Dyes Metabolized to 3,3ʹ-Dimethylbenzidine)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "120-71-8": {
+  "name": "p-Cresidine",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "122-66-7": {
+  "name": "Hydrazobenzene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "123-91-1": {
+  "name": "1,4-Dioxane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "126-72-7": {
+  "name": "Tris(2,3-dibromopropyl) Phosphate",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "126-99-8": {
+  "name": "Chloroprene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "127-18-4": {
+  "name": "Tetrachloroethylene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "131-52-2": {
+  "name": "Pentachlorophenol, Sodium Salt (see Pentachlorophenol and By-products of Its Synthesis)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "134-29-2": {
+  "name": "o-Anisidine Hydrochloride (see o-Anisidine and Its Hydrochloride)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "135-20-6": {
+  "name": "Cupferron",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "136-35-6": {
+  "name": "Diazoaminobenzene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "136-40-3": {
+  "name": "Phenazopyridine Hydrochloride",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "139-13-9": {
+  "name": "Nitrilotriacetic Acid",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "139-65-1": {
+  "name": "4,4'-Thiodianiline",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "143-50-0": {
+  "name": "Kepone",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "148-82-3": {
+  "name": "Melphalan",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "154-93-8": {
+  "name": "Bis(chloroethyl) Nitrosourea (see Nitrosourea Chemotherapeutic Agents)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "189-55-9": {
+  "name": "Dibenzo[a,i]pyrene (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "189-64-0": {
+  "name": "Dibenzo[a,h]pyrene (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "191-30-0": {
+  "name": "Dibenzo[a,l]pyrene (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "192-65-4": {
+  "name": "Dibenzo[a,e]pyrene (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "193-39-5": {
+  "name": "Indeno[1,2,3-cd]pyrene (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "194-59-2": {
+  "name": "7H-Dibenzo[c,g]carbazole (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "205-82-3": {
+  "name": "Benzo[j]fluoranthene (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "205-99-2": {
+  "name": "Benzo[b]fluoranthene (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "207-08-9": {
+  "name": "Benzo[k]fluoranthene (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "224-42-0": {
+  "name": "Dibenz[a,j]acridine (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "226-36-8": {
+  "name": "Dibenz[a,h]acridine (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "298-81-7": {
+  "name": "Methoxsalen (see Methoxsalen with Ultraviolet A Therapy)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "302-01-2": {
+  "name": "Hydrazine (see Hydrazine and Hydrazine Sulfate)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "303-47-9": {
+  "name": "Ochratoxin A",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "305-03-3": {
+  "name": "Chlorambucil",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "313-67-7": {
+  "name": "Aristolochic Acid I (see Aristolochic Acids)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "319-84-6": {
+  "name": "a-Hexachlorocyclohexane (see Lindane, Hexachlorocyclohexane Technical Grade), and Other Hexachlorocyclohexane Isomers)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "319-85-7": {
+  "name": "β-Hexachlorocyclohexane (see Lindane, Hexachlorocyclohexane Technical Grade), and Other Hexachlorocyclohexane Isomers)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "320-67-2": {
+  "name": "Azacitidine",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "366-70-1": {
+  "name": "Procarbazine Hydrochloride (see Procarbazine and Its Hydrochloride)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "373-02-4": {
+  "name": "Nickel Acetate (see Nickel and Nickel Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "434-07-1": {
+  "name": "Oxymetholone",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "443-48-1": {
+  "name": "Metronidazole",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "446-86-6": {
+  "name": "Azathioprine",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "475-80-9": {
+  "name": "Aristolochic Acid II (see Aristolochic Acids)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "505-60-2": {
+  "name": "Mustard Gas",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "509-14-8": {
+  "name": "Tetranitromethane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "513-37-1": {
+  "name": "Dimethylvinyl Chloride",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "542-75-6": {
+  "name": "1,3-Dichloropropene (see 1,3-Dichloropropene [Technical Grade])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "542-88-1": {
+  "name": "Bis(chloromethyl) Ether (see Bis(chloromethyl) Ether and Technical-Grade Chloromethyl Methyl Ether)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "556-52-5": {
+  "name": "Glycidol",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "563-47-3": {
+  "name": "3-Chloro-2-methylpropene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "569-61-9": {
+  "name": "Basic Red 9 Monohydrochloride",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "584-84-9": {
+  "name": "2,4-Toluene Diisocyanate (see Toluene Diisocyanates)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "593-60-2": {
+  "name": "Vinyl Bromide (see Vinyl Halides [Selected])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "612-82-8": {
+  "name": "3,3'-Dimethylbenzidine Dihydrochloride (see 3,3'-Dimethybenzidine and Dyes Metabolized to 3,3'-Dimethylbenzidine)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "612-83-9": {
+  "name": "3,3'-Dichlorobenzidine Dihydrochloride (see 3,3'-Dichlorobenzidine and Its Dihydrochloride)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "621-64-7": {
+  "name": "N-Nitrosodi-n-propylamine (see N-Nitrosamines: 15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "630-93-3": {
+  "name": "Phenytoin Sodium (see Phenytoin and Phenytoin Sodium)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "631-64-1": {
+  "name": "Dibromoacetic Acid (see Selected Haloacetic Acids Found as Water Disinfection By-Products)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "671-16-9": {
+  "name": "Procarbazine (see Procarbazine and Its Hydrochloride)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "680-31-9": {
+  "name": "Hexamethylphosphoramide",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "684-93-5": {
+  "name": "N-Nitroso-N-methylurea (see N-Nitrosamines:15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "759-73-9": {
+  "name": "N-Nitroso-N-ethylurea (see N-Nitrosamines:15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "924-16-3": {
+  "name": "N-Nitrosodi-n-butylamine (see N-Nitrosamines:15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "930-55-2": {
+  "name": "N-Nitrosopyrrolidine (see N-Nitrosamines: 15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "1116-54-7": {
+  "name": "N-Nitrosodiethanolamine (see N-Nitrosamines: 15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "1120-71-4": {
+  "name": "1,3-Propane Sultone",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "1304-56-9": {
+  "name": "Beryllium Oxide (see Beryllium and Beryllium Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "1309-64-4": {
+  "name": "Antimony Trioxide",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "1313-99-1": {
+  "name": "Nickel Monoxide (see Nickel and Nickel Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "1314-20-1": {
+  "name": "Thorium Dioxide (see Ionizing Radiation)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "1327-53-3": {
+  "name": "Arsenic Trioxide (see Arsenic and Inorganic Arsenic Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "1332-21-4": {
+  "name": "Asbestos",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "1333-82-0": {
+  "name": "Chromium Trioxide (see Chromium Hexavalent Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "1335-32-6": {
+  "name": "Lead Sub-acetate (see Lead and Lead Compounds)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "1336-36-3": {
+  "name": "Polychlorinated Biphenyls",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "1402-68-2": {
+  "name": "Aflatoxins",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "1464-53-5": {
+  "name": "Diepoxybutane",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "1746-01-6": {
+  "name": "2,3,7,8-Tetrachlorodibenzo-p-dioxin",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "1836-75-5": {
+  "name": "Nitrofen",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "1937-37-7": {
+  "name": "C.I. Direct Black 38 (see Benzidine and Dyes Metabolized to Benzidine)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "2385-85-5": {
+  "name": "Mirex",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "2425-06-1": {
+  "name": "Captafol",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "2429-74-5": {
+  "name": "C.I. Direct Blue 15 (see 3,3’-Dimethoxybenzidine and Dyes Metabolized to 3,3-Dimethoxybenzidine)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "2475-45-8": {
+  "name": "Disperse Blue 1",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "2602-46-2": {
+  "name": "C.I. Direct Blue 6 (see Benzidine and Dyes Metabolized to Benzidine)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "3165-93-3": {
+  "name": "p-Chloro-o-toluidine Hydrochloride (see p-Chloro-o-toluidine and Its Hydrochloride)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "3296-90-0": {
+  "name": "2,2-Bis-(bromomethyl)-1,3-propanediol (see 2,2-Bis-(bromomethyl)-1,3-propanediol [Technical Grade])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "3697-24-3": {
+  "name": "5-Methylchrysene (see Polycyclic Aromatic Hydrocarbons: 15 Listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "4342-03-4": {
+  "name": "Dacarbazine",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "4549-40-0": {
+  "name": "N-Nitrosomethylvinylamine (see N-Nitrosamines: 15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "5278-95-5": {
+  "name": "Chlorodibromoacetic acid (see Selected Haloacetic Acids Found as Water Disinfection By-Products)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "5522-43-0": {
+  "name": "1-Nitropyrene (see Nitroarenes [Selected])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "5589-96-8": {
+  "name": "Bromochloroacetic Acid (see Selected Haloacetic Acids Found as Water Disinfection By-Products)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "6459-94-5": {
+  "name": "C.I. Acid Red 114 (see 3,3'-Dimethybenzidine and Dyes Metabolized to 3,3'-Dimethylbenzidine)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "7439-92-1": {
+  "name": "Lead (see Lead and Lead Compounds)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "7440-02-0": {
+  "name": "Metallic Nickel (see Nickel Compounds and Metallic Nickel)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "7440-38-2": {
+  "name": "Arsenic (see Arsenic and Inorganic Arsenic Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7440-41-7": {
+  "name": "Beryllium (see Beryllium and Beryllium Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7440-43-9": {
+  "name": "Cadmium (see Cadmium and Cadmium Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7440-48-4": {
+  "name": "Cobalt (see Cobalt-Related Exposures)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "7446-27-7": {
+  "name": "Lead Phosphate (see Lead and Lead Compounds)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "7446-34-6": {
+  "name": "Selenium Sulfide",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "7496-02-8": {
+  "name": "6-Nitrochrysene (see Nitroarenes [Selected])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "7631-89-2": {
+  "name": "Sodium Arsenate (see Arsenic and Inorganic Arsenic Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7646-79-9": {
+  "name": "Cobalt Chloride (see Cobalt-Related Exposures)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "7664-93-9": {
+  "name": "Sulfuric Acid (see Strong Inorganic Acid Mists Containing Sulfuric Acid)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7775-11-3": {
+  "name": "Sodium Chromate (see Chromium Hexavalent Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7778-44-1": {
+  "name": "Calcium Arsenate (see Arsenic and Inorganic Arsenic Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7778-50-9": {
+  "name": "Potassium Dichromate (see Chromium Hexavalent Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7784-40-9": {
+  "name": "Lead Arsenate (see Arsenic and Inorganic Arsenic Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7784-46-5": {
+  "name": "Sodium Arsenite (see Arsenic and Inorganic Arsenic Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7786-81-4": {
+  "name": "Nickel Sulfate (see Nickel and Nickel Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7787-47-5": {
+  "name": "Beryllium Chloride (see Beryllium and Beryllium Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7787-56-6": {
+  "name": "Beryllium Sulfate Tetrahydrate (see Beryllium and Beryllium Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7788-98-9": {
+  "name": "Ammonium Chromate (see Chromium Hexavalent Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7789-00-6": {
+  "name": "Potassium Chromate (see Chromium Hexavalent Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7789-06-2": {
+  "name": "Strontium Chromate (see Chromium Hexavalent Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "7789-09-5": {
+  "name": "Ammonium Dichromate (see Chromium Hexavalent Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "8001-35-2": {
+  "name": "Toxaphene",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "8007-45-2": {
+  "name": "Coal Tar (see Coal Tars and Coal-Tar Pitches)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "9004-66-4": {
+  "name": "Iron Dextran Complex",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "10026-24-1": {
+  "name": "Cobalt Sulfate Heptahydrate (see Cobalt-Related Exposures)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "10034-93-2": {
+  "name": "Hydrazine Sulfate (see Hydrazine and Hydrazine Sulfate)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "10043-92-2": {
+  "name": "Radon (see Ionizing Radiation)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "10108-64-2": {
+  "name": "Cadmium Chloride (see Cadmium and Cadmium Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "10124-43-3": {
+  "name": "Cobalt Sulfate (see Cobalt-Related Exposures)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "10141-05-6": {
+  "name": "Cobalt Nitrate (see Cobalt-Related Exposures )",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "10540-29-1": {
+  "name": "Tamoxifen",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "10588-01-9": {
+  "name": "Sodium Dichromate (see Chromium Hexavalent Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "11104-61-3": {
+  "name": "Cobalt Oxide (see Cobalt-Related Exposures)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "11113-75-0": {
+  "name": "Nickel Sulfide (see Nickel and Nickel Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "11119-70-3": {
+  "name": "Lead Chromate (see Chromium Hexavalent Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "12001-28-4": {
+  "name": "Crocidolite (see Asbestos)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "12001-29-5": {
+  "name": "Chrysotile (see Asbestos)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "12035-72-2": {
+  "name": "Nickel Subsulfide (see Nickel and Nickel Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "12054-48-7": {
+  "name": "Nickel Hydroxide (see Nickel and Nickel Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "12126-59-9": {
+  "name": "Conjugated Estrogens (see Estrogens, Steroidal)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "12172-73-5": {
+  "name": "Amosite (see Asbestos)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "12653-56-4": {
+  "name": "Cobalt Sulfide (see Cobalt-Related Exposures)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "13010-47-4": {
+  "name": "1-(2-Chloroethyl)-3-cyclohexyl-1-nitrosourea (see Nitrosourea Chemotherapeutic Agents)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "13256-22-9": {
+  "name": "N-Nitrososarcosine (see N-Nitrosamines: 15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "13327-32-7": {
+  "name": "Beryllium Hydroxide (see Beryllium and Beryllium Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "13464-35-2": {
+  "name": "Potassium Arsenite (see Arsenic and Inorganic Arsenic Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "13510-49-1": {
+  "name": "Beryllium Sulfate (see Beryllium and Beryllium Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "13530-65-9": {
+  "name": "Zinc Chromate (see Chromium Hexavalent Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "13552-44-8": {
+  "name": "4,4'-Methylenedianiline Dihydrochloride (see 4,4'-Methylenedianiline and Its Dihydrochloride)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "13598-00-0": {
+  "name": "Beryllium Silicate (see Beryllium and Beryllium Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "13598-15-7": {
+  "name": "Beryllium Phosphate (see Beryllium and Beryllium Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "13654-09-6": {
+  "name": "Decabromobiphenyl (see Polybrominated Biphenyls)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "13765-19-0": {
+  "name": "Calcium Chromate (see Chromium Hexavalent Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "13909-09-6": {
+  "name": "1-(2-Chloroethyl)-3-(4-methylcyclohexyl)-1-nitrosourea (see Nitrosourea Chemotherapeutic Agents)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "14464-46-1": {
+  "name": "Cristobalite (see Silica)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "14808-60-7": {
+  "name": "Quartz (see Silica)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "15347-57-6": {
+  "name": "Lead Acetate (see Lead and Lead Compounds)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "15468-32-3": {
+  "name": "Tridymite (see Silica)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "15663-27-1": {
+  "name": "Cisplatin",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "16071-86-6": {
+  "name": "C.I. Direct Brown 95 (see Benzidine and Dyes Metabolized to Benzidine)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "16543-55-8": {
+  "name": "N-Nitrosonornicotine (see N-Nitrosamines: 15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "18540-29-9": {
+  "name": "Chromium (VI) (see Chromium Hexavalent Compoounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "18883-66-4": {
+  "name": "Streptozotocin (see Nitrosourea Chemotherapeutic Agents)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "23214-92-8": {
+  "name": "Adriamycin",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "23246-96-0": {
+  "name": "Riddelliine",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "25013-16-5": {
+  "name": "Butylated Hydroxyanisole",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "25316-40-9": {
+  "name": "Doxorubicin Hydrochloride (see Adriamycin)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "25638-88-4": {
+  "name": "Zinc Beryllium Silicate (see Beryllium and Beryllium Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "26471-62-5": {
+  "name": "Toluene Diisocyanates",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "36355-01-8": {
+  "name": "Hexabromobiphenyl (see Polybrominated Biphenyls)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "39156-41-7": {
+  "name": "2,4-Diaminoanisole Sulfate",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "42397-64-8": {
+  "name": "1,6-Dinitropyrene (see Nitroarenes [Selected])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "42397-65-9": {
+  "name": "1,8-Dinitropyrene (see Nitroarenes [Selected])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "54749-90-5": {
+  "name": "Chlorozotocin (see Nitrosourea Chemotherapeutic Agents)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "57835-92-4": {
+  "name": "4-Nitropyrene (see Nitroarenes [Selected])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "59865-13-3": {
+  "name": "Cyclosporin A",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "61288-13-9": {
+  "name": "Octabromobiphenyl (see Polybrominated Biphenyls)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "64091-91-4": {
+  "name": "4-(N-Nitrosomethylamino)-1-(3-pyridyl)-1-butanone (see N-Nitrosamines: 15 listings)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "65996-93-2": {
+  "name": "Coal-Tar Pitch (see Coal Tar and Coal-Tar Pitches)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "66104-24-3": {
+  "name": "Beryllium Carbonate (see Beryllium and Beryllium Compounds)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "66733-21-9": {
+  "name": "Erionite",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "71133-14-7": {
+  "name": "Bromodichloroacetic Acid (see Selected Haloacetic Acids Found as Water Disinfection By-Products)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "76180-96-6": {
+  "name": "2-Amino-3-methylimidazo[4,5-f]quinoline (IQ) (see Heterocyclic Amines [Selected])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "77094-11-2": {
+  "name": "2-Amino-3,4-dimethylimidazo[4,5-f]quinoline (MeIQ) (see Heterocyclic Animes [Selected])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "77500-04-0": {
+  "name": "2-Amino-3,8-dimethylimidazo[4,5-f]quinoxaline (MeIQx) (see Heterocyclic Amines [Selected])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "77536-66-4": {
+  "name": "Actinolite (see Asbestos)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "77536-67-5": {
+  "name": "Anthophyllite (see Asbestos)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "77536-68-6": {
+  "name": "Tremolite (see Asbestos)",
+  "listing": "Known",
+  "listing_ko": "발암성 확인됨(Known to be a Human Carcinogen)"
+ },
+ "105650-23-5": {
+  "name": "2-Amino-1-methyl-6-phenylimidazo[4,5-b]pyridine (PhIP) (see Heterocyclic Amines [Selected])",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ },
+ "108171-26-2": {
+  "name": "Chlorinated Paraffins (C12, 60% Chlorine)",
+  "listing": "RAHC",
+  "listing_ko": "발암성으로 합리적으로 예상됨(Reasonably Anticipated to be a Human Carcinogen)"
+ }
+}

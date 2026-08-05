@@ -154,6 +154,11 @@ DESIGNATED = _load_designated()
 # {CAS: {"name":..., "rows":[{"category","item","grade","db","source_url"}, ...]}}
 CLASSIFICATION_REF = _load_json("classification_reference.json")
 
+# US NTP 발암성 보고서(Report on Carcinogens, 15판) CASRN 목록.
+# 의회 보고서라 신규 발간 시에만 바뀌므로 scripts/build_ntp_roc.py 로 미리 추출해 둔다.
+# {CAS: {"name","listing":"Known|RAHC","listing_ko"}}
+NTP_ROC = _load_json("ntp_roc.json")
+
 # ----------------------------------------------------------------------
 # 이성질체·무수물·수화물 매칭 (CAS 기준 기존화학물질 판단 보완용)
 #   입력 CAS로 유추한 물질명에서 cis/trans/(E)/(Z) 같은 이성질체 표기와
@@ -587,6 +592,77 @@ async def fetch_kreach(cas: str = None, name: str = None) -> dict:
     }
 
 # ----------------------------------------------------------------------
+# EU CLP — ECHA CHEM(chem.echa.europa.eu) C&L Inventory 실시간 조회
+#   비공개 문서화 API는 없지만, 사이트 자체가 호출하는 공개 REST 엔드포인트를
+#   그대로 사용한다(로그인·API 키 불필요). 조화분류(Harmonised, CLH)와
+#   산업계 신고분류(Industry/Notified, CLH 아님)를 모두 가져온다.
+# ----------------------------------------------------------------------
+ECHA_CHEM_BASE = "https://chem.echa.europa.eu"
+
+async def fetch_echa_clp(q: str) -> dict:
+    empty = {"found": False, "harmonised": [], "industry": [],
+             "record_url": None, "rml_id": None}
+    try:
+        async with httpx.AsyncClient(timeout=15, headers=UA) as client:
+            r = await client.get(f"{ECHA_CHEM_BASE}/api-substance/v1/substance",
+                                  params={"pageIndex": 1, "pageSize": 1, "searchText": q})
+            if r.status_code != 200:
+                return empty
+            items = (r.json() or {}).get("items") or []
+            if not items:
+                return empty
+            rml = items[0].get("substanceIndex", {}).get("rmlId")
+            if not rml:
+                return empty
+            record_url = f"{ECHA_CHEM_BASE}/{rml}/overview"
+
+            r_info = await client.get(f"{ECHA_CHEM_BASE}/api-cnl-inventory/prominent/overview/info/{rml}")
+            info = r_info.json() if r_info.status_code == 200 else {}
+            harmonised, industry = [], []
+
+            # 조화분류(CLH) — info의 classificationId가 harmonised일 때만 이 경로로 확보된다.
+            if info.get("type") == "harmonised" and info.get("classificationId"):
+                r_h = await client.get(
+                    f"{ECHA_CHEM_BASE}/api-cnl-inventory/prominent/overview/classifications/harmonised/{info['classificationId']}")
+                if r_h.status_code == 200:
+                    for it in (r_h.json() or {}).get("items", []):
+                        for hs in it.get("hazardStatements", []):
+                            harmonised.append({
+                                "item": it.get("hazardClassAndCategoryCode", ""),
+                                "h": (hs.get("hazardStatementCode") or "").rstrip("*"),
+                                "text": hs.get("hazardStatementText", ""),
+                            })
+
+            # 산업계 신고분류(Industry/Notified, CLH 아님) — 최다 신고 그룹 1건을 대표로 사용.
+            r_list = await client.get(f"{ECHA_CHEM_BASE}/api-cnl-inventory/industry/{rml}/classifications")
+            if r_list.status_code == 200:
+                cand = [x for x in (r_list.json() or {}).get("items", []) if x.get("status") == "Active"]
+                cand.sort(key=lambda x: x.get("substanceNotificationPercentage", 0), reverse=True)
+                if cand:
+                    top_id = cand[0]["classificationId"]
+                    r_i = await client.get(f"{ECHA_CHEM_BASE}/api-cnl-inventory/industry/classification/{top_id}")
+                    if r_i.status_code == 200:
+                        for it in (r_i.json() or {}).get("items", []):
+                            for hs in it.get("hazardStatements", []):
+                                industry.append({
+                                    "item": it.get("hazardClassAndCategoryCode", ""),
+                                    "h": (hs.get("hazardStatementCode") or "").rstrip("*"),
+                                    "text": hs.get("hazardStatementText", ""),
+                                })
+
+            return {"found": bool(harmonised or industry), "harmonised": harmonised,
+                    "industry": industry, "record_url": record_url, "rml_id": rml}
+    except Exception:
+        return empty
+
+def ntp_lookup(cas: str) -> dict:
+    rec = NTP_ROC.get(cas or "")
+    if not rec:
+        return {"listed": False}
+    return {"listed": True, "name": rec.get("name"), "listing": rec.get("listing"),
+            "listing_ko": rec.get("listing_ko")}
+
+# ----------------------------------------------------------------------
 # API
 # ----------------------------------------------------------------------
 @app.get("/api/chem")
@@ -611,6 +687,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
                 (result.get("identity") or {}).get("title"), exclude_cas=fbcas)
             result["classification_ref"] = (CLASSIFICATION_REF.get(fbcas) or {}).get("rows", [])
             result["kreach"] = await fetch_kreach(cas=fbcas)
+            result["echa_clp"] = await fetch_echa_clp(fbcas)
+            result["ntp"] = ntp_lookup(fbcas)
         else:
             result["notice"] = {"existing": {"is_existing": None}, "review": {"reviewed": False},
                                  "designated": [], "designated_detail": "", "name_query": True}
@@ -618,6 +696,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
             result["classification_ref"] = []
             result["kreach"] = {"implemented": True, "found": False, "reason": "name_query",
                                  "links": KREACH_LINKS}
+            result["echa_clp"] = {"found": False, "harmonised": [], "industry": [], "record_url": None}
+            result["ntp"] = {"listed": False}
         cache_set(key, result)
         return JSONResponse(result)
 
@@ -642,6 +722,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
         data["isomer_check"] = isomer_hydrate_check(identity.get("title"), exclude_cas=q)
         data["classification_ref"] = (CLASSIFICATION_REF.get(q) or {}).get("rows", [])
         data["kreach"] = await fetch_kreach(cas=q)
+        data["echa_clp"] = await fetch_echa_clp(q)
+        data["ntp"] = ntp_lookup(q)
     else:
         data["notice"] = {"existing": {"is_existing": None}, "review": {"reviewed": False},
                            "designated": [], "designated_detail": "", "name_query": True}
@@ -649,6 +731,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
         data["classification_ref"] = []
         data["kreach"] = {"implemented": True, "found": False, "reason": "name_query",
                            "links": KREACH_LINKS}
+        data["echa_clp"] = {"found": False, "harmonised": [], "industry": [], "record_url": None}
+        data["ntp"] = {"listed": False}
 
     if data.get("found"):
         cache_set(key, data)
