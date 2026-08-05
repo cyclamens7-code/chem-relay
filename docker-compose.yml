@@ -12,4 +12,7 @@ services:
       # 나머지(기본정보·구조식·GHS·요약)는 그대로 무료로 동작합니다.
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
       - ANTHROPIC_MODEL=claude-sonnet-5
+      # ── CAS Common Chemistry(선택) : 참고자료 1순위 출처 ──
+      # https://www.cas.org/services/commonchemistry-api 에서 발급. 비워두면 2순위(PubChem)만 사용.
+      - CAS_CC_API_KEY=${CAS_CC_API_KEY:-}
     restart: unless-stopped
