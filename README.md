@@ -65,6 +65,7 @@ Render 대시보드에 표시되는 서비스 URL(`https://chem-relay-xxxx.onren
 | 화학물질정보처리시스템(KREACH) 신고·등록 유해성분류·용도 | ✅ 자동(스크래핑) | 공개 API가 없어 검색→상세 폼 POST를 재현. 사이트 개편 시 `fetch_kreach()`만 수정 |
 | EU CLP(ECHA CHEM) 조화분류·산업계 신고분류 | ✅ 자동(실시간 API) | `chem.echa.europa.eu`의 공개 REST 엔드포인트 사용(로그인·키 불필요). `fetch_echa_clp()` |
 | US NTP 발암성 보고서(RoC) 등재 여부 | ✅ 자동(고정목록) | 15차 보고서(2021) CASRN 인덱스를 미리 추출(`app/data/ntp_roc.json`). 신규 발간 시 `scripts/build_ntp_roc.py` 재실행 |
+| 덴마크 CLP 데이터베이스 | ✅ 자동(실시간 스크래핑) | `clp-vejlliste.mst.dk`의 ASP.NET WebForms 검색(POST)을 재현. 사이트 개편 시 `fetch_denmark_clp()`만 수정 |
 | 국내외 규제현황·우려이슈 "자세히 생성" | 🤖 Gemini(선택) | 아래 참고 |
 | 조회 캐시 | ✅ | 30일, `CACHE_DIR`(기본 `/tmp/cache`) |
 
