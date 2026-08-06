@@ -895,6 +895,122 @@ async def fetch_nite_chrip(cas: str) -> dict:
     }
 
 # ----------------------------------------------------------------------
+# 미국 ATSDR(Toxicological Profiles) — 등재 여부·프로파일 링크 확인
+#   ATSDR은 H-code식 분류표가 아니라 서술형 독성프로파일(건강영향 전반)을 제공하므로
+#   등재 여부와 상세 링크만 확인한다. 고전 ASP.NET WebForms POST 검색.
+# ----------------------------------------------------------------------
+ATSDR_SEARCH_URL = "https://wwwn.cdc.gov/TSP/substances/ToxSearch.aspx"
+
+async def fetch_atsdr(cas: str) -> dict:
+    from bs4 import BeautifulSoup
+    empty = {"found": False, "record_url": ATSDR_SEARCH_URL}
+    if not cas:
+        return empty
+    try:
+        async with httpx.AsyncClient(timeout=20, headers=UA, follow_redirects=True) as client:
+            r1 = await client.get(ATSDR_SEARCH_URL)
+            if r1.status_code != 200:
+                return empty
+            soup1 = BeautifulSoup(r1.text, "html.parser")
+            def field(name):
+                el = soup1.find(id=name)
+                return el.get("value", "") if el else ""
+            data = {
+                "__EVENTTARGET": "", "__VIEWSTATE": field("__VIEWSTATE"),
+                "__VIEWSTATEGENERATOR": field("__VIEWSTATEGENERATOR"),
+                "__VIEWSTATEENCRYPTED": field("__VIEWSTATEENCRYPTED"),
+                "__EVENTVALIDATION": field("__EVENTVALIDATION"),
+                "ctl00$ContentPlaceHolder1$txtSearch": cas,
+                "ctl00$ContentPlaceHolder1$btnSearch": "Search",
+            }
+            r2 = await client.post(ATSDR_SEARCH_URL, data=data)
+            if r2.status_code != 200:
+                return empty
+            soup2 = BeautifulSoup(r2.text, "html.parser")
+    except Exception:
+        return empty
+
+    link = next((a for a in soup2.find_all("a")
+                 if "ToxSubstance.aspx" in (a.get("href") or "") and cas in a.get_text()), None)
+    if not link:
+        return empty
+    from urllib.parse import urljoin
+    name = re.sub(r"\s*\([^)]*\)\s*$", "", link.get_text(strip=True)).strip()
+    return {"found": True, "name": name, "record_url": urljoin(ATSDR_SEARCH_URL, link["href"])}
+
+# ----------------------------------------------------------------------
+# 고용노동부 KOSHA MSDS — 등재 여부(공단 MSDS/법규정보/유해위험성정보 보유 건수) 확인
+#   상세 GHS표는 팝업창(AJAX)이라 여기서는 통합검색 결과로 등재 여부만 확인하고
+#   상세는 링크로 안내한다. 세션 없는 단순 POST(JSP).
+# ----------------------------------------------------------------------
+KOSHA_SEARCH_URL = "https://msds.kosha.or.kr/MSDSInfo/kcic/msdssearchAll.do"
+
+async def fetch_kosha(cas: str) -> dict:
+    from bs4 import BeautifulSoup
+    empty = {"found": False, "record_url": "https://msds.kosha.or.kr/MSDSInfo/"}
+    if not cas:
+        return empty
+    try:
+        async with httpx.AsyncClient(timeout=20, headers=UA) as client:
+            r = await client.post(KOSHA_SEARCH_URL, data={"searchKeyword": cas, "chkAgree": "Y"})
+            if r.status_code != 200:
+                return empty
+            soup = BeautifulSoup(r.text, "html.parser")
+    except Exception:
+        return empty
+    name_el = next((a for a in soup.find_all("a") if cas in soup.get_text() and a.get_text(strip=True)
+                     and "getDetail" in (a.get("href") or "")), None)
+    if not name_el or cas not in soup.get_text():
+        return empty
+    return {"found": True, "name": name_el.get_text(strip=True), "record_url": KOSHA_SEARCH_URL}
+
+# ----------------------------------------------------------------------
+# 호주 HCIS(Hazardous Chemical Information System) — GHS 분류 실시간 조회
+#   Dynamics 365 Power Pages의 공개 OData API(_api/)로 CAS 검색 → 화학물질ID →
+#   상세 페이지(서버사이드 렌더링 HTML)에서 유해성분류 표를 파싱한다. 인증 불필요.
+# ----------------------------------------------------------------------
+HCIS_BASE = "https://hcis.safeworkaustralia.gov.au"
+
+async def fetch_hcis(cas: str) -> dict:
+    from bs4 import BeautifulSoup
+    from urllib.parse import quote
+    empty = {"found": False, "items": [], "record_url": f"{HCIS_BASE}/"}
+    if not cas:
+        return empty
+    filt = f"(contains(swa_chemicalname,'{cas}') or contains(swa_cas,'{cas}')) and swa_isactive eq true"
+    search_url = (f"{HCIS_BASE}/_api/swa_hcis_chemicals?$filter={quote(filt)}"
+                  f"&$select=swa_hcis_chemicalid,swa_chemicalname,swa_cas&$orderby=swa_chemicalname asc&$top=25")
+    try:
+        async with httpx.AsyncClient(timeout=20, headers={**UA, "Accept": "application/json"}) as client:
+            r1 = await client.get(search_url)
+            if r1.status_code != 200:
+                return empty
+            items = (r1.json() or {}).get("value") or []
+            match = next((x for x in items if x.get("swa_cas") == cas), items[0] if items else None)
+            if not match:
+                return empty
+            cid = match.get("swa_hcis_chemicalid")
+            detail_url = f"{HCIS_BASE}/chemical/?id={cid}"
+            r2 = await client.get(detail_url)
+            if r2.status_code != 200:
+                return empty
+            soup = BeautifulSoup(r2.text, "html.parser")
+    except Exception:
+        return empty
+
+    rows = []
+    table = soup.find(id="hcis-hc-merged")
+    if table:
+        for tr in table.find_all("tr"):
+            tds = tr.find_all("td")
+            if len(tds) < 3:
+                continue
+            rows.append({"item": tds[0].get_text(strip=True),
+                         "h": tr.get("data-shorthand", "") or tds[1].get_text(strip=True),
+                         "text": tds[2].get_text(strip=True)})
+    return {"found": bool(rows), "items": rows, "record_url": detail_url}
+
+# ----------------------------------------------------------------------
 # API
 # ----------------------------------------------------------------------
 @app.get("/api/chem")
@@ -924,6 +1040,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
             result["denmark_clp"] = await fetch_denmark_clp(fbcas)
             result["iarc"] = await fetch_iarc_group(fbcas)
             result["nite"] = await fetch_nite_chrip(fbcas)
+            result["kosha"] = await fetch_kosha(fbcas)
+            result["hcis"] = await fetch_hcis(fbcas)
         else:
             result["notice"] = {"existing": {"is_existing": None}, "review": {"reviewed": False},
                                  "designated": [], "designated_detail": "", "name_query": True}
@@ -936,6 +1054,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
             result["denmark_clp"] = {"found": False, "items": [], "record_url": DENMARK_CLP_URL}
             result["iarc"] = {"listed": False, "record_url": IARC_LIST_URL}
             result["nite"] = {"found": False, "record_url": NITE_SEARCH_URL}
+            result["kosha"] = {"found": False, "record_url": "https://msds.kosha.or.kr/MSDSInfo/"}
+            result["hcis"] = {"found": False, "items": [], "record_url": f"{HCIS_BASE}/"}
         cache_set(key, result)
         return JSONResponse(result)
 
@@ -965,6 +1085,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
         data["denmark_clp"] = await fetch_denmark_clp(q)
         data["iarc"] = await fetch_iarc_group(q)
         data["nite"] = await fetch_nite_chrip(q)
+        data["kosha"] = await fetch_kosha(q)
+        data["hcis"] = await fetch_hcis(q)
     else:
         data["notice"] = {"existing": {"is_existing": None}, "review": {"reviewed": False},
                            "designated": [], "designated_detail": "", "name_query": True}
@@ -977,6 +1099,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
         data["denmark_clp"] = {"found": False, "items": [], "record_url": DENMARK_CLP_URL}
         data["iarc"] = {"listed": False, "record_url": IARC_LIST_URL}
         data["nite"] = {"found": False, "record_url": NITE_SEARCH_URL}
+        data["kosha"] = {"found": False, "record_url": "https://msds.kosha.or.kr/MSDSInfo/"}
+        data["hcis"] = {"found": False, "items": [], "record_url": f"{HCIS_BASE}/"}
 
     if data.get("found"):
         cache_set(key, data)

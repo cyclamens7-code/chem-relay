@@ -309,6 +309,22 @@ function renderLiveOverseasClassification(d){
   } else {
     html+=`<div class="src" style="margin:12px 0 10px">일본 NITE CHRIP 실시간 조회: 등재된 레코드 없음</div>`;
   }
+  const kosha=d.kosha||{};
+  if(kosha.found){
+    html+=`<div class="evidence"><span class="lab">고용노동부 MSDS(KOSHA) — 등재 확인</span> ${kosha.name||""}<div class="src" style="margin-top:3px">공단 MSDS·법규정보·유해위험성정보 보유 — 상세 GHS표는 링크에서 직접 확인하세요. <a class="dbname" href="${kosha.record_url}" target="_blank" rel="noopener">KOSHA MSDS ↗</a> · 실시간 조회</div></div>`;
+  } else {
+    html+=`<div class="src" style="margin:12px 0 10px">고용노동부 MSDS(KOSHA) 실시간 조회: 등재된 레코드 없음</div>`;
+  }
+  const hcis=d.hcis||{};
+  if(hcis.items&&hcis.items.length){
+    html+=`<div class="src" style="margin:12px 0 6px"><b>호주 HCIS — GHS 분류</b> <span class="livepill">실시간 조회</span></div>
+      <table class="tbl"><thead><tr><th>유해성 분류</th><th style="width:90px">H-code</th><th>문구</th></tr></thead><tbody>
+      ${hcis.items.map(x=>`<tr><td>${x.item}</td><td>${x.h?`<span class="hcode">${x.h}</span>`:"—"}</td><td>${x.text||""}</td></tr>`).join("")}
+      </tbody></table>
+      <div class="src" style="margin:4px 0 12px">출처: <a class="dbname" href="${hcis.record_url}" target="_blank" rel="noopener">HCIS ↗</a></div>`;
+  } else {
+    html+=`<div class="src" style="margin:12px 0 10px">호주 HCIS 실시간 조회: 대조된 분류 없음</div>`;
+  }
   return html;
 }
 function renderKreachUses(kreach){
