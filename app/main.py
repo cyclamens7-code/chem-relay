@@ -663,6 +663,154 @@ def ntp_lookup(cas: str) -> dict:
             "listing_ko": rec.get("listing_ko")}
 
 # ----------------------------------------------------------------------
+# 덴마크 CLP 데이터베이스(clp-vejlliste.mst.dk) — 고전 ASP.NET WebForms 검색.
+#   __VIEWSTATE 등 postback 토큰을 그대로 재현해 CAS로 검색한다(로그인 불필요).
+#   사이트 개편 시 이 함수만 고치면 되도록 분리해 둔다.
+# ----------------------------------------------------------------------
+DENMARK_CLP_URL = "https://clp-vejlliste.mst.dk/default.aspx"
+
+async def fetch_denmark_clp(cas: str) -> dict:
+    from bs4 import BeautifulSoup
+    empty = {"found": False, "items": [], "record_url": DENMARK_CLP_URL}
+    if not cas:
+        return empty
+    try:
+        async with httpx.AsyncClient(timeout=20, headers=UA) as client:
+            r1 = await client.get(DENMARK_CLP_URL)
+            if r1.status_code != 200:
+                return empty
+            soup1 = BeautifulSoup(r1.text, "html.parser")
+            def field(name):
+                el = soup1.find(id=name)
+                return el.get("value", "") if el else ""
+            data = {
+                "__VIEWSTATE": field("__VIEWSTATE"),
+                "__VIEWSTATEGENERATOR": field("__VIEWSTATEGENERATOR"),
+                "__EVENTVALIDATION": field("__EVENTVALIDATION"),
+                "txtCASnummer": cas, "txtDanskNavn": "", "txtEinecsNummer": "",
+                "txtEinecsNavn": "", "txtBruttoformel": "",
+                "OrAnd": "rbAnd", "btnSearch": "Søg",
+            }
+            r2 = await client.post(DENMARK_CLP_URL, data=data)
+            if r2.status_code != 200:
+                return empty
+            soup2 = BeautifulSoup(r2.text, "html.parser")
+    except Exception:
+        return empty
+
+    items = []
+    for t in soup2.find_all("table"):
+        if "CAS nummer:" not in t.get_text():
+            continue
+        rec = {}
+        for tr in t.find_all("tr"):
+            tds = tr.find_all("td")
+            if len(tds) >= 2:
+                label = tds[0].get_text(strip=True).rstrip(":")
+                value = tds[1].get_text(strip=True)
+                if label:
+                    rec[label] = value
+        if rec.get("Klassificering"):
+            items.append({
+                "cas": rec.get("CAS nummer", ""),
+                "einecs": rec.get("EINECS nummer", ""),
+                "name_da": rec.get("Dansk navn", ""),
+                "name_einecs": rec.get("EINECS navn", ""),
+                "formula": rec.get("Bruttoformel", ""),
+                "classification": [c.strip() for c in rec["Klassificering"].split(";") if c.strip()],
+            })
+    return {"found": bool(items), "items": items, "record_url": DENMARK_CLP_URL}
+
+# ----------------------------------------------------------------------
+# IARC Monographs — List of Classifications
+#   전용 REST API가 없고, 목록 페이지가 불러오는 JS 번들(webapi.iarc.who.int/loc/loc.app.js)
+#   안에 전체 데이터(약 1,128건)가 JS 객체 배열 리터럴로 그대로 박혀 있다.
+#   IARC가 새 모노그래프를 발간하면 이 파일도 갱신되므로 매 조회마다 새로 받아 파싱한다.
+#   사이트 개편 시 이 함수만 고치면 되도록 분리해 둔다.
+# ----------------------------------------------------------------------
+IARC_APP_JS = "https://webapi.iarc.who.int/loc/loc.app.js"
+IARC_LIST_URL = "https://monographs.iarc.who.int/list-of-classifications/"
+_IARC_TAG_RE = re.compile(r"</?[a-zA-Z][^>]*>")
+_IARC_NAME_RE = re.compile(r'name:"((?:[^"\\]|\\.)*)"')
+_IARC_GROUP_RE = re.compile(r'group:"((?:[^"\\]|\\.)*)"')
+_IARC_CAS_RE = re.compile(r"cas:\[((?:[^\]])*)\]")
+
+def _iarc_split_top_level_objects(blob: str):
+    depth, in_str, esc = 0, False, False
+    buf, objs = [], []
+    for ch in blob[1:-1]:  # strip outer [ ]
+        if esc:
+            buf.append(ch); esc = False; continue
+        if ch == "\\":
+            buf.append(ch); esc = True; continue
+        if ch == '"':
+            in_str = not in_str
+        if not in_str:
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+        buf.append(ch)
+        if depth == 0 and ch == "," and not in_str:
+            s = "".join(buf[:-1]).strip()
+            if s:
+                objs.append(s)
+            buf = []
+    tail = "".join(buf).strip()
+    if tail:
+        objs.append(tail)
+    return objs
+
+async def fetch_iarc_group(cas: str) -> dict:
+    empty = {"listed": False, "record_url": IARC_LIST_URL}
+    if not cas:
+        return empty
+    try:
+        async with httpx.AsyncClient(timeout=20, headers=UA) as client:
+            r = await client.get(IARC_APP_JS)
+            if r.status_code != 200:
+                return empty
+            txt = r.text
+        start = txt.find("[{name:")
+        if start == -1:
+            return empty
+        depth, in_str, esc, end = 0, False, False, None
+        for idx in range(start, len(txt)):
+            ch = txt[idx]
+            if esc:
+                esc = False; continue
+            if ch == "\\":
+                esc = True; continue
+            if ch == '"':
+                in_str = not in_str; continue
+            if in_str:
+                continue
+            if ch in "[{":
+                depth += 1
+            elif ch in "]}":
+                depth -= 1
+                if depth == 0 and ch == "]":
+                    end = idx + 1
+                    break
+        if not end:
+            return empty
+        for obj in _iarc_split_top_level_objects(txt[start:end]):
+            m_cas = _IARC_CAS_RE.search(obj)
+            if not m_cas or f'"{cas}"' not in m_cas.group(0):
+                continue
+            m_name = _IARC_NAME_RE.search(obj)
+            m_group = _IARC_GROUP_RE.search(obj)
+            return {
+                "listed": True,
+                "name": _IARC_TAG_RE.sub("", m_name.group(1)) if m_name else "",
+                "group": m_group.group(1) if m_group else "",
+                "record_url": IARC_LIST_URL,
+            }
+        return empty
+    except Exception:
+        return empty
+
+# ----------------------------------------------------------------------
 # API
 # ----------------------------------------------------------------------
 @app.get("/api/chem")
@@ -689,6 +837,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
             result["kreach"] = await fetch_kreach(cas=fbcas)
             result["echa_clp"] = await fetch_echa_clp(fbcas)
             result["ntp"] = ntp_lookup(fbcas)
+            result["denmark_clp"] = await fetch_denmark_clp(fbcas)
+            result["iarc"] = await fetch_iarc_group(fbcas)
         else:
             result["notice"] = {"existing": {"is_existing": None}, "review": {"reviewed": False},
                                  "designated": [], "designated_detail": "", "name_query": True}
@@ -698,6 +848,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
                                  "links": KREACH_LINKS}
             result["echa_clp"] = {"found": False, "harmonised": [], "industry": [], "record_url": None}
             result["ntp"] = {"listed": False}
+            result["denmark_clp"] = {"found": False, "items": [], "record_url": DENMARK_CLP_URL}
+            result["iarc"] = {"listed": False, "record_url": IARC_LIST_URL}
         cache_set(key, result)
         return JSONResponse(result)
 
@@ -724,6 +876,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
         data["kreach"] = await fetch_kreach(cas=q)
         data["echa_clp"] = await fetch_echa_clp(q)
         data["ntp"] = ntp_lookup(q)
+        data["denmark_clp"] = await fetch_denmark_clp(q)
+        data["iarc"] = await fetch_iarc_group(q)
     else:
         data["notice"] = {"existing": {"is_existing": None}, "review": {"reviewed": False},
                            "designated": [], "designated_detail": "", "name_query": True}
@@ -733,6 +887,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
                            "links": KREACH_LINKS}
         data["echa_clp"] = {"found": False, "harmonised": [], "industry": [], "record_url": None}
         data["ntp"] = {"listed": False}
+        data["denmark_clp"] = {"found": False, "items": [], "record_url": DENMARK_CLP_URL}
+        data["iarc"] = {"listed": False, "record_url": IARC_LIST_URL}
 
     if data.get("found"):
         cache_set(key, data)

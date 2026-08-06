@@ -66,6 +66,8 @@ Render 대시보드에 표시되는 서비스 URL(`https://chem-relay-xxxx.onren
 | EU CLP(ECHA CHEM) 조화분류·산업계 신고분류 | ✅ 자동(실시간 API) | `chem.echa.europa.eu`의 공개 REST 엔드포인트 사용(로그인·키 불필요). `fetch_echa_clp()` |
 | US NTP 발암성 보고서(RoC) 등재 여부 | ✅ 자동(고정목록) | 15차 보고서(2021) CASRN 인덱스를 미리 추출(`app/data/ntp_roc.json`). 신규 발간 시 `scripts/build_ntp_roc.py` 재실행 |
 | 덴마크 CLP 데이터베이스 | ✅ 자동(실시간 스크래핑) | `clp-vejlliste.mst.dk`의 ASP.NET WebForms 검색(POST)을 재현. 사이트 개편 시 `fetch_denmark_clp()`만 수정 |
+| IARC Monographs 발암성 분류(Group 1~4) | ✅ 자동(실시간) | 목록 페이지가 불러오는 JS 번들에 전체 데이터가 내장되어 있어 매 조회마다 새로 받아 파싱. `fetch_iarc_group()` |
+| EU RAR(ESR 위해성평가), ECHA Biocidal | 🔧 링크만 | `echa.europa.eu` 메인 도메인 전체가 Azure WAF(봇 차단)로 막혀 있어 서버 간 조회가 불가능. 봇 차단 우회는 하지 않으므로 DB 링크만 제공 |
 | 국내외 규제현황·우려이슈 "자세히 생성" | 🤖 Gemini(선택) | 아래 참고 |
 | 조회 캐시 | ✅ | 30일, `CACHE_DIR`(기본 `/tmp/cache`) |
 

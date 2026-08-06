@@ -284,6 +284,25 @@ function renderLiveOverseasClassification(d){
   } else {
     html+=`<div class="src" style="margin:2px 0 10px">US NTP RoC 15차 보고서 목록: 미등재</div>`;
   }
+  const dk=d.denmark_clp||{};
+  if(dk.items&&dk.items.length){
+    html+=`<div class="src" style="margin:12px 0 6px"><b>덴마크 CLP 데이터베이스</b> <span class="livepill">실시간 조회</span></div>
+      <table class="tbl"><thead><tr><th>물질명(EINECS)</th><th>분류(Klassificering)</th></tr></thead><tbody>
+      ${dk.items.map(it=>`<tr><td>${it.name_einecs||it.name_da||"—"}</td><td>${(it.classification||[]).map(c=>`<span class="chip neutral">${c}</span>`).join(" ")}</td></tr>`).join("")}
+      </tbody></table>
+      <div class="src" style="margin:4px 0 12px">출처: <a class="dbname" href="${dk.record_url}" target="_blank" rel="noopener">덴마크 CLP 데이터베이스 ↗</a> · Vejledende klassificering(권고 분류 — 법적 조화분류 아님)</div>`;
+  } else {
+    html+=`<div class="src" style="margin:12px 0 10px">덴마크 CLP 데이터베이스 실시간 조회: 대조된 분류 없음</div>`;
+  }
+  const iarc=d.iarc||{};
+  const IARC_GROUP_KO={"1":"인체발암성 확인됨(Group 1)","2A":"인체발암성 개연성 있음(Group 2A)",
+    "2B":"인체발암성 가능성 있음(Group 2B)","3":"인체발암성으로 분류되지 않음(Group 3)",
+    "4":"인체발암성 없을 가능성 높음(Group 4)"};
+  if(iarc.listed){
+    html+=`<div class="evidence"><span class="lab">IARC Monographs — 발암성 분류</span> ${IARC_GROUP_KO[iarc.group]||("Group "+iarc.group)}<div class="src" style="margin-top:3px">출처: <a class="dbname" href="${iarc.record_url}" target="_blank" rel="noopener">IARC Monographs ↗</a> · 실시간 조회</div></div>`;
+  } else {
+    html+=`<div class="src" style="margin:12px 0 10px">IARC Monographs 실시간 조회: 목록에 없음</div>`;
+  }
   return html;
 }
 function renderKreachUses(kreach){
