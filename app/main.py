@@ -524,6 +524,39 @@ KREACH_LINKS = {
 }
 _FN_DETAIL_RE = re.compile(r"fn_detail\('([^']+)'(?:\s*,\s*'([^']*)')?\)")
 
+def _expand_rowspan_rows(tbody):
+    """rowspan(세로 병합) 셀을 각 행에 값을 복제해 모든 행이 전체 컬럼을 갖도록 펼친다.
+    KREACH 유해성 분류 표는 그림문자·신호어·검토기준일(또는 기업 수) 열이 rowspan으로
+    첫 행에만 있고 나머지 행은 해당 <td> 자체가 생략되어 있어, 그대로 읽으면 첫 행만
+    유효한 것처럼(컬럼 수가 많은 것처럼) 보이고 나머지 행이 누락된다."""
+    pending = {}  # col_idx -> [remaining_rows, text]
+    grid = []
+    for tr in tbody.find_all("tr"):
+        row, col, ti = {}, 0, 0
+        tds = tr.find_all("td")
+        while ti < len(tds) or any(v[0] > 0 for v in pending.values()):
+            if col in pending and pending[col][0] > 0:
+                row[col] = pending[col][1]
+                pending[col][0] -= 1
+                if pending[col][0] == 0:
+                    del pending[col]
+                col += 1
+                continue
+            if ti >= len(tds):
+                break
+            td = tds[ti]; ti += 1
+            text = td.get_text(" ", strip=True)
+            rowspan = int(td.get("rowspan") or 1)
+            colspan = int(td.get("colspan") or 1)
+            for k in range(colspan):
+                row[col + k] = text
+                if rowspan > 1:
+                    pending[col + k] = [rowspan - 1, text]
+            col += colspan
+        maxcol = (max(row.keys()) + 1) if row else 0
+        grid.append([row.get(i, "") for i in range(maxcol)])
+    return grid
+
 def _kreach_parse_tab(soup, container_id, tab_label):
     box = soup.find(id=container_id)
     if not box:
@@ -535,21 +568,18 @@ def _kreach_parse_tab(soup, container_id, tab_label):
         body = table.find("tbody")
         if not body:
             continue
-        trs = body.find_all("tr")
         if "유해성" in cap_text:
-            for tr in trs:
-                tds = [td.get_text(" ", strip=True) for td in tr.find_all("td")]
-                if len(tds) < 6 or "없습니다" in "".join(tds):
+            for row in _expand_rowspan_rows(body):
+                if len(row) < 5 or "없습니다" in "".join(row):
                     continue
-                haz_rows.append({"tab": tab_label, "item": tds[0], "grade": tds[1],
-                                  "picto": tds[2], "signal": tds[3], "hcode_text": tds[4],
-                                  "reason": tds[5] if len(tds) > 5 else ""})
+                haz_rows.append({"tab": tab_label, "item": row[0], "grade": row[1],
+                                  "picto": row[2], "signal": row[3], "hcode_text": row[4],
+                                  "reason": row[5] if len(row) > 5 else ""})
         elif "용도" in cap_text:
-            for tr in trs:
-                tds = [td.get_text(" ", strip=True) for td in tr.find_all("td")]
-                if len(tds) < 2 or "없습니다" in "".join(tds):
+            for row in _expand_rowspan_rows(body):
+                if len(row) < 2 or "없습니다" in "".join(row):
                     continue
-                use_rows.append({"tab": tab_label, "no": tds[0], "use": tds[1]})
+                use_rows.append({"tab": tab_label, "no": row[0], "use": row[1]})
     return haz_rows, use_rows
 
 async def fetch_kreach(cas: str = None, name: str = None) -> dict:
@@ -811,6 +841,60 @@ async def fetch_iarc_group(cas: str) -> dict:
         return empty
 
 # ----------------------------------------------------------------------
+# 일본 NITE CHRIP(화학물질종합정보제공시스템) — 등재 여부·기본정보 확인
+#   GHS분류결과 등 세부 카테고리는 검색 화면의 체크박스 선택에 따라 표시 항목이
+#   달라지고 내용이 매우 방대해, 여기서는 등재 여부·CHRIP_ID·일본어/영어명·분자식만
+#   확인하고 상세 페이지로 바로 연결되는 링크를 제공한다.
+#   세션 쿠키 기반 GET 검색(구식 JSP)이라 사이트 개편 시 이 함수만 고치면 된다.
+# ----------------------------------------------------------------------
+NITE_SEARCH_URL = "https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"
+
+async def fetch_nite_chrip(cas: str) -> dict:
+    from bs4 import BeautifulSoup
+    empty = {"found": False, "record_url": NITE_SEARCH_URL}
+    if not cas:
+        return empty
+    params = {
+        "shMd": "0", "hdUpScPh": "", "cidLt": "",
+        "hdInitLtNumMh": "0", "hdInitLtNmMh": "1", "hdInitLtMlMh": "0", "hdInitLtPgCtSt": "100",
+        "hdInitRbDp": "0", "hdInitLtScTp": "1", "hdInitRbScMh": "1",
+        "txNumSh": cas, "ltNumTp": "1", "ltNumMh": "0",
+        "txNmSh": "", "ltNmTp": "", "ltNmMh": "1",
+        "txMlSh": "", "ltMlMh": "0", "ltScDp": "0", "ltPgCtSt": "100", "rbDp": "0",
+        "_e_srh": "",
+    }
+    try:
+        async with httpx.AsyncClient(timeout=20, headers=UA, follow_redirects=True) as client:
+            await client.get(NITE_SEARCH_URL)
+            r = await client.get(NITE_SEARCH_URL, params=params)
+            if r.status_code != 200 or "cmpInfDsp" not in str(r.url):
+                return empty
+            soup = BeautifulSoup(r.text, "html.parser")
+    except Exception:
+        return empty
+
+    rec = {}
+    for tr in soup.select("table.list-table tr"):
+        tds = tr.find_all("td")
+        for i in range(0, len(tds) - 1, 2):
+            label = tds[i].get_text(strip=True)
+            value = tds[i + 1].get_text(strip=True)
+            if label and label not in rec:
+                rec[label] = value
+        if len(rec) >= 5:
+            break
+    if not rec.get("CHRIP_ID"):
+        return empty
+    return {
+        "found": True,
+        "chrip_id": rec.get("CHRIP_ID", ""),
+        "name_ja": rec.get("日本語名", ""),
+        "name_en": rec.get("英語名", ""),
+        "formula": rec.get("分子式", ""),
+        "record_url": str(r.url),
+    }
+
+# ----------------------------------------------------------------------
 # API
 # ----------------------------------------------------------------------
 @app.get("/api/chem")
@@ -839,6 +923,7 @@ async def api_chem(q: str = Query(..., min_length=1)):
             result["ntp"] = ntp_lookup(fbcas)
             result["denmark_clp"] = await fetch_denmark_clp(fbcas)
             result["iarc"] = await fetch_iarc_group(fbcas)
+            result["nite"] = await fetch_nite_chrip(fbcas)
         else:
             result["notice"] = {"existing": {"is_existing": None}, "review": {"reviewed": False},
                                  "designated": [], "designated_detail": "", "name_query": True}
@@ -850,6 +935,7 @@ async def api_chem(q: str = Query(..., min_length=1)):
             result["ntp"] = {"listed": False}
             result["denmark_clp"] = {"found": False, "items": [], "record_url": DENMARK_CLP_URL}
             result["iarc"] = {"listed": False, "record_url": IARC_LIST_URL}
+            result["nite"] = {"found": False, "record_url": NITE_SEARCH_URL}
         cache_set(key, result)
         return JSONResponse(result)
 
@@ -878,6 +964,7 @@ async def api_chem(q: str = Query(..., min_length=1)):
         data["ntp"] = ntp_lookup(q)
         data["denmark_clp"] = await fetch_denmark_clp(q)
         data["iarc"] = await fetch_iarc_group(q)
+        data["nite"] = await fetch_nite_chrip(q)
     else:
         data["notice"] = {"existing": {"is_existing": None}, "review": {"reviewed": False},
                            "designated": [], "designated_detail": "", "name_query": True}
@@ -889,6 +976,7 @@ async def api_chem(q: str = Query(..., min_length=1)):
         data["ntp"] = {"listed": False}
         data["denmark_clp"] = {"found": False, "items": [], "record_url": DENMARK_CLP_URL}
         data["iarc"] = {"listed": False, "record_url": IARC_LIST_URL}
+        data["nite"] = {"found": False, "record_url": NITE_SEARCH_URL}
 
     if data.get("found"):
         cache_set(key, data)

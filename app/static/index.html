@@ -303,6 +303,12 @@ function renderLiveOverseasClassification(d){
   } else {
     html+=`<div class="src" style="margin:12px 0 10px">IARC Monographs 실시간 조회: 목록에 없음</div>`;
   }
+  const nite=d.nite||{};
+  if(nite.found){
+    html+=`<div class="evidence"><span class="lab">일본 NITE CHRIP — 등재 확인</span> ${nite.name_ja||""}${nite.name_en?` (${nite.name_en})`:""}${nite.formula?` · ${nite.formula}`:""}<div class="src" style="margin-top:3px">CHRIP_ID ${nite.chrip_id||"—"} · GHS 분류 등 상세 항목은 아래 링크에서 직접 확인하세요. <a class="dbname" href="${nite.record_url}" target="_blank" rel="noopener">NITE CHRIP 상세 ↗</a> · 실시간 조회</div></div>`;
+  } else {
+    html+=`<div class="src" style="margin:12px 0 10px">일본 NITE CHRIP 실시간 조회: 등재된 레코드 없음</div>`;
+  }
   return html;
 }
 function renderKreachUses(kreach){
