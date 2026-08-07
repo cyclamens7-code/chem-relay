@@ -3,117 +3,117 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>화학물질 유해성 조회 콘솔 (NAS)</title>
+<title>화학물질 유해성 조회 콘솔</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
-:root{--ink:#15171c;--paper:#f7f5f0;--card:#fff;--steel:#5a6472;--line:#e4e1d9;
---hazard:#b23b2e;--hazard-bg:#fbeeec;--amber:#a9761a;--amber-bg:#faf1dd;--verify:#20706f;--verify-bg:#e4f1f0;--focus:#3a67c4}
+:root{--ink:#3d3929;--paper:#f5f3ee;--card:#fff;--steel:#83807a;--line:#e5e1d6;
+--hazard:#d97757;--hazard-bg:#f7e9e0;--amber:#b08a3e;--amber-bg:#f7f0dc;--verify:#5b8a6b;--verify-bg:#e9f1ea;--focus:#d97757}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter","Pretendard",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
 .mono{font-family:"JetBrains Mono",monospace;font-feature-settings:"tnum"}
 button{font-family:inherit;cursor:pointer}
-.console{background:var(--ink);color:#eae7df;padding:34px 24px 30px;border-bottom:3px solid var(--hazard)}
+.console{background:var(--ink);color:#eae7df;padding:40px 28px 36px;border-bottom:3px solid var(--hazard)}
 .ci{max-width:1080px;margin:0 auto}
 .brandrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
-.brand{font-family:"Space Grotesk";font-weight:700;font-size:20px;color:#fff}
+.brand{font-family:"Fraunces";font-weight:700;font-size:20px;color:#fff}
 .brand .dot{color:var(--hazard)}
-.tagline{font-size:12.5px;color:#9aa1ad;font-family:"JetBrains Mono";letter-spacing:.02em}
-.subnote{font-size:12px;color:#8a919d;margin:0 0 20px}.subnote b{color:#cdd2da}
+.tagline{font-size:12.5px;color:#b3aea0;font-family:"JetBrains Mono";letter-spacing:.02em}
+.subnote{font-size:12px;color:#a19c8f;margin:0 0 20px}.subnote b{color:#e5e1d6}
 .sw{display:flex;gap:10px;flex-wrap:wrap}.sf{flex:1 1 340px;position:relative}
-.sf input{width:100%;padding:15px 16px 15px 46px;border:0;border-radius:2px;background:#0d0e12;color:#fff;font-size:16px;font-family:"JetBrains Mono";outline:2px solid #2c303b}
-.sf input::placeholder{color:#6b7280;font-family:"Inter","Pretendard"}.sf input:focus{outline:2px solid var(--focus)}
+.sf input{width:100%;padding:15px 16px 15px 46px;border:0;border-radius:10px;background:#2a2620;color:#fff;font-size:16px;font-family:"JetBrains Mono";outline:2px solid #4a4436}
+.sf input::placeholder{color:#8a8578;font-family:"Inter","Pretendard"}.sf input:focus{outline:2px solid var(--focus)}
 .sf svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);opacity:.55}
-.sb{padding:0 26px;border:0;border-radius:2px;background:var(--hazard);color:#fff;font-weight:600;font-size:15px}
+.sb{padding:0 26px;border:0;border-radius:10px;background:var(--hazard);color:#fff;font-weight:600;font-size:15px}
 .sb:hover{background:#c84437}.sb:disabled{opacity:.5;cursor:wait}
-.hint{margin-top:11px;font-size:12px;color:#8a919d;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.hint code{background:#0d0e12;padding:3px 9px;border-radius:2px;color:#c7ccd4;font-family:"JetBrains Mono";cursor:pointer}.hint code:hover{color:#fff}
+.hint{margin-top:11px;font-size:12px;color:#a19c8f;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.hint code{background:#2a2620;padding:3px 9px;border-radius:10px;color:#d9d5c8;font-family:"JetBrains Mono";cursor:pointer}.hint code:hover{color:#fff}
 main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
-.empty{padding:40px 0}.nodb{background:var(--verify-bg);border:1px solid #bcdedc;border-radius:4px;padding:16px 18px;font-size:13px;color:#1f4c4b}.nodb b{color:var(--verify)}
-.target{background:var(--card);border:1px solid var(--line);border-radius:4px;margin-top:20px;overflow:hidden;box-shadow:0 8px 30px -20px rgba(0,0,0,.3)}
-.idhead{padding:22px 24px;display:flex;gap:24px;flex-wrap:wrap}
-.struct{width:150px;height:150px;flex:none;border:1px solid var(--line);border-radius:4px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.empty{padding:40px 0}.nodb{background:var(--verify-bg);border:1px solid #bcdedc;border-radius:12px;padding:16px 18px;font-size:13px;color:#1f4c4b}.nodb b{color:var(--verify)}
+.target{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-top:20px;overflow:hidden;box-shadow:0 8px 30px -20px rgba(0,0,0,.3)}
+.idhead{padding:26px 28px;display:flex;gap:24px;flex-wrap:wrap}
+.struct{width:150px;height:150px;flex:none;border:1px solid var(--line);border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .struct img{max-width:100%;max-height:100%}.struct .ph{font-size:11px;color:var(--steel);text-align:center;padding:8px;line-height:1.5}
 .idmain{flex:1 1 320px;min-width:260px}
-.idname{font-family:"Space Grotesk";font-size:21px;font-weight:600;line-height:1.25}
+.idname{font-family:"Fraunces";font-size:21px;font-weight:600;line-height:1.25}
 .idname small{display:block;font-family:"Inter","Pretendard";font-size:13px;font-weight:400;color:var(--steel);margin-top:3px}
-.idkv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;margin-top:14px;overflow:hidden}
+.idkv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;margin-top:14px;overflow:hidden}
 .idkv .cell{background:#fff;padding:9px 12px}.idkv .k{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--steel);font-weight:600}.idkv .v{font-size:13.5px;margin-top:2px;word-break:break-word}
 .source-note{font-size:11px;color:var(--steel);padding:0 24px 16px;display:flex;align-items:center;gap:7px}
 .livepill{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--verify);padding:2px 8px;border-radius:99px}
-.section{background:var(--card);border:1px solid var(--line);border-radius:4px;margin-top:16px;overflow:hidden}
-.sh{display:flex;align-items:center;gap:14px;padding:16px 22px;cursor:pointer;user-select:none}.sh:hover{background:#faf9f6}
-.sn{font-family:"JetBrains Mono";font-weight:700;font-size:13px;color:#fff;background:var(--ink);width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:3px}
-.st{font-family:"Space Grotesk";font-weight:600;font-size:16.5px;flex:1}
+.section{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-top:16px;overflow:hidden}
+.sh{display:flex;align-items:center;gap:14px;padding:18px 24px;cursor:pointer;user-select:none}.sh:hover{background:#faf9f6}
+.sn{font-family:"JetBrains Mono";font-weight:700;font-size:13px;color:#fff;background:var(--ink);width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.st{font-family:"Fraunces";font-weight:600;font-size:16.5px;flex:1}
 .sfl{font-family:"JetBrains Mono";font-size:9.5px;font-weight:600;padding:3px 8px;border-radius:99px}.sfl.auto{background:var(--verify-bg);color:var(--verify)}.sfl.link{background:#f2f0ec;color:var(--steel)}
 .chev{transition:transform .22s;opacity:.5}.section.open .chev{transform:rotate(90deg)}
-.sbody{display:none;padding:4px 22px 24px;border-top:1px solid var(--line)}.section.open .sbody{display:block}
+.sbody{display:none;padding:4px 24px 28px;border-top:1px solid var(--line)}.section.open .sbody{display:block}
 .si{color:var(--steel);font-size:13px;margin:14px 0 16px;max-width:66ch}
 .block{margin:14px 0}.block h4{font-size:13px;margin:0 0 7px;display:flex;align-items:center;gap:8px}.block h4 .tick{width:6px;height:6px;border-radius:1px;flex:none}
 .block ul{margin:6px 0 8px;padding-left:18px}.block li{font-size:13.5px;margin:4px 0;color:#2c2f36}
-.evidence{border-left:3px solid var(--verify);background:var(--verify-bg);padding:11px 14px;border-radius:0 3px 3px 0;margin:10px 0;font-size:12.5px}
+.evidence{border-left:3px solid var(--verify);background:var(--verify-bg);padding:11px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:12.5px}
 .evidence .lab{font-weight:600;color:var(--verify);font-size:11px;letter-spacing:.05em;text-transform:uppercase}
-.inference{border-left:3px solid var(--amber);background:var(--amber-bg);padding:11px 14px;border-radius:0 3px 3px 0;margin:10px 0;font-size:12.5px}
+.inference{border-left:3px solid var(--amber);background:var(--amber-bg);padding:11px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:12.5px}
 .inference .lab{font-weight:600;color:var(--amber);font-size:11px;letter-spacing:.05em;text-transform:uppercase}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
-.chip{font-family:"JetBrains Mono";font-size:12px;font-weight:500;padding:5px 10px;border-radius:3px;border:1px solid}
+.chip{font-family:"JetBrains Mono";font-size:12px;font-weight:500;padding:5px 10px;border-radius:8px;border:1px solid}
 .chip.haz{color:var(--hazard);background:var(--hazard-bg);border-color:#eccbc6}.chip.warn{color:var(--amber);background:var(--amber-bg);border-color:#ead9b4}.chip.neutral{color:var(--steel);background:#f2f0ec;border-color:var(--line)}
 .pictos{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.picto{display:flex;flex-direction:column;align-items:center;gap:4px;width:74px;text-align:center}
-.picto .dia{width:52px;height:52px;transform:rotate(45deg);border:2.5px solid var(--hazard);border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center}.picto .dia span{transform:rotate(-45deg);font-size:22px}.picto small{font-size:10px;color:var(--steel);line-height:1.2}
-.signal{display:inline-block;font-family:"Space Grotesk";font-weight:700;font-size:15px;padding:4px 14px;border-radius:3px}.signal.danger{background:var(--hazard);color:#fff}.signal.warning{background:var(--amber);color:#fff}
+.picto .dia{width:52px;height:52px;transform:rotate(45deg);border:2.5px solid var(--hazard);border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center}.picto .dia span{transform:rotate(-45deg);font-size:22px}.picto small{font-size:10px;color:var(--steel);line-height:1.2}
+.signal{display:inline-block;font-family:"Fraunces";font-weight:700;font-size:15px;padding:4px 14px;border-radius:8px}.signal.danger{background:var(--hazard);color:#fff}.signal.warning{background:var(--amber);color:#fff}
 .tbl{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
 .tbl th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--steel);font-weight:600;padding:8px 10px;border-bottom:2px solid var(--line)}
 .tbl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}.tbl tr:hover td{background:#faf9f6}
 .hcode{font-family:"JetBrains Mono";font-weight:700;color:var(--hazard);white-space:nowrap}
 .gradechip{display:inline-block;font-family:"JetBrains Mono";font-size:12px;font-weight:700;color:#fff;background:var(--hazard);padding:2px 9px;border-radius:99px;white-space:nowrap}
-.altname{display:inline-block;font-size:12px;background:#f2f0ec;border:1px solid var(--line);border-radius:3px;padding:2px 7px;margin:2px 4px 2px 0}
+.altname{display:inline-block;font-size:12px;background:#f2f0ec;border:1px solid var(--line);border-radius:8px;padding:2px 7px;margin:2px 4px 2px 0}
 .regstatus{color:var(--hazard);font-weight:600}
 .othernames{display:block;font-size:12px;color:var(--steel);font-weight:400;margin-top:4px;line-height:1.5}
 .hazsum{margin:10px 0;padding-left:20px}.hazsum li{margin:6px 0;font-size:13.5px}
 .src{font-size:11.5px;color:var(--steel)}.src b{color:var(--ink);font-weight:600}
 .dbname{font-family:"JetBrains Mono";font-size:11.5px;color:var(--verify);font-weight:500;text-decoration:none}.dbname:hover{text-decoration:underline}
-.gt{font-family:"Space Grotesk";font-weight:600;font-size:13.5px;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}
-.gt .badge{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--steel);padding:2px 7px;border-radius:3px}
-.items{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.item{font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:3px;background:#fcfbf9;color:#3a3f47}
+.gt{font-family:"Fraunces";font-weight:600;font-size:13.5px;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}
+.gt .badge{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--steel);padding:2px 7px;border-radius:8px}
+.items{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.item{font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;background:#fcfbf9;color:#3a3f47}
 .dbgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:7px;margin-top:6px}
-.dblink{display:flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--line);border-left-width:4px;border-radius:3px;padding:9px 11px;background:#fff;font-size:12px;transition:border-color .15s,background .15s}
+.dblink{display:flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--line);border-left-width:4px;border-radius:8px;padding:9px 11px;background:#fff;font-size:12px;transition:border-color .15s,background .15s}
 .dblink:hover{border-color:var(--ink);background:#fbfaf7}
 .dblink.direct{border-left-color:var(--verify);background:#f2fbfa}
 .dblink.copy{border-left-color:#c9a24a;background:#fdfaf3}
-.dblink .glyph{width:22px;height:22px;flex:none;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono";font-size:12px;font-weight:700}
+.dblink .glyph{width:22px;height:22px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono";font-size:12px;font-weight:700}
 .dblink.direct .glyph{background:var(--verify);color:#fff}.dblink.copy .glyph{background:#c9a24a;color:#fff}
 .dblink .lbl{flex:1;line-height:1.25;color:var(--ink)}.dblink .arrow{opacity:.35;flex:none}.dblink:hover .arrow{opacity:.8}
 .leg{font-size:11px;color:var(--steel);margin:14px 0 4px;display:flex;gap:16px;flex-wrap:wrap}.leg span{display:inline-flex;align-items:center;gap:6px}
 .orgrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
-.orgcard{display:block;text-decoration:none;border:1px solid var(--line);border-top:3px solid var(--verify);border-radius:4px;padding:12px 14px;background:#fff}
+.orgcard{display:block;text-decoration:none;border:1px solid var(--line);border-top:3px solid var(--verify);border-radius:12px;padding:12px 14px;background:#fff}
 .orgcard:hover{background:#fbfaf7}
 .orgcard .k{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--steel);font-weight:700}
 .orgcard .v{font-size:13.5px;font-weight:600;color:var(--ink);margin-top:2px}
 .orgcard .s{font-size:11.5px;color:var(--steel);margin-top:3px}
 @media(max-width:560px){.orgrow{grid-template-columns:1fr}}
-.invbox{border:1px solid var(--line);border-radius:5px;padding:14px 16px;margin:14px 0;background:#fcfbf9}
-.invhead{font-family:"Space Grotesk";font-weight:600;font-size:14px;margin-bottom:8px}
+.invbox{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0;background:#fcfbf9}
+.invhead{font-family:"Fraunces";font-weight:600;font-size:14px;margin-bottom:8px}
 .invrow{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
 .invlbl{font-weight:600;min-width:90px}
 .invok{display:inline-block;background:var(--verify);color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px}
 .invno{display:inline-block;background:#eee;color:var(--steel);font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px}
 .stnrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
-.stnbtn{display:block;text-decoration:none;border:1px solid #2c3550;border-left:4px solid #2c3550;border-radius:4px;padding:11px 14px;background:#1f2740;color:#eaf0ff;font-size:13px}
+.stnbtn{display:block;text-decoration:none;border:1px solid #2c3550;border-left:4px solid #2c3550;border-radius:12px;padding:11px 14px;background:#1f2740;color:#eaf0ff;font-size:13px}
 .stnbtn.alt{background:#2a3350;border-color:#3a4568}
 .stnbtn:hover{background:#28324f}
 .stnbtn b{font-family:"JetBrains Mono";letter-spacing:.02em}
 .stnbtn .opennote{display:block;font-size:11px;color:#9fb0d8;margin-top:3px}
 @media(max-width:560px){.stnrow{grid-template-columns:1fr}}
-.leg .g{width:16px;height:16px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-family:"JetBrains Mono";font-size:9px;font-weight:700}.g.direct{background:var(--verify-bg);color:var(--verify)}.g.copy{background:#f2f0ec;color:var(--steel)}
+.leg .g{width:16px;height:16px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-family:"JetBrains Mono";font-size:9px;font-weight:700}.g.direct{background:var(--verify-bg);color:var(--verify)}.g.copy{background:#f2f0ec;color:var(--steel)}
 .loading{display:flex;align-items:center;gap:10px;color:var(--steel);font-size:13px;padding:10px 0}
 .spin{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--verify);border-radius:50%;animation:sp .7s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
-.errbox{background:var(--amber-bg);border:1px solid #ead9b4;border-radius:4px;padding:12px 14px;font-size:12.5px;color:#6d4c12}
-.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:4px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:50;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast .cas{font-family:"JetBrains Mono";color:#f4d38a}
-.genbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--amber-bg);border:1px solid #ead9b4;border-radius:4px;padding:12px 14px;margin-bottom:14px}
+.errbox{background:var(--amber-bg);border:1px solid #ead9b4;border-radius:12px;padding:12px 14px;font-size:12.5px;color:#6d4c12}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:50;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast .cas{font-family:"JetBrains Mono";color:#f4d38a}
+.genbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--amber-bg);border:1px solid #ead9b4;border-radius:12px;padding:12px 14px;margin-bottom:14px}
 .genbar .txt{font-size:12.5px;color:#6d4c12;flex:1;min-width:180px}
-.genbtn{background:var(--amber);color:#fff;border:0;border-radius:3px;padding:8px 16px;font-size:13px;font-weight:600;white-space:nowrap}
+.genbtn{background:var(--amber);color:#fff;border:0;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;white-space:nowrap}
 .genbtn:hover{background:#956613}.genbtn:disabled{opacity:.55;cursor:wait}
 .conf{display:inline-block;font-family:"JetBrains Mono";font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;margin-left:6px}
 .conf.high{background:var(--verify-bg);color:var(--verify)}.conf.medium{background:var(--amber-bg);color:var(--amber)}.conf.low{background:var(--hazard-bg);color:var(--hazard)}
@@ -123,10 +123,10 @@ main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
 </head>
 <body>
 <header class="console"><div class="ci">
-  <div class="brandrow"><div class="brand">유해성 조회 콘솔<span class="dot">.</span></div><div class="tagline">NAS 중계 서버 · CAS·물질명 → 실제 자료 자동 표시</div></div>
-  <p class="subnote">이 콘솔은 <b>내 NAS의 중계 서버</b>가 대신 조회한 자료를 표시합니다. 브라우저 CORS 제약이 없습니다.</p>
+  <div class="brandrow"><div class="brand">유해성 조회 콘솔<span class="dot">.</span></div><div class="tagline">Gemini·Claude AI · CAS·물질명 → 실제 자료 자동 표시</div></div>
+  <p class="subnote">이 콘솔은 <b>Gemini·Claude AI를 활용하는 서버</b>가 대신 조회한 자료를 표시합니다. 브라우저 CORS 제약이 없습니다.</p>
   <div class="sw"><div class="sf">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a919d" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a19c8f" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
     <input id="q" type="text" placeholder="CAS 번호나 물질명 입력 후 Enter  (예: 71-43-2, benzene)" autocomplete="off" spellcheck="false">
   </div><button class="sb" id="go">조회</button></div>
   <div class="hint">빠른 시도:
@@ -142,7 +142,7 @@ main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
 <div class="toast" id="toast"></div>
 
 <script>
-const API = "/api/chem";  // 같은 NAS에서 서비스 → 상대경로
+const API = "/api/chem";  // 같은 서버에서 서비스 → 상대경로
 
 const DB={
   kreach:{name:"기후에너지환경부 화학물질정보처리시스템",url:"https://kreach.mcee.go.kr/repwrt/index.do"},
@@ -350,7 +350,7 @@ function shell(q){
   main.innerHTML=`
   <div class="target"><div class="idhead">
     <div class="struct" id="struct"><div class="ph">구조식<br>불러오는 중…</div></div>
-    <div class="idmain"><div class="idname" id="idname">${Q}<small>NAS 서버가 조회 중…</small></div>
+    <div class="idmain"><div class="idname" id="idname">${Q}<small>AI 조회 중…</small></div>
     <div class="idkv" id="idkv"><div class="cell"><div class="k">상태</div><div class="v"><span class="loading" style="padding:0"><span class="spin"></span>조회 중</span></div></div></div></div>
   </div><div class="source-note" id="idsrc"></div></div>
   ${section(1,"화학물질 기본정보","auto",`<div class="loading"><span class="spin"></span>기본정보 로딩…</div>`,true)}
@@ -358,12 +358,15 @@ function shell(q){
     `<div id="enrich2"><div class="loading"><span class="spin"></span>규제·지정물질을 자동 조회 중…</div></div>
      <p class="si">아래는 직접 확인용 규제 DB 링크입니다.</p>${legend}${dbLinks(GROUPS.regulation)}`,false)}
   ${section(3,"유해성 분류 및 표시 (GHS)","auto",`<div class="loading"><span class="spin"></span>GHS 분류 로딩…</div>`,true)}
-  ${section(4,"유해성 요약 — 확인된 유해성 근거","auto",`<div class="loading"><span class="spin"></span>정리 중…</div>`,false)}
-  ${section(5,"국내 우려 이슈 및 노출경로","gen",
-    `<div id="enrich4"><div class="loading"><span class="spin"></span>국내 우려·용도·노출경로 자동 정리 중…</div></div>
+  ${section(4,"유해성 요약 - 심사기준(국내, EU)","auto",`<div class="loading"><span class="spin"></span>정리 중…</div>`,false)}
+  ${section(5,"등록,신고된 용도 및 이슈","gen",
+    `<div class="gt" style="margin-top:0">1) 등록, 신고 용도<span class="badge">화학물질정보처리시스템</span></div>
+     <div id="regUseBox"></div>
+     <div class="gt">2) 국내 우려 이슈 및 노출경로<span class="badge">AI 생성</span></div>
+     <div id="enrich4"><div class="loading"><span class="spin"></span>국내 우려·용도·노출경로 자동 정리 중…</div></div>
      <p class="si">직접 확인용 국내 DB:</p>${dbLinks(GROUPS.domestic)}`,false)}
   ${section(6,"유해성 정보 수집 — 특성별 Reference DB","link",`<p class="si">물리화학적 특성·인체(건강) 유해성·환경 유해성 3가지로 나눈 시험자료 조회 Reference DB입니다.</p>${legend}${testGroups()}`,false)}
-  <div class="disclaimer">참고자료 우선순위: 1) CAS Common Chemistry 2) PubChem. 1·3·4·5번(용도정보)은 NAS 중계 서버가 CAS Common Chemistry·PubChem·국내 고시·화학물질정보처리시스템(KREACH) 대조로 채웁니다. 기존/신규화학물질 판단은 CAS No. 입력일 때만 자동 수행합니다(물질명은 혼합물 오판 방지를 위해 수동 확인 안내). 2·5·6번의 나머지 항목은 개방형 API가 없는 정부 DB라 자동 링크·AI 생성으로 연결합니다.</div>`;
+  <div class="disclaimer">참고자료 우선순위: 1) CAS Common Chemistry 2) PubChem. 1·3·4·5번(용도정보)은 서버가 CAS Common Chemistry·PubChem·국내 고시·화학물질정보처리시스템(KREACH) 대조로 채웁니다. 기존/신규화학물질 판단은 CAS No. 입력일 때만 자동 수행합니다(물질명은 혼합물 오판 방지를 위해 수동 확인 안내). 2·5·6번의 나머지 항목은 개방형 API가 없는 정부 DB라 자동 링크·AI 생성으로 연결합니다.</div>`;
   window.scrollTo({top:0,behavior:"instant"});
 }
 
@@ -536,8 +539,8 @@ function renderNone(d){
     sec2.insertAdjacentHTML("afterbegin", rvBox);
     sec2.insertAdjacentHTML("beforeend", renderInventory(d.notice));
   }
-  const sec5=$("#sec5");
-  if(sec5) sec5.insertAdjacentHTML("afterbegin", renderKreachUses(d.kreach));
+  const regUseBox=$("#regUseBox");
+  if(regUseBox) regUseBox.innerHTML=renderKreachUses(d.kreach);
 }
 function renderData(d){
   const id=d.identity||{}, g=d.ghs||{};
@@ -549,7 +552,7 @@ function renderData(d){
   else $("#struct").innerHTML=`<div class="ph">${id.formula&&id.formula.includes('UVCB')?'UVCB<br>구조식 없음':'구조식<br>없음'}</div>`;
   $("#idname").innerHTML=`${id.title||Q}${id.title_ko?`<small>${id.title_ko}</small>`:""}${(id.other_names&&id.other_names.length)?`<small class="othernames">이명: ${id.other_names.slice(0,5).join(" · ")}</small>`:""}`;
   const isFallback=(d.source||"").includes("규제자료");
-  $("#idsrc").innerHTML=`<span class="livepill" ${isFallback?'style="background:var(--amber)"':''}>${isFallback?'예시':'SERVER'}</span> 출처: ${d.source||"NAS 중계 서버"}${id.cid?` · <a class="dbname" href="${d.record_url}" target="_blank" rel="noopener">PubChem 전체 레코드 ↗</a>`:""}${id.cas_cc_url?` · <a class="dbname" href="${id.cas_cc_url}" target="_blank" rel="noopener">CAS Common Chemistry ↗</a>`:""}${d._cache?' · (캐시)':''}`;
+  $("#idsrc").innerHTML=`<span class="livepill" ${isFallback?'style="background:var(--amber)"':''}>${isFallback?'예시':'SERVER'}</span> 출처: ${d.source||"AI 서버 조회"}${id.cid?` · <a class="dbname" href="${d.record_url}" target="_blank" rel="noopener">PubChem 전체 레코드 ↗</a>`:""}${id.cas_cc_url?` · <a class="dbname" href="${id.cas_cc_url}" target="_blank" rel="noopener">CAS Common Chemistry ↗</a>`:""}${d._cache?' · (캐시)':''}`;
   const kv=[["CAS No.",id.cas||"—",1]];
   if(id.ec)kv.push(["EC No.",id.ec,1]);
   // 국내 고시 대조 결과(기존/신규 · KE-No.) — CAS No. 입력일 때만 자동판단
@@ -602,7 +605,7 @@ function renderData(d){
     ${id.smiles?`<tr><td><b>SMILES</b></td><td class="mono" style="word-break:break-all">${id.smiles}</td></tr>`:""}
     ${id.inchikey?`<tr><td><b>InChIKey</b></td><td class="mono">${id.inchikey}</td></tr>`:""}
     ${id.cid?`<tr><td><b>PubChem CID</b></td><td class="mono">${id.cid}</td></tr>`:""}</table>
-    <div class="evidence"><span class="lab">참고자료 출처</span> ${id.source_label||d.source||"NAS 중계 서버"}${(id.source_no===1)?' <span class="src">(2순위 PubChem으로 IUPAC명·구조식·CID 보완)</span>':''} · 기존/신규 판단: ${d.q_is_cas?"CAS No. 기준 · 기존화학물질 고시 대조":"물질명 검색(자동판단 보류)"}</div>
+    <div class="evidence"><span class="lab">참고자료 출처</span> ${id.source_label||d.source||"AI 서버 조회"}${(id.source_no===1)?' <span class="src">(2순위 PubChem으로 IUPAC명·구조식·CID 보완)</span>':''} · 기존/신규 판단: ${d.q_is_cas?"CAS No. 기준 · 기존화학물질 고시 대조":"물질명 검색(자동판단 보류)"}</div>
     <div class="src" style="margin:12px 0 2px">식별정보·KE-No. 교차확인</div>${legend}${dbLinks(GROUPS.ident)}`;
   // GHS
   const sts=g.statements||[];
@@ -675,8 +678,8 @@ function renderData(d){
     sec2.insertAdjacentHTML("afterbegin", rvBox + orgSplit);
     sec2.insertAdjacentHTML("beforeend", renderInventory(d.notice));
   }
-  const sec5=$("#sec5");
-  if(sec5) sec5.insertAdjacentHTML("afterbegin", renderKreachUses(d.kreach));
+  const regUseBox=$("#regUseBox");
+  if(regUseBox) regUseBox.innerHTML=renderKreachUses(d.kreach);
 }
 
 async function enrichDetail(){
