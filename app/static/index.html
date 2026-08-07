@@ -212,6 +212,17 @@ const $=s=>document.querySelector(s);
 const main=$("#main"),input=$("#q"),toast=$("#toast"),goBtn=$("#go");
 let Q="";
 const isCas=v=>/^\d{2,7}-\d{2}-\d$/.test(v.trim());
+// CAS 등록번호 체크섬 검증: 마지막 자리(확인숫자)를 제외한 앞자리를
+// 오른쪽부터 1,2,3...로 가중합해 10으로 나눈 나머지가 확인숫자와 같아야 함.
+function isCasChecksumValid(v){
+  const digits=v.trim().replace(/-/g,"");
+  if(!/^\d{5,10}$/.test(digits)) return false;
+  const check=parseInt(digits[digits.length-1],10);
+  const body=digits.slice(0,-1);
+  let sum=0;
+  for(let i=0;i<body.length;i++) sum+=parseInt(body[i],10)*(body.length-i);
+  return (sum%10)===check;
+}
 function dbHref(k){const d=DB[k];if(!d)return"#";return d.query?d.query+encodeURIComponent(Q):d.url;}
 function dbClick(e,k){const d=DB[k];if(!d||d.query)return;if(navigator.clipboard)navigator.clipboard.writeText(Q);toast.innerHTML=`<span class="cas">${Q}</span> 복사됨 — <b>${d.name}</b> 검색창에 붙여넣으세요`;toast.classList.add("show");clearTimeout(dbClick._t);dbClick._t=setTimeout(()=>toast.classList.remove("show"),3200);}
 function dbLinks(keys){return `<div class="dbgrid">`+keys.map(k=>{const d=DB[k];if(!d)return"";const dir=!!d.query;return `<a class="dblink ${dir?'direct':'copy'}" href="${dbHref(k)}" target="_blank" rel="noopener" onclick="dbClick(event,'${k}')"><span class="glyph">${dir?"↦":"○"}</span><span class="lbl">${d.name}</span><svg class="arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>`;}).join("")+`</div>`;}
@@ -736,7 +747,16 @@ async function enrichDetail(){
   }
 }
 
-function run(){const v=input.value;if(!v.trim())return;lookup(v);}
+function run(){
+  const v=input.value;
+  if(!v.trim())return;
+  const t=v.trim();
+  if(isCas(t) && !isCasChecksumValid(t)){
+    alert(`CAS No. "${t}"가 성립되지 않습니다.\n번호를 다시 확인해 주세요.`);
+    return;
+  }
+  lookup(v);
+}
 goBtn.addEventListener("click",run);
 input.addEventListener("keydown",e=>{if(e.key==="Enter")run();});
 document.querySelectorAll(".hint code").forEach(c=>c.addEventListener("click",()=>{input.value=c.dataset.fill;run();}));
