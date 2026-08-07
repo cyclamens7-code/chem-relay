@@ -160,44 +160,71 @@ CLASSIFICATION_REF = _load_json("classification_reference.json")
 NTP_ROC = _load_json("ntp_roc.json")
 
 # ----------------------------------------------------------------------
-# 이성질체·무수물·수화물 매칭 (CAS 기준 기존화학물질 판단 보완용)
-#   입력 CAS로 유추한 물질명에서 cis/trans/(E)/(Z) 같은 이성질체 표기와
-#   수화물·무수물 표기를 제거한 뒤, 기존화학물질 목록의 물질명과 대조한다.
-#   매칭되면(다른 CAS인데 같은 base name) 고시 제3조(이성질체·수화물·무수물)
-#   해당 가능성이 있으므로 화학물질정보처리시스템에서 반드시 확인하도록 안내한다.
+# 이성질체·무수물·수화물·중수소치환체 매칭 (CAS 기준 기존화학물질 판단 보완용)
+#   입력 CAS로 유추한 물질명에서 cis/trans/(E)/(Z)류 이성질체 표기, 수화물·무수물
+#   표기(dihydrate, pentahydrate 등 숫자 접두어 포함), 중수소 치환 표기(-D4, -D6,
+#   OD 등)를 제거한 뒤, 기존화학물질 목록의 물질명과 대조한다. 공백·구두점 차이는
+#   완전히 무시(공백 없는 압축 비교)하고, 등록명이 "A ; B" 형태로 이명을 함께
+#   담고 있으면 각 이명을 따로 대조한다. 매칭되면(다른 CAS인데 같은 base name)
+#   고시 제3조(이성질체·수화물·무수물 등) 해당 가능성이 있으므로 화학물질정보
+#   처리시스템에서 반드시 확인하도록 안내한다.
 # ----------------------------------------------------------------------
-_ISOMER_PREFIX_RE = re.compile(r"(?i)\b(cis|trans)\b[-\s]*|\(\s*[EZRS]\s*\)[-\s]*")
+_CASNO_ANNOTATION_RE = re.compile(r"(?i)\(\s*cas\s*no\.?\s*[\d\-]+\s*\)")
+# cis/trans, (E)/(Z)/(R)/(S), 자리번호가 붙은 입체표기((1E), (3R,4S), (6E) 등)
+_ISOMER_PREFIX_RE = re.compile(r"(?i)\b(cis|trans)\b[-\s]*|\(\s*[\d,\s]*[EZRS]\s*\)[-\s]*")
+# mono/di/tri...hydrate, anhydrous
 _HYDRATE_RE = re.compile(
     r"(?i)\b(mono|di|tri|tetra|penta|hexa|hepta|octa|nona|deca)?\s*hydrate\b|\banhydrous\b")
+# 중수소 치환 표기: 물질명 뒤에 붙는 -D4, -D6, -D12, -D(숫자 없이) 또는 말미의 OD
+_DEUTERIUM_RE = re.compile(r"(?i)[-\s]d\d{0,2}\b(?!\w)|\bod\b\s*$")
+# 이름 맨 앞의 자리번호 접두어(예: "1,2-", "1,1,2,2-") — 등록명·조회명 중
+# 한쪽에만 자리번호가 붙어 있어도 대조되도록 보조 키로 사용
+_LEADING_LOCANT_RE = re.compile(r"^\d+(,\d+)*-")
 
-def _normalize_isomer_name(name: str) -> str:
+def _normalize_isomer_name(name: str, strip_locant: bool = False) -> str:
     if not name:
         return ""
     s = name.lower()
+    s = _CASNO_ANNOTATION_RE.sub(" ", s)
     s = _ISOMER_PREFIX_RE.sub(" ", s)
     s = _HYDRATE_RE.sub(" ", s)
-    s = re.sub(r"[^a-z0-9]+", " ", s).strip()
-    s = re.sub(r"\s+", " ", s)
+    s = _DEUTERIUM_RE.sub(" ", s)
+    s = s.strip()
+    if strip_locant:
+        s = _LEADING_LOCANT_RE.sub("", s)
+    # 공백·하이픈 등 구두점 차이(예: "toluenesulfonic" vs "toluene sulfonic")를
+    # 흡수하기 위해 공백을 남기지 않고 완전히 압축한 키를 사용한다.
+    s = re.sub(r"[^a-z0-9]+", "", s)
     return s
+
+def _name_keys(name: str) -> set:
+    return {k for k in (_normalize_isomer_name(name, False), _normalize_isomer_name(name, True)) if k}
 
 def _build_name_index():
     idx = {}
     for cas, rec in EXISTING_CHEM.items():
-        key = _normalize_isomer_name(rec.get("name") or "")
-        if not key:
-            continue
-        idx.setdefault(key, []).append({
-            "cas": cas, "name": rec.get("name"),
-            "keno": rec.get("keno"), "table": rec.get("table"),
-        })
+        full_name = rec.get("name") or ""
+        # 등록명이 "A ; B" 형태로 여러 이명을 함께 담고 있으면 각각 따로 대조한다.
+        for synonym in (full_name.split(";") if full_name else []):
+            for key in _name_keys(synonym.strip()):
+                idx.setdefault(key, []).append({
+                    "cas": cas, "name": full_name,
+                    "keno": rec.get("keno"), "table": rec.get("table"),
+                })
     return idx
 EXISTING_NAME_INDEX = _build_name_index()
 
 def isomer_hydrate_check(name: str, exclude_cas: str = None) -> dict:
-    key = _normalize_isomer_name(name)
-    if not key:
+    keys = _name_keys(name)
+    if not keys:
         return {"matched": False, "candidates": []}
-    hits = [h for h in EXISTING_NAME_INDEX.get(key, []) if h["cas"] != exclude_cas]
+    seen, hits = set(), []
+    for key in keys:
+        for h in EXISTING_NAME_INDEX.get(key, []):
+            if h["cas"] == exclude_cas or h["cas"] in seen:
+                continue
+            seen.add(h["cas"])
+            hits.append(h)
     return {"matched": bool(hits), "candidates": hits}
 
 def designated_hits(cas: str):

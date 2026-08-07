@@ -67,7 +67,13 @@ Render 대시보드에 표시되는 서비스 URL(`https://chem-relay-xxxx.onren
 | US NTP 발암성 보고서(RoC) 등재 여부 | ✅ 자동(고정목록) | 15차 보고서(2021) CASRN 인덱스를 미리 추출(`app/data/ntp_roc.json`). 신규 발간 시 `scripts/build_ntp_roc.py` 재실행 |
 | 덴마크 CLP 데이터베이스 | ✅ 자동(실시간 스크래핑) | `clp-vejlliste.mst.dk`의 ASP.NET WebForms 검색(POST)을 재현. 사이트 개편 시 `fetch_denmark_clp()`만 수정 |
 | IARC Monographs 발암성 분류(Group 1~4) | ✅ 자동(실시간) | 목록 페이지가 불러오는 JS 번들에 전체 데이터가 내장되어 있어 매 조회마다 새로 받아 파싱. `fetch_iarc_group()` |
+| 일본 NITE CHRIP 등재 확인(CHRIP_ID·일본어/영어명·분자식) | ✅ 자동(실시간 스크래핑) | 세션 쿠키 기반 GET 검색(구식 JSP)을 재현. GHS분류결과 등 세부 항목은 화면 카테고리 체크박스에 따라 표시가 크게 달라져 상세 링크만 제공. `fetch_nite_chrip()` |
+| 미국 ATSDR 등재 확인(독성프로파일 링크) | ✅ 자동(실시간 스크래핑) | ASP.NET WebForms POST 검색 재현. 서술형 독성프로파일이라 H-code표 대신 등재 여부·상세 링크 제공. `fetch_atsdr()` |
+| 고용노동부 MSDS(KOSHA) 등재 확인 | ✅ 자동(실시간 스크래핑) | 세션 없는 단순 POST 검색. 상세 GHS표는 팝업(AJAX)이라 등재 여부·링크만 제공. `fetch_kosha()` |
+| 호주 HCIS GHS 분류 | ✅ 자동(실시간 API) | Power Pages 공개 OData API(`_api/`)로 CAS 검색 → 상세 페이지 파싱. 인증 불필요. `fetch_hcis()` |
 | EU RAR(ESR 위해성평가), ECHA Biocidal | 🔧 링크만 | `echa.europa.eu` 메인 도메인 전체가 Azure WAF(봇 차단)로 막혀 있어 서버 간 조회가 불가능. 봇 차단 우회는 하지 않으므로 DB 링크만 제공 |
+| US EPA RED(농약 재등록결정) | 🔧 링크만 | Oracle APEX 기반이라 검색 제출 토큰이 JS로 동적 계산되어 서버 간 재현이 불안정. 농약 등록 정보라 일반 산업화학물질과의 관련성도 낮아 링크만 제공 |
+| 호주 AICIS, OECD SIDS, 소방청, US EPA IRIS, EFSA, 뉴질랜드 CCID, 식약처 발암성정보 | 🔧 링크만 | Dynamics CRM 메타데이터 응답이 매우 복잡하거나(AICIS), 검색 제출이 안정적으로 재현되지 않거나(OECD SIDS·소방청), 아직 확인하지 못한 경우(EPA IRIS·EFSA·NZ CCID·식약처) — 추후 필요 시 순서대로 이어서 구현 예정 |
 | 국내외 규제현황·우려이슈 "자세히 생성" | 🤖 Gemini(선택) | 아래 참고 |
 | 조회 캐시 | ✅ | 30일, `CACHE_DIR`(기본 `/tmp/cache`) |
 
