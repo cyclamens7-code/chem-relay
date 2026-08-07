@@ -214,8 +214,16 @@ def _build_name_index():
     return idx
 EXISTING_NAME_INDEX = _build_name_index()
 
-def isomer_hydrate_check(name: str, exclude_cas: str = None) -> dict:
-    keys = _name_keys(name)
+def isomer_hydrate_check(names, exclude_cas: str = None) -> dict:
+    """물질명뿐 아니라 이명(동의어)까지 함께 대조한다.
+    PubChem 대표명이 등록명과 표기가 크게 달라도(예: 'Silicic acid (H2SiO3), disodium
+    salt, pentahydrate' vs 등록명 'Disodium metasilicate'), 동의어 목록 중 하나가
+    등록명과 더 가깝게 일치하는 경우가 많다(예: 'Disodium metasilicate pentahydrate')."""
+    if isinstance(names, str):
+        names = [names]
+    keys = set()
+    for n in names or []:
+        keys |= _name_keys(n)
     if not keys:
         return {"matched": False, "candidates": []}
     seen, hits = set(), []
@@ -1058,8 +1066,9 @@ async def api_chem(q: str = Query(..., min_length=1)):
         fbcas = fbcas or (q if q_is_cas else None)
         if fbcas:
             result["notice"] = korea_notice_lookup(fbcas)
+            fb_ident = result.get("identity") or {}
             result["isomer_check"] = isomer_hydrate_check(
-                (result.get("identity") or {}).get("title"), exclude_cas=fbcas)
+                [fb_ident.get("title")] + list(fb_ident.get("other_names") or []), exclude_cas=fbcas)
             result["classification_ref"] = (CLASSIFICATION_REF.get(fbcas) or {}).get("rows", [])
             result["kreach"] = await fetch_kreach(cas=fbcas)
             result["echa_clp"] = await fetch_echa_clp(fbcas)
@@ -1104,7 +1113,8 @@ async def api_chem(q: str = Query(..., min_length=1)):
     # 자동판단을 하지 않고, 화학물질정보처리시스템에서 직접 확인하도록 안내한다.
     if q_is_cas:
         data["notice"] = korea_notice_lookup(q)
-        data["isomer_check"] = isomer_hydrate_check(identity.get("title"), exclude_cas=q)
+        data["isomer_check"] = isomer_hydrate_check(
+            [identity.get("title")] + list(identity.get("other_names") or []), exclude_cas=q)
         data["classification_ref"] = (CLASSIFICATION_REF.get(q) or {}).get("rows", [])
         data["kreach"] = await fetch_kreach(cas=q)
         data["echa_clp"] = await fetch_echa_clp(q)
