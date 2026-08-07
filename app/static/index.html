@@ -42,12 +42,12 @@ main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
 .idkv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;margin-top:14px;overflow:hidden}
 .idkv .cell{background:#fff;padding:9px 12px}.idkv .k{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--steel);font-weight:600}.idkv .v{font-size:13.5px;margin-top:2px;word-break:break-word}
 .source-note{font-size:11px;color:var(--steel);padding:0 24px 16px;display:flex;align-items:center;gap:7px}
-.livepill{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--verify);padding:2px 8px;border-radius:99px}
+.livepill{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--verify);padding:2px 8px;border-radius:99px;white-space:nowrap}
 .section{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-top:16px;overflow:hidden}
 .sh{display:flex;align-items:center;gap:14px;padding:18px 24px;cursor:pointer;user-select:none}.sh:hover{background:#faf9f6}
 .sn{font-family:"JetBrains Mono";font-weight:700;font-size:13px;color:#fff;background:var(--ink);width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:8px}
 .st{font-family:"Fraunces";font-weight:600;font-size:16.5px;flex:1}
-.sfl{font-family:"JetBrains Mono";font-size:9.5px;font-weight:600;padding:3px 8px;border-radius:99px}.sfl.auto{background:var(--verify-bg);color:var(--verify)}.sfl.link{background:#f2f0ec;color:var(--steel)}
+.sfl{font-family:"JetBrains Mono";font-size:9.5px;font-weight:600;padding:3px 8px;border-radius:99px;white-space:nowrap}.sfl.auto{background:var(--verify-bg);color:var(--verify)}.sfl.link{background:#f2f0ec;color:var(--steel)}
 .chev{transition:transform .22s;opacity:.5}.section.open .chev{transform:rotate(90deg)}
 .sbody{display:none;padding:4px 24px 28px;border-top:1px solid var(--line)}.section.open .sbody{display:block}
 .si{color:var(--steel);font-size:13px;margin:14px 0 16px;max-width:66ch}
@@ -58,7 +58,7 @@ main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
 .inference{border-left:3px solid var(--amber);background:var(--amber-bg);padding:11px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:12.5px}
 .inference .lab{font-weight:600;color:var(--amber);font-size:11px;letter-spacing:.05em;text-transform:uppercase}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
-.chip{font-family:"JetBrains Mono";font-size:12px;font-weight:500;padding:5px 10px;border-radius:8px;border:1px solid}
+.chip{font-family:"JetBrains Mono";font-size:12px;font-weight:500;padding:5px 9px;border-radius:8px;border:1px solid;white-space:nowrap;letter-spacing:-.01em;line-height:1.3}
 .chip.haz{color:var(--hazard);background:var(--hazard-bg);border-color:#eccbc6}.chip.warn{color:var(--amber);background:var(--amber-bg);border-color:#ead9b4}.chip.neutral{color:var(--steel);background:#f2f0ec;border-color:var(--line)}
 .pictos{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.picto{display:flex;flex-direction:column;align-items:center;gap:4px;width:74px;text-align:center}
 .picto .dia{width:52px;height:52px;transform:rotate(45deg);border:2.5px solid var(--hazard);border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center}.picto .dia span{transform:rotate(-45deg);font-size:22px}.picto small{font-size:10px;color:var(--steel);line-height:1.2}
@@ -75,7 +75,7 @@ main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
 .src{font-size:11.5px;color:var(--steel)}.src b{color:var(--ink);font-weight:600}
 .dbname{font-family:"JetBrains Mono";font-size:11.5px;color:var(--verify);font-weight:500;text-decoration:none}.dbname:hover{text-decoration:underline}
 .gt{font-family:"Fraunces";font-weight:600;font-size:13.5px;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}
-.gt .badge{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--steel);padding:2px 7px;border-radius:8px}
+.gt .badge{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--steel);padding:2px 7px;border-radius:8px;white-space:nowrap}
 .items{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.item{font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;background:#fcfbf9;color:#3a3f47}
 .dbgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:7px;margin-top:6px}
 .dblink{display:flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--line);border-left-width:4px;border-radius:8px;padding:9px 11px;background:#fff;font-size:12px;transition:border-color .15s,background .15s}
@@ -97,8 +97,8 @@ main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
 .invhead{font-family:"Fraunces";font-weight:600;font-size:14px;margin-bottom:8px}
 .invrow{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
 .invlbl{font-weight:600;min-width:90px}
-.invok{display:inline-block;background:var(--verify);color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px}
-.invno{display:inline-block;background:#eee;color:var(--steel);font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px}
+.invok{display:inline-block;background:var(--verify);color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.invno{display:inline-block;background:#eee;color:var(--steel);font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px;white-space:nowrap}
 .stnrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
 .stnbtn{display:block;text-decoration:none;border:1px solid #2c3550;border-left:4px solid #2c3550;border-radius:12px;padding:11px 14px;background:#1f2740;color:#eaf0ff;font-size:13px}
 .stnbtn.alt{background:#2a3350;border-color:#3a4568}
@@ -265,7 +265,7 @@ function existingStatus(d){
       detail: iso.candidates.map(c=>`${c.name||''} — KE-No. ${c.keno||'—'}${c.table?` (${c.table})`:''}, CAS ${c.cas}`).join(" · "),
       kind:"review"};
   }
-  return {label:"신규화학물질로 추정됨", detail:"", kind:"new"};
+  return {label:"신규화학물질로 추정", detail:"", kind:"new"};
 }
 // 실시간 조회 국외 DB(EU CLP·US NTP) — 엑셀 스냅샷(classification_ref)보다 우선 표시
 function renderLiveOverseasClassification(d){
@@ -344,8 +344,8 @@ function renderKreachUses(kreach){
     return `<div class="inference"><span class="lab">화평법 신고 및 등록된 용도정보</span> 화학물질정보처리시스템에서 확인된 신고ㆍ등록 용도정보가 없습니다.</div>`;
   }
   return `<div class="evidence"><span class="lab">화평법 신고 및 등록된 용도정보</span>
-    <table class="tbl" style="margin-top:8px"><thead><tr><th style="width:80px">구분</th><th>용도</th></tr></thead><tbody>
-    ${uses.map(u=>`<tr><td><span class="chip ${u.tab==='등록'?'warn':'neutral'}">${u.tab} 정보</span></td><td>${u.use}</td></tr>`).join("")}
+    <table class="tbl" style="margin-top:8px"><thead><tr><th style="width:52px">구분</th><th>용도</th></tr></thead><tbody>
+    ${uses.map(u=>`<tr><td><span class="chip ${u.tab==='등록'?'warn':'neutral'}">${u.tab}</span></td><td>${u.use}</td></tr>`).join("")}
     </tbody></table>
     <div class="src" style="margin-top:5px">출처: 화학물질정보처리시스템(KREACH) 정보공개 — ${uses.map(u=>u.tab).filter((v,i,a)=>a.indexOf(v)===i).join("ㆍ")} 정보 탭</div></div>`;
 }
@@ -532,8 +532,8 @@ function renderNone(d){
   s3+= `<p class="si" style="margin:14px 0 8px">'(참고) 분류표시' 시트 1행 기준 국외 유해성 분류 DB(EU CLP·덴마크 CLP 포함) — 직접 검색용:</p>${dbLinks(GROUPS.classificationRefDbs)}`;
   if(kreachHaz.length){
     s3+=`<div class="src" style="margin:16px 0 6px"><b>화학물질정보처리시스템 신고ㆍ등록 정보</b></div>
-      <table class="tbl"><thead><tr><th style="width:70px">구분</th><th>유해성 분류(항목)</th><th style="width:110px">등급</th><th>유해ㆍ위험문구</th></tr></thead><tbody>
-      ${kreachHaz.map(x=>`<tr><td><span class="chip ${x.tab==='등록'?'warn':'neutral'}">${x.tab} 정보</span></td><td>${x.item||""}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.hcode_text||""}</td></tr>`).join("")}
+      <table class="tbl"><thead><tr><th style="width:52px">구분</th><th>유해성 분류(항목)</th><th style="width:110px">등급</th><th>유해ㆍ위험문구</th></tr></thead><tbody>
+      ${kreachHaz.map(x=>`<tr><td><span class="chip ${x.tab==='등록'?'warn':'neutral'}">${x.tab}</span></td><td>${x.item||""}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.hcode_text||""}</td></tr>`).join("")}
       </tbody></table>`;
   }
   s3+=`<div class="src" style="margin:14px 0 2px">국내·조화분류 교차확인 DB</div>${dbLinks(["kreach","echa_clh","iarc","ntp","kosha"])}`;
@@ -662,8 +662,8 @@ function renderData(d){
   ghsHtml += `<p class="si" style="margin:14px 0 8px">'(참고) 분류표시' 시트 1행 기준 국외 유해성 분류 DB(EU CLP·덴마크 CLP 포함) — 자동 대조 여부와 무관하게 직접 검색용으로 항상 제공됩니다.</p>${dbLinks(GROUPS.classificationRefDbs)}`;
   if(kreachHaz.length){
     ghsHtml += `<div class="src" style="margin:16px 0 6px"><b>화학물질정보처리시스템 신고ㆍ등록 정보</b></div>
-      <table class="tbl"><thead><tr><th style="width:70px">구분</th><th>유해성 분류(항목)</th><th style="width:110px">등급</th><th>유해ㆍ위험문구</th></tr></thead><tbody>
-      ${kreachHaz.map(x=>`<tr><td><span class="chip ${x.tab==='등록'?'warn':'neutral'}">${x.tab} 정보</span></td><td>${x.item||""}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.hcode_text||""}</td></tr>`).join("")}
+      <table class="tbl"><thead><tr><th style="width:52px">구분</th><th>유해성 분류(항목)</th><th style="width:110px">등급</th><th>유해ㆍ위험문구</th></tr></thead><tbody>
+      ${kreachHaz.map(x=>`<tr><td><span class="chip ${x.tab==='등록'?'warn':'neutral'}">${x.tab}</span></td><td>${x.item||""}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.hcode_text||""}</td></tr>`).join("")}
       </tbody></table>
       <div class="src" style="margin-top:5px">출처: 화학물질정보처리시스템(KREACH) 정보공개 — ${kreachHaz.map(x=>x.tab).filter((v,i,a)=>a.indexOf(v)===i).join("ㆍ")} 정보 탭</div>`;
   } else if(kreach.implemented && kreach.reason!=="name_query"){
