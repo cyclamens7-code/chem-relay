@@ -1294,11 +1294,21 @@ async def enrich_with_gemini(name: str, cas: str, ghs_summary: str, notice: dict
     }
     headers = {"x-goog-api-key": GEMINI_API_KEY, "Content-Type": "application/json"}
     url = f"{GEMINI_URL}/{GEMINI_MODEL}:generateContent"
+    # 503(서버 과부하)·429(요청 과다)는 구글 쪽 일시적 오류라 짧게 재시도하면 대부분 해결된다.
+    RETRY_STATUSES = {503, 429, 500}
+    r = None
     async with httpx.AsyncClient() as client:
-        r = await client.post(url, headers=headers, json=payload, timeout=60)
+        for attempt in range(3):
+            r = await client.post(url, headers=headers, json=payload, timeout=60)
+            if r.status_code not in RETRY_STATUSES:
+                break
+            if attempt < 2:
+                await asyncio.sleep(1.5 * (attempt + 1))
         if r.status_code != 200:
+            friendly = ("Gemini 서버가 일시적으로 과부하 상태입니다(잠시 후 다시 시도해 주세요)."
+                        if r.status_code in RETRY_STATUSES else f"Gemini API 오류 {r.status_code}")
             return {"ok": False, "error": "api_error",
-                    "message": f"Gemini API 오류 {r.status_code}", "detail": r.text[:400]}
+                    "message": friendly, "detail": r.text[:400]}
         data = r.json()
         cand = (data.get("candidates") or [{}])[0]
         finish = cand.get("finishReason", "")
