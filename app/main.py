@@ -1453,6 +1453,13 @@ async def api_structure(file: UploadFile = File(...)):
     if not mime.startswith("image/"):
         return JSONResponse({"ok": False, "message": "이미지 파일만 업로드할 수 있습니다."}, status_code=400)
 
+    # 같은 이미지를 다시 올리면 AI 호출 없이 캐시로 즉시 응답(부하·대기시간 절감)
+    img_key = "struct::" + hashlib.sha1(raw).hexdigest()
+    cached = cache_get(img_key)
+    if cached:
+        cached["_cache"] = True
+        return JSONResponse(cached)
+
     ai = await analyze_structure_image(raw, mime)
     if not ai.get("ok"):
         return JSONResponse(ai)
@@ -1472,7 +1479,9 @@ async def api_structure(file: UploadFile = File(...)):
                         "inchikey": ident.get("inchikey"), "smiles": ident.get("smiles"),
                         "structure_url": ident.get("structure_url"),
                         "record_url": by_name.get("record_url"), "via": "name"}
-    return JSONResponse({"ok": True, "ai": d, "resolved": resolved})
+    result = {"ok": True, "ai": d, "resolved": resolved}
+    cache_set(img_key, result)
+    return JSONResponse(result)
 
 @app.get("/api/resolve-smiles")
 async def api_resolve_smiles(smiles: str = Query(..., min_length=1)):
