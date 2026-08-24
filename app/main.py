@@ -11,7 +11,7 @@
   - UI  :  GET /            → app/static/index.html
   - API :  GET /api/chem?q=<CAS 또는 물질명>
 """
-from fastapi import FastAPI, Query, Depends, HTTPException, status
+from fastapi import FastAPI, Query, Depends, HTTPException, status, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse
@@ -1277,10 +1277,47 @@ def _extract_json(text: str):
     except Exception:
         return None
 
-async def enrich_with_gemini(name: str, cas: str, ghs_summary: str, notice: dict = None) -> dict:
+# ----------------------------------------------------------------------
+# Gemini 호출 공통 헬퍼 (텍스트·이미지 프롬프트 모두 사용)
+#   503(과부하)·429(요청 과다)·500은 구글 쪽 일시적 오류라 짧게 재시도하면
+#   대부분 해결되므로 여기서 한 번에 처리한다.
+# ----------------------------------------------------------------------
+_GEMINI_RETRY_STATUSES = {503, 429, 500}
+
+async def _gemini_call(payload: dict, timeout: int = 60) -> dict:
     if not GEMINI_API_KEY:
         return {"ok": False, "error": "no_api_key",
                 "message": "서버에 GEMINI_API_KEY가 설정되지 않았습니다. Render 환경변수에 추가하세요."}
+    headers = {"x-goog-api-key": GEMINI_API_KEY, "Content-Type": "application/json"}
+    url = f"{GEMINI_URL}/{GEMINI_MODEL}:generateContent"
+    r = None
+    try:
+        async with httpx.AsyncClient() as client:
+            for attempt in range(3):
+                r = await client.post(url, headers=headers, json=payload, timeout=timeout)
+                if r.status_code not in _GEMINI_RETRY_STATUSES:
+                    break
+                if attempt < 2:
+                    await asyncio.sleep(1.5 * (attempt + 1))
+    except Exception as e:
+        return {"ok": False, "error": "network", "message": f"Gemini 호출 실패: {e}"}
+    if r is None or r.status_code != 200:
+        code = r.status_code if r is not None else "?"
+        friendly = ("Gemini 서버가 일시적으로 과부하 상태입니다(잠시 후 다시 시도해 주세요)."
+                    if code in _GEMINI_RETRY_STATUSES else f"Gemini API 오류 {code}")
+        return {"ok": False, "error": "api_error", "message": friendly,
+                "detail": (r.text[:400] if r is not None else "")}
+    return {"ok": True, "data": r.json()}
+
+def _gemini_text(data: dict):
+    """generateContent 응답에서 (본문 텍스트, finishReason)을 뽑는다."""
+    cand = (data.get("candidates") or [{}])[0]
+    finish = cand.get("finishReason", "")
+    parts = (cand.get("content") or {}).get("parts") or []
+    text = "".join(p.get("text", "") for p in parts if isinstance(p, dict))
+    return text, finish
+
+async def enrich_with_gemini(name: str, cas: str, ghs_summary: str, notice: dict = None) -> dict:
     prompt = ENRICH_SYSTEM + "\n\n" + ENRICH_INSTRUCT.format(
         name=name, cas=cas, ghs=ghs_summary or "정보 없음",
         notice_facts=_notice_facts_text(notice), criteria=EXISTING_CRITERIA)
@@ -1292,43 +1329,155 @@ async def enrich_with_gemini(name: str, cas: str, ghs_summary: str, notice: dict
             "responseMimeType": "application/json",  # JSON만 출력하도록 강제
         },
     }
-    headers = {"x-goog-api-key": GEMINI_API_KEY, "Content-Type": "application/json"}
-    url = f"{GEMINI_URL}/{GEMINI_MODEL}:generateContent"
-    # 503(서버 과부하)·429(요청 과다)는 구글 쪽 일시적 오류라 짧게 재시도하면 대부분 해결된다.
-    RETRY_STATUSES = {503, 429, 500}
-    r = None
-    async with httpx.AsyncClient() as client:
-        for attempt in range(3):
-            r = await client.post(url, headers=headers, json=payload, timeout=60)
-            if r.status_code not in RETRY_STATUSES:
-                break
-            if attempt < 2:
-                await asyncio.sleep(1.5 * (attempt + 1))
-        if r.status_code != 200:
-            friendly = ("Gemini 서버가 일시적으로 과부하 상태입니다(잠시 후 다시 시도해 주세요)."
-                        if r.status_code in RETRY_STATUSES else f"Gemini API 오류 {r.status_code}")
-            return {"ok": False, "error": "api_error",
-                    "message": friendly, "detail": r.text[:400]}
-        data = r.json()
-        cand = (data.get("candidates") or [{}])[0]
-        finish = cand.get("finishReason", "")
-        parts = (cand.get("content") or {}).get("parts") or []
-        text = "".join(p.get("text", "") for p in parts if isinstance(p, dict))
-        # 콘텐츠가 비었을 때(안전차단 등) 안내
-        if not text:
-            if finish in ("SAFETY", "PROHIBITED_CONTENT", "BLOCKLIST"):
-                return {"ok": False, "error": "blocked",
-                        "message": "AI가 안전상 이유로 응답을 생성하지 않았습니다. 아래 DB로 직접 확인하세요."}
-            pf = data.get("promptFeedback", {})
-            return {"ok": False, "error": "empty",
-                    "message": f"AI 응답이 비어 있습니다(사유 {finish or pf.get('blockReason','')}).",
-                    "raw": json.dumps(data)[:300]}
-        parsed = _extract_json(text)
-        if parsed is None:
-            note = " (응답이 길어 잘렸을 수 있습니다. 다시 시도해 주세요.)" if finish == "MAX_TOKENS" else ""
-            return {"ok": False, "error": "parse_error",
-                    "message": "AI 응답 파싱 실패" + note, "raw": text[:400]}
-        return {"ok": True, "data": parsed, "_finish": finish}
+    call = await _gemini_call(payload)
+    if not call.get("ok"):
+        return call
+    data = call["data"]
+    text, finish = _gemini_text(data)
+    # 콘텐츠가 비었을 때(안전차단 등) 안내
+    if not text:
+        if finish in ("SAFETY", "PROHIBITED_CONTENT", "BLOCKLIST"):
+            return {"ok": False, "error": "blocked",
+                    "message": "AI가 안전상 이유로 응답을 생성하지 않았습니다. 아래 DB로 직접 확인하세요."}
+        pf = data.get("promptFeedback", {})
+        return {"ok": False, "error": "empty",
+                "message": f"AI 응답이 비어 있습니다(사유 {finish or pf.get('blockReason','')}).",
+                "raw": json.dumps(data)[:300]}
+    parsed = _extract_json(text)
+    if parsed is None:
+        note = " (응답이 길어 잘렸을 수 있습니다. 다시 시도해 주세요.)" if finish == "MAX_TOKENS" else ""
+        return {"ok": False, "error": "parse_error",
+                "message": "AI 응답 파싱 실패" + note, "raw": text[:400]}
+    return {"ok": True, "data": parsed, "_finish": finish}
+
+# ----------------------------------------------------------------------
+# 구조식 이미지 → SMILES 추정 (Gemini 비전) → PubChem 구조검색으로 실제 물질 확인
+#   범용 비전 모델의 구조식 판독(OCSR)은 전용 도구보다 정확도가 낮으므로,
+#   결과는 항상 'AI 추정'으로 표시하고 사람이 확인한 뒤 조회하도록 한다.
+# ----------------------------------------------------------------------
+STRUCTURE_PROMPT = """당신은 화학 구조식 판독 전문가입니다. 첨부된 이미지의 화학 구조식을 읽고 JSON만 출력하세요(설명·마크다운 금지).
+
+출력 JSON 스키마:
+{
+  "is_structure": true 또는 false,
+  "smiles": "표준 SMILES 문자열(확실하지 않으면 빈 문자열)",
+  "molecular_formula": "분자식(예: C6H6). 확실하지 않으면 빈 문자열",
+  "name": "추정되는 화합물 영문명(확실하지 않으면 빈 문자열)",
+  "confidence": "high|medium|low",
+  "notes": "판독 시 주의점(입체화학 불명확, 화질 문제, 일부 치환기 불확실 등)"
+}
+
+규칙:
+- 이미지가 화학 구조식이 아니면 is_structure를 false로 하고 나머지는 빈 값으로 두세요.
+- SMILES는 실제로 파싱 가능한 유효한 문자열이어야 합니다. 확신이 없으면 빈 문자열로 두고 confidence를 low로 하세요.
+- 입체화학(쐐기/점선)이 명확히 보이지 않으면 입체 표기를 넣지 말고 notes에 그 사실을 적으세요.
+- 절대 추측으로 그럴듯한 물질명을 지어내지 마세요. 모르면 빈 문자열입니다."""
+
+async def analyze_structure_image(image_bytes: bytes, mime_type: str) -> dict:
+    import base64
+    payload = {
+        "contents": [{"parts": [
+            {"inline_data": {"mime_type": mime_type,
+                             "data": base64.b64encode(image_bytes).decode("ascii")}},
+            {"text": STRUCTURE_PROMPT},
+        ]}],
+        "generationConfig": {
+            "temperature": 0.1,
+            "maxOutputTokens": 1024,
+            "responseMimeType": "application/json",
+        },
+    }
+    call = await _gemini_call(payload, timeout=90)
+    if not call.get("ok"):
+        return call
+    text, finish = _gemini_text(call["data"])
+    if not text:
+        return {"ok": False, "error": "empty",
+                "message": f"AI가 이미지를 판독하지 못했습니다(사유 {finish or '불명'})."}
+    parsed = _extract_json(text)
+    if parsed is None:
+        return {"ok": False, "error": "parse_error",
+                "message": "AI 응답 파싱 실패", "raw": text[:300]}
+    return {"ok": True, "data": parsed}
+
+async def resolve_smiles(smiles: str) -> dict:
+    """SMILES로 PubChem 구조검색 → CID·CAS·분자식 등 실제 등록 정보를 확인."""
+    empty = {"found": False}
+    smiles = (smiles or "").strip()
+    if not smiles:
+        return empty
+    try:
+        async with httpx.AsyncClient(timeout=25, headers=UA) as client:
+            # SMILES에 +, # 등 URL 특수문자가 많아 POST(form)로 보낸다.
+            r = await client.post(f"{PC}/compound/smiles/cids/JSON", data={"smiles": smiles})
+            if r.status_code != 200:
+                return {**empty, "reason": f"pubchem_{r.status_code}"}
+            cids = (r.json() or {}).get("IdentifierList", {}).get("CID", [])
+            if not cids:
+                return {**empty, "reason": "no_match"}
+            cid = cids[0]
+            prop_url = (f"{PC}/compound/cid/{cid}/property/"
+                        "MolecularFormula,MolecularWeight,IUPACName,Title,InChIKey,IsomericSMILES/JSON")
+            pr, sr = await asyncio.gather(
+                client.get(prop_url), client.get(f"{PC}/compound/cid/{cid}/synonyms/JSON"),
+                return_exceptions=True)
+            p = {}
+            if not isinstance(pr, Exception) and pr.status_code == 200:
+                props = (pr.json() or {}).get("PropertyTable", {}).get("Properties", [])
+                p = props[0] if props else {}
+            cas = None
+            if not isinstance(sr, Exception) and sr.status_code == 200:
+                info = (sr.json() or {}).get("InformationList", {}).get("Information", [])
+                syns = info[0].get("Synonym", []) if info else []
+                cas = next((s for s in syns if CAS_RE.match(s)), None)
+    except Exception as e:
+        return {**empty, "reason": f"error:{e}"}
+    return {
+        "found": True, "cid": cid, "cas": cas,
+        "title": p.get("Title"), "formula": p.get("MolecularFormula"),
+        "mw": p.get("MolecularWeight"), "iupac": p.get("IUPACName"),
+        "inchikey": p.get("InChIKey"), "smiles": p.get("IsomericSMILES") or smiles,
+        "structure_url": f"{PC}/compound/cid/{cid}/PNG?image_size=300x300",
+        "record_url": f"https://pubchem.ncbi.nlm.nih.gov/compound/{cid}",
+    }
+
+@app.post("/api/structure")
+async def api_structure(file: UploadFile = File(...)):
+    """구조식 이미지를 받아 SMILES를 추정하고 PubChem에서 실제 물질을 대조한다."""
+    raw = await file.read()
+    if not raw:
+        return JSONResponse({"ok": False, "message": "빈 파일입니다."}, status_code=400)
+    if len(raw) > 8 * 1024 * 1024:
+        return JSONResponse({"ok": False, "message": "이미지가 너무 큽니다(최대 8MB)."}, status_code=400)
+    mime = (file.content_type or "image/png")
+    if not mime.startswith("image/"):
+        return JSONResponse({"ok": False, "message": "이미지 파일만 업로드할 수 있습니다."}, status_code=400)
+
+    ai = await analyze_structure_image(raw, mime)
+    if not ai.get("ok"):
+        return JSONResponse(ai)
+    d = ai["data"] or {}
+    if not d.get("is_structure"):
+        return JSONResponse({"ok": False, "error": "not_structure",
+                             "message": "이미지에서 화학 구조식을 찾지 못했습니다.", "ai": d})
+    resolved = await resolve_smiles(d.get("smiles", ""))
+    # SMILES로 못 찾으면 AI가 추정한 이름으로 한 번 더 시도
+    if not resolved.get("found") and d.get("name"):
+        by_name = await fetch_pubchem(d["name"])
+        if by_name.get("found"):
+            ident = by_name.get("identity", {})
+            resolved = {"found": True, "cid": ident.get("cid"), "cas": ident.get("cas"),
+                        "title": ident.get("title"), "formula": ident.get("formula"),
+                        "mw": ident.get("mw"), "iupac": ident.get("iupac"),
+                        "inchikey": ident.get("inchikey"), "smiles": ident.get("smiles"),
+                        "structure_url": ident.get("structure_url"),
+                        "record_url": by_name.get("record_url"), "via": "name"}
+    return JSONResponse({"ok": True, "ai": d, "resolved": resolved})
+
+@app.get("/api/resolve-smiles")
+async def api_resolve_smiles(smiles: str = Query(..., min_length=1)):
+    """구조식 편집기(JSME)에서 그린 분자의 SMILES로 실제 물질을 대조한다."""
+    return JSONResponse({"ok": True, "resolved": await resolve_smiles(smiles)})
 
 @app.get("/api/enrich")
 async def api_enrich(q: str = Query(..., min_length=1)):
