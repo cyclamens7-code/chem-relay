@@ -187,7 +187,9 @@ main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
           <div id="prevWrap"></div>
         </div>
         <input type="file" id="structFile" accept="image/*" hidden>
-        <button class="mbtn" id="analyzeBtn" disabled>이미지 판독</button>
+        <button class="mbtn" id="analyzeBtn" disabled>이미지 판독 (AI)</button>
+        <a class="mbtn ghost" href="https://lens.google.com/" target="_blank" rel="noopener" style="margin-left:8px">Google Lens로 검색 ↗</a>
+        <div class="src" style="margin-top:8px">AI 판독은 서버가 Gemini를 호출합니다(수 초 소요). <b>Google Lens</b>는 서버를 거치지 않고 새 탭에서 직접 이미지를 올려 찾는 방식입니다.</div>
       </div>
 
       <div id="paneDraw" style="display:none">
@@ -236,6 +238,10 @@ const DB={
   comptox:{name:"US EPA CompTox",url:"https://comptox.epa.gov/dashboard/",query:"https://comptox.epa.gov/dashboard/search-results?search="},
   pubchem:{name:"PubChem 전체 레코드",url:"https://pubchem.ncbi.nlm.nih.gov/",query:"https://pubchem.ncbi.nlm.nih.gov/#query="},
   cas_cc:{name:"CAS Common Chemistry",url:"https://commonchemistry.cas.org/",query:"https://commonchemistry.cas.org/results?q="},
+  // 구글 AI 모드(udm=50) — 서버 API를 쓰지 않고 새 탭에서 바로 확인
+  google_ai:{name:"Google AI 모드 검색",url:"https://www.google.com/search?udm=50",
+             query:"https://www.google.com/search?udm=50&q=",
+             qsuffix:" 화학물질의 CAS No., 물질명, 분자식, SMILES, InChIKey를 알려줘"},
   nite:{name:"일본 NITE CHRIP",url:"https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"},
   jcheck:{name:"일본 J-CHECK",url:"https://www.nite.go.jp/chem/jcheck/search.action?request_locale=ja"},
   aicis:{name:"호주 AICIS",url:"https://www.industrialchemicals.gov.au/chemical-information/search-assessments"},
@@ -264,7 +270,7 @@ const DB={
 const GROUPS={
   regulation:["kreach","kosha","echa_clh","iarc","ntp","epa_iris","aicis","hcis","ccid","nfa"],
   domestic:["kreach","kreach_open","kosha","nfa","nifds","echa_rar","atsdr"],
-  ident:["cas_cc","pubchem","kreach_search","comptox"],
+  ident:["cas_cc","pubchem","google_ai","kreach_search","comptox"],
   phys:["kreach","kosha","echa","comptox","nite","oecd","echemportal","scholar"],
   human:["kreach","kosha","echa","echa_rar","iarc","ntp","epa_iris","atsdr","oecd","nite","jcheck","nifds","comptox","echemportal","scholar"],
   env:["kreach","echa","echa_rar","ecotox","oecd","nite","jcheck","comptox","echemportal","scholar"],
@@ -297,7 +303,7 @@ function isCasChecksumValid(v){
   for(let i=0;i<body.length;i++) sum+=parseInt(body[i],10)*(body.length-i);
   return (sum%10)===check;
 }
-function dbHref(k){const d=DB[k];if(!d)return"#";return d.query?d.query+encodeURIComponent(Q):d.url;}
+function dbHref(k){const d=DB[k];if(!d)return"#";return d.query?d.query+encodeURIComponent(Q+(d.qsuffix||"")):d.url;}
 function dbClick(e,k){const d=DB[k];if(!d||d.query)return;if(navigator.clipboard)navigator.clipboard.writeText(Q);toast.innerHTML=`<span class="cas">${Q}</span> 복사됨 — <b>${d.name}</b> 검색창에 붙여넣으세요`;toast.classList.add("show");clearTimeout(dbClick._t);dbClick._t=setTimeout(()=>toast.classList.remove("show"),3200);}
 function dbLinks(keys){return `<div class="dbgrid">`+keys.map(k=>{const d=DB[k];if(!d)return"";const dir=!!d.query;return `<a class="dblink ${dir?'direct':'copy'}" href="${dbHref(k)}" target="_blank" rel="noopener" onclick="dbClick(event,'${k}')"><span class="glyph">${dir?"↦":"○"}</span><span class="lbl">${d.name}</span><svg class="arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>`;}).join("")+`</div>`;}
 const legend=`<div class="leg"><span><span class="g direct" style="background:var(--verify);color:#fff">↦</span> <b style="color:var(--verify)">바로 조회</b> — 입력값으로 결과가 바로 열림</span><span><span class="g copy" style="background:#c9a24a;color:#fff">○</span> <b style="color:#a9761a">들어가서 검색</b> — 페이지 이동 + CAS 자동복사</span></div>`;
@@ -879,12 +885,39 @@ function setPicked(f){
   $("#prevWrap").innerHTML=`<img class="prev" src="${url}" alt="선택한 구조식">`;
 }
 
+// 업로드 전 브라우저에서 이미지를 축소한다. 원본 사진(3~5MB)을 그대로 보내면
+// 전송·AI 처리 모두 느려지는데, 구조식 판독에는 긴 변 1200px이면 충분하다.
+function downscaleImage(file, maxDim=1200, quality=0.85){
+  return new Promise(resolve=>{
+    if(!/^image\//i.test(file.type)) return resolve(file);
+    const url=URL.createObjectURL(file), img=new Image();
+    img.onload=()=>{
+      URL.revokeObjectURL(url);
+      const w=img.naturalWidth, h=img.naturalHeight;
+      if(!w||!h) return resolve(file);
+      if(Math.max(w,h)<=maxDim && file.size<500*1024) return resolve(file); // 이미 충분히 작음
+      const s=Math.min(1,maxDim/Math.max(w,h));
+      const cw=Math.round(w*s), ch=Math.round(h*s);
+      const cv=document.createElement("canvas"); cv.width=cw; cv.height=ch;
+      const ctx=cv.getContext("2d");
+      ctx.fillStyle="#fff"; ctx.fillRect(0,0,cw,ch);  // 투명 PNG가 검게 변하지 않도록
+      ctx.drawImage(img,0,0,cw,ch);
+      cv.toBlob(b=>resolve(b?new File([b],"structure.jpg",{type:"image/jpeg"}):file),"image/jpeg",quality);
+    };
+    img.onerror=()=>{ URL.revokeObjectURL(url); resolve(file); };
+    img.src=url;
+  });
+}
+
 analyzeBtn.addEventListener("click",async()=>{
   if(!pickedFile) return;
   analyzeBtn.disabled=true;
-  structResult.innerHTML=`<div class="loading"><span class="spin"></span>AI가 구조식을 판독하는 중… (10~20초)</div>`;
+  structResult.innerHTML=`<div class="loading"><span class="spin"></span>이미지 압축 중…</div>`;
   try{
-    const fd=new FormData(); fd.append("file",pickedFile);
+    const up=await downscaleImage(pickedFile);
+    const kb=Math.round(up.size/1024), okb=Math.round(pickedFile.size/1024);
+    structResult.innerHTML=`<div class="loading"><span class="spin"></span>AI가 구조식을 판독하는 중… (5~15초)${up!==pickedFile?` · 이미지 ${okb}KB → ${kb}KB로 축소`:""}</div>`;
+    const fd=new FormData(); fd.append("file",up);
     const r=await fetch("/api/structure",{method:"POST",body:fd});
     renderStructResult(await r.json());
   }catch(e){
@@ -940,12 +973,22 @@ function renderStructResult(res){
         <div style="margin-top:10px">
           ${rv.cas?`<button class="mbtn" onclick="searchResolved('${rv.cas}')">이 물질 조회 (CAS ${rv.cas})</button>`
                   :`<button class="mbtn" onclick="searchResolved(${JSON.stringify(rv.title||"").replace(/"/g,'&quot;')})">이 물질 조회 (물질명)</button>`}
+          <a class="mbtn ghost" style="margin-left:8px" target="_blank" rel="noopener"
+             href="${googleAiHref(rv.cas||rv.title||ai.smiles||"")}">Google AI 모드로 교차확인 ↗</a>
         </div>
       </div></div>`;
   }else{
-    html+=`<div class="errbox" style="margin-top:12px">PubChem에서 일치하는 물질을 찾지 못했습니다${rv.reason?` (${rv.reason})`:""}. SMILES가 정확한지 확인하거나, 물질명·CAS로 직접 검색해 보세요.</div>`;
+    const hint=ai.name||ai.smiles||ai.molecular_formula||"";
+    html+=`<div class="errbox" style="margin-top:12px">PubChem에서 일치하는 물질을 찾지 못했습니다${rv.reason?` (${rv.reason})`:""}. SMILES가 정확한지 확인하거나, 아래에서 직접 확인해 보세요.
+      ${hint?`<div style="margin-top:10px"><a class="mbtn ghost" target="_blank" rel="noopener" href="${googleAiHref(hint)}">Google AI 모드로 검색 ↗</a></div>`:""}</div>`;
   }
   structResult.innerHTML=html;
+}
+
+// 구글 AI 모드(udm=50)로 CAS·물질명·분자식·SMILES·InChIKey를 한 번에 물어보는 링크
+function googleAiHref(v){
+  const q=String(v||"").trim()+" 화학물질의 CAS No., 물질명, 분자식, SMILES, InChIKey를 알려줘";
+  return "https://www.google.com/search?udm=50&q="+encodeURIComponent(q);
 }
 
 function searchResolved(v){
