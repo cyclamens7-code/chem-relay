@@ -3,132 +3,159 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>화학물질 유해성 조회 콘솔 (NAS)</title>
+<title>화학물질 유해성 조회 콘솔</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
-:root{--ink:#15171c;--paper:#f7f5f0;--card:#fff;--steel:#5a6472;--line:#e4e1d9;
---hazard:#b23b2e;--hazard-bg:#fbeeec;--amber:#a9761a;--amber-bg:#faf1dd;--verify:#20706f;--verify-bg:#e4f1f0;--focus:#3a67c4}
+:root{--ink:#3d3929;--paper:#f5f3ee;--card:#fff;--steel:#83807a;--line:#e5e1d6;
+--hazard:#d97757;--hazard-bg:#f7e9e0;--amber:#b08a3e;--amber-bg:#f7f0dc;--verify:#5b8a6b;--verify-bg:#e9f1ea;--focus:#d97757}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter","Pretendard",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
 .mono{font-family:"JetBrains Mono",monospace;font-feature-settings:"tnum"}
 button{font-family:inherit;cursor:pointer}
-.console{background:var(--ink);color:#eae7df;padding:34px 24px 30px;border-bottom:3px solid var(--hazard)}
+.console{background:var(--ink);color:#eae7df;padding:40px 28px 36px;border-bottom:3px solid var(--hazard)}
 .ci{max-width:1080px;margin:0 auto}
 .brandrow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
-.brand{font-family:"Space Grotesk";font-weight:700;font-size:20px;color:#fff}
+.brand{font-family:"Fraunces";font-weight:700;font-size:20px;color:#fff}
 .brand .dot{color:var(--hazard)}
-.tagline{font-size:12.5px;color:#9aa1ad;font-family:"JetBrains Mono";letter-spacing:.02em}
-.subnote{font-size:12px;color:#8a919d;margin:0 0 20px}.subnote b{color:#cdd2da}
+.tagline{font-size:12.5px;color:#b3aea0;font-family:"JetBrains Mono";letter-spacing:.02em}
+.subnote{font-size:12px;color:#a19c8f;margin:0 0 20px}.subnote b{color:#e5e1d6}
 .sw{display:flex;gap:10px;flex-wrap:wrap}.sf{flex:1 1 340px;position:relative}
-.sf input{width:100%;padding:15px 16px 15px 46px;border:0;border-radius:2px;background:#0d0e12;color:#fff;font-size:16px;font-family:"JetBrains Mono";outline:2px solid #2c303b}
-.sf input::placeholder{color:#6b7280;font-family:"Inter","Pretendard"}.sf input:focus{outline:2px solid var(--focus)}
+.sf input{width:100%;padding:15px 16px 15px 46px;border:0;border-radius:10px;background:#2a2620;color:#fff;font-size:16px;font-family:"JetBrains Mono";outline:2px solid #4a4436}
+.sf input::placeholder{color:#8a8578;font-family:"Inter","Pretendard"}.sf input:focus{outline:2px solid var(--focus)}
 .sf svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);opacity:.55}
-.sb{padding:0 26px;border:0;border-radius:2px;background:var(--hazard);color:#fff;font-weight:600;font-size:15px}
+.sb{padding:0 26px;border:0;border-radius:10px;background:var(--hazard);color:#fff;font-weight:600;font-size:15px}
 .sb:hover{background:#c84437}.sb:disabled{opacity:.5;cursor:wait}
-.hint{margin-top:11px;font-size:12px;color:#8a919d;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.hint code{background:#0d0e12;padding:3px 9px;border-radius:2px;color:#c7ccd4;font-family:"JetBrains Mono";cursor:pointer}.hint code:hover{color:#fff}
+.hint{margin-top:11px;font-size:12px;color:#a19c8f;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.hint code{background:#2a2620;padding:3px 9px;border-radius:10px;color:#d9d5c8;font-family:"JetBrains Mono";cursor:pointer}.hint code:hover{color:#fff}
 main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
-.empty{padding:40px 0}.nodb{background:var(--verify-bg);border:1px solid #bcdedc;border-radius:4px;padding:16px 18px;font-size:13px;color:#1f4c4b}.nodb b{color:var(--verify)}
-.target{background:var(--card);border:1px solid var(--line);border-radius:4px;margin-top:20px;overflow:hidden;box-shadow:0 8px 30px -20px rgba(0,0,0,.3)}
-.idhead{padding:22px 24px;display:flex;gap:24px;flex-wrap:wrap}
-.struct{width:150px;height:150px;flex:none;border:1px solid var(--line);border-radius:4px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.empty{padding:40px 0}.nodb{background:var(--verify-bg);border:1px solid #bcdedc;border-radius:12px;padding:16px 18px;font-size:13px;color:#1f4c4b}.nodb b{color:var(--verify)}
+.target{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-top:20px;overflow:hidden;box-shadow:0 8px 30px -20px rgba(0,0,0,.3)}
+.idhead{padding:26px 28px;display:flex;gap:24px;flex-wrap:wrap}
+.struct{width:150px;height:150px;flex:none;border:1px solid var(--line);border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .struct img{max-width:100%;max-height:100%}.struct .ph{font-size:11px;color:var(--steel);text-align:center;padding:8px;line-height:1.5}
 .idmain{flex:1 1 320px;min-width:260px}
-.idname{font-family:"Space Grotesk";font-size:21px;font-weight:600;line-height:1.25}
+.idname{font-family:"Fraunces";font-size:21px;font-weight:600;line-height:1.25}
 .idname small{display:block;font-family:"Inter","Pretendard";font-size:13px;font-weight:400;color:var(--steel);margin-top:3px}
-.idkv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;margin-top:14px;overflow:hidden}
+.idkv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;margin-top:14px;overflow:hidden}
 .idkv .cell{background:#fff;padding:9px 12px}.idkv .k{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--steel);font-weight:600}.idkv .v{font-size:13.5px;margin-top:2px;word-break:break-word}
 .source-note{font-size:11px;color:var(--steel);padding:0 24px 16px;display:flex;align-items:center;gap:7px}
-.livepill{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--verify);padding:2px 8px;border-radius:99px}
-.section{background:var(--card);border:1px solid var(--line);border-radius:4px;margin-top:16px;overflow:hidden}
-.sh{display:flex;align-items:center;gap:14px;padding:16px 22px;cursor:pointer;user-select:none}.sh:hover{background:#faf9f6}
-.sn{font-family:"JetBrains Mono";font-weight:700;font-size:13px;color:#fff;background:var(--ink);width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:3px}
-.st{font-family:"Space Grotesk";font-weight:600;font-size:16.5px;flex:1}
-.sfl{font-family:"JetBrains Mono";font-size:9.5px;font-weight:600;padding:3px 8px;border-radius:99px}.sfl.auto{background:var(--verify-bg);color:var(--verify)}.sfl.link{background:#f2f0ec;color:var(--steel)}
+.livepill{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--verify);padding:2px 8px;border-radius:99px;white-space:nowrap}
+.section{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-top:16px;overflow:hidden}
+.sh{display:flex;align-items:center;gap:14px;padding:18px 24px;cursor:pointer;user-select:none}.sh:hover{background:#faf9f6}
+.sn{font-family:"JetBrains Mono";font-weight:700;font-size:13px;color:#fff;background:var(--ink);width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.st{font-family:"Fraunces";font-weight:600;font-size:16.5px;flex:1}
+.sfl{font-family:"JetBrains Mono";font-size:9.5px;font-weight:600;padding:3px 8px;border-radius:99px;white-space:nowrap}.sfl.auto{background:var(--verify-bg);color:var(--verify)}.sfl.link{background:#f2f0ec;color:var(--steel)}
 .chev{transition:transform .22s;opacity:.5}.section.open .chev{transform:rotate(90deg)}
-.sbody{display:none;padding:4px 22px 24px;border-top:1px solid var(--line)}.section.open .sbody{display:block}
+.sbody{display:none;padding:4px 24px 28px;border-top:1px solid var(--line)}.section.open .sbody{display:block}
 .si{color:var(--steel);font-size:13px;margin:14px 0 16px;max-width:66ch}
 .block{margin:14px 0}.block h4{font-size:13px;margin:0 0 7px;display:flex;align-items:center;gap:8px}.block h4 .tick{width:6px;height:6px;border-radius:1px;flex:none}
 .block ul{margin:6px 0 8px;padding-left:18px}.block li{font-size:13.5px;margin:4px 0;color:#2c2f36}
-.evidence{border-left:3px solid var(--verify);background:var(--verify-bg);padding:11px 14px;border-radius:0 3px 3px 0;margin:10px 0;font-size:12.5px}
+.evidence{border-left:3px solid var(--verify);background:var(--verify-bg);padding:11px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:12.5px}
 .evidence .lab{font-weight:600;color:var(--verify);font-size:11px;letter-spacing:.05em;text-transform:uppercase}
-.inference{border-left:3px solid var(--amber);background:var(--amber-bg);padding:11px 14px;border-radius:0 3px 3px 0;margin:10px 0;font-size:12.5px}
+.inference{border-left:3px solid var(--amber);background:var(--amber-bg);padding:11px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:12.5px}
 .inference .lab{font-weight:600;color:var(--amber);font-size:11px;letter-spacing:.05em;text-transform:uppercase}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
-.chip{font-family:"JetBrains Mono";font-size:12px;font-weight:500;padding:5px 10px;border-radius:3px;border:1px solid}
+.chip{font-family:"JetBrains Mono";font-size:12px;font-weight:500;padding:5px 9px;border-radius:8px;border:1px solid;white-space:nowrap;letter-spacing:-.01em;line-height:1.3}
 .chip.haz{color:var(--hazard);background:var(--hazard-bg);border-color:#eccbc6}.chip.warn{color:var(--amber);background:var(--amber-bg);border-color:#ead9b4}.chip.neutral{color:var(--steel);background:#f2f0ec;border-color:var(--line)}
 .pictos{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.picto{display:flex;flex-direction:column;align-items:center;gap:4px;width:74px;text-align:center}
-.picto .dia{width:52px;height:52px;transform:rotate(45deg);border:2.5px solid var(--hazard);border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center}.picto .dia span{transform:rotate(-45deg);font-size:22px}.picto small{font-size:10px;color:var(--steel);line-height:1.2}
-.signal{display:inline-block;font-family:"Space Grotesk";font-weight:700;font-size:15px;padding:4px 14px;border-radius:3px}.signal.danger{background:var(--hazard);color:#fff}.signal.warning{background:var(--amber);color:#fff}
+.picto .dia{width:52px;height:52px;transform:rotate(45deg);border:2.5px solid var(--hazard);border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center}.picto .dia span{transform:rotate(-45deg);font-size:22px}.picto small{font-size:10px;color:var(--steel);line-height:1.2}
+.signal{display:inline-block;font-family:"Fraunces";font-weight:700;font-size:15px;padding:4px 14px;border-radius:8px}.signal.danger{background:var(--hazard);color:#fff}.signal.warning{background:var(--amber);color:#fff}
 .tbl{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
 .tbl th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--steel);font-weight:600;padding:8px 10px;border-bottom:2px solid var(--line)}
 .tbl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}.tbl tr:hover td{background:#faf9f6}
 .hcode{font-family:"JetBrains Mono";font-weight:700;color:var(--hazard);white-space:nowrap}
 .gradechip{display:inline-block;font-family:"JetBrains Mono";font-size:12px;font-weight:700;color:#fff;background:var(--hazard);padding:2px 9px;border-radius:99px;white-space:nowrap}
-.altname{display:inline-block;font-size:12px;background:#f2f0ec;border:1px solid var(--line);border-radius:3px;padding:2px 7px;margin:2px 4px 2px 0}
+.altname{display:inline-block;font-size:12px;background:#f2f0ec;border:1px solid var(--line);border-radius:8px;padding:2px 7px;margin:2px 4px 2px 0}
 .regstatus{color:var(--hazard);font-weight:600}
 .othernames{display:block;font-size:12px;color:var(--steel);font-weight:400;margin-top:4px;line-height:1.5}
 .hazsum{margin:10px 0;padding-left:20px}.hazsum li{margin:6px 0;font-size:13.5px}
 .src{font-size:11.5px;color:var(--steel)}.src b{color:var(--ink);font-weight:600}
 .dbname{font-family:"JetBrains Mono";font-size:11.5px;color:var(--verify);font-weight:500;text-decoration:none}.dbname:hover{text-decoration:underline}
-.gt{font-family:"Space Grotesk";font-weight:600;font-size:13.5px;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}
-.gt .badge{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--steel);padding:2px 7px;border-radius:3px}
-.items{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.item{font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:3px;background:#fcfbf9;color:#3a3f47}
+.gt{font-family:"Fraunces";font-weight:600;font-size:13.5px;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}
+.gt .badge{font-family:"JetBrains Mono";font-size:10px;font-weight:600;color:#fff;background:var(--steel);padding:2px 7px;border-radius:8px;white-space:nowrap}
+.items{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.item{font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;background:#fcfbf9;color:#3a3f47}
 .dbgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:7px;margin-top:6px}
-.dblink{display:flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--line);border-left-width:4px;border-radius:3px;padding:9px 11px;background:#fff;font-size:12px;transition:border-color .15s,background .15s}
+.dblink{display:flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--line);border-left-width:4px;border-radius:8px;padding:9px 11px;background:#fff;font-size:12px;transition:border-color .15s,background .15s}
 .dblink:hover{border-color:var(--ink);background:#fbfaf7}
 .dblink.direct{border-left-color:var(--verify);background:#f2fbfa}
 .dblink.copy{border-left-color:#c9a24a;background:#fdfaf3}
-.dblink .glyph{width:22px;height:22px;flex:none;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono";font-size:12px;font-weight:700}
+.dblink .glyph{width:22px;height:22px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono";font-size:12px;font-weight:700}
 .dblink.direct .glyph{background:var(--verify);color:#fff}.dblink.copy .glyph{background:#c9a24a;color:#fff}
 .dblink .lbl{flex:1;line-height:1.25;color:var(--ink)}.dblink .arrow{opacity:.35;flex:none}.dblink:hover .arrow{opacity:.8}
 .leg{font-size:11px;color:var(--steel);margin:14px 0 4px;display:flex;gap:16px;flex-wrap:wrap}.leg span{display:inline-flex;align-items:center;gap:6px}
 .orgrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
-.orgcard{display:block;text-decoration:none;border:1px solid var(--line);border-top:3px solid var(--verify);border-radius:4px;padding:12px 14px;background:#fff}
+.orgcard{display:block;text-decoration:none;border:1px solid var(--line);border-top:3px solid var(--verify);border-radius:12px;padding:12px 14px;background:#fff}
 .orgcard:hover{background:#fbfaf7}
 .orgcard .k{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--steel);font-weight:700}
 .orgcard .v{font-size:13.5px;font-weight:600;color:var(--ink);margin-top:2px}
 .orgcard .s{font-size:11.5px;color:var(--steel);margin-top:3px}
 @media(max-width:560px){.orgrow{grid-template-columns:1fr}}
-.invbox{border:1px solid var(--line);border-radius:5px;padding:14px 16px;margin:14px 0;background:#fcfbf9}
-.invhead{font-family:"Space Grotesk";font-weight:600;font-size:14px;margin-bottom:8px}
+.invbox{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0;background:#fcfbf9}
+.invhead{font-family:"Fraunces";font-weight:600;font-size:14px;margin-bottom:8px}
 .invrow{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
 .invlbl{font-weight:600;min-width:90px}
-.invok{display:inline-block;background:var(--verify);color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px}
-.invno{display:inline-block;background:#eee;color:var(--steel);font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px}
+.invok{display:inline-block;background:var(--verify);color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.invno{display:inline-block;background:#eee;color:var(--steel);font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px;white-space:nowrap}
 .stnrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
-.stnbtn{display:block;text-decoration:none;border:1px solid #2c3550;border-left:4px solid #2c3550;border-radius:4px;padding:11px 14px;background:#1f2740;color:#eaf0ff;font-size:13px}
+.stnbtn{display:block;text-decoration:none;border:1px solid #2c3550;border-left:4px solid #2c3550;border-radius:12px;padding:11px 14px;background:#1f2740;color:#eaf0ff;font-size:13px}
 .stnbtn.alt{background:#2a3350;border-color:#3a4568}
 .stnbtn:hover{background:#28324f}
 .stnbtn b{font-family:"JetBrains Mono";letter-spacing:.02em}
 .stnbtn .opennote{display:block;font-size:11px;color:#9fb0d8;margin-top:3px}
 @media(max-width:560px){.stnrow{grid-template-columns:1fr}}
-.leg .g{width:16px;height:16px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-family:"JetBrains Mono";font-size:9px;font-weight:700}.g.direct{background:var(--verify-bg);color:var(--verify)}.g.copy{background:#f2f0ec;color:var(--steel)}
+.leg .g{width:16px;height:16px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-family:"JetBrains Mono";font-size:9px;font-weight:700}.g.direct{background:var(--verify-bg);color:var(--verify)}.g.copy{background:#f2f0ec;color:var(--steel)}
 .loading{display:flex;align-items:center;gap:10px;color:var(--steel);font-size:13px;padding:10px 0}
 .spin{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--verify);border-radius:50%;animation:sp .7s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
-.errbox{background:var(--amber-bg);border:1px solid #ead9b4;border-radius:4px;padding:12px 14px;font-size:12.5px;color:#6d4c12}
-.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:4px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:50;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast .cas{font-family:"JetBrains Mono";color:#f4d38a}
-.genbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--amber-bg);border:1px solid #ead9b4;border-radius:4px;padding:12px 14px;margin-bottom:14px}
+.errbox{background:var(--amber-bg);border:1px solid #ead9b4;border-radius:12px;padding:12px 14px;font-size:12.5px;color:#6d4c12}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:50;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast .cas{font-family:"JetBrains Mono";color:#f4d38a}
+.genbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--amber-bg);border:1px solid #ead9b4;border-radius:12px;padding:12px 14px;margin-bottom:14px}
 .genbar .txt{font-size:12.5px;color:#6d4c12;flex:1;min-width:180px}
-.genbtn{background:var(--amber);color:#fff;border:0;border-radius:3px;padding:8px 16px;font-size:13px;font-weight:600;white-space:nowrap}
+.genbtn{background:var(--amber);color:#fff;border:0;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;white-space:nowrap}
 .genbtn:hover{background:#956613}.genbtn:disabled{opacity:.55;cursor:wait}
 .conf{display:inline-block;font-family:"JetBrains Mono";font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;margin-left:6px}
 .conf.high{background:var(--verify-bg);color:var(--verify)}.conf.medium{background:var(--amber-bg);color:var(--amber)}.conf.low{background:var(--hazard-bg);color:var(--hazard)}
 .disclaimer{margin-top:26px;font-size:11.5px;color:var(--steel);line-height:1.6;border-top:1px solid var(--line);padding-top:16px}
 @media(max-width:640px){.struct{width:120px;height:120px}}
+/* ── 구조식으로 검색 (이미지 판독 / 직접 그리기) ── */
+.sb.alt{background:transparent;color:#e8e3d7;outline:1.5px solid #4a4436;font-weight:500}
+.sb.alt:hover{background:#3a352b;outline-color:#6b6350}
+.modal{position:fixed;inset:0;background:rgba(45,41,32,.55);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal.show{display:flex}
+.mbox{background:var(--card);border-radius:16px;max-width:660px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 20px 60px -20px rgba(0,0,0,.45)}
+.mhead{display:flex;align-items:center;gap:12px;padding:20px 24px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card);border-radius:16px 16px 0 0}
+.mtitle{font-family:"Fraunces";font-weight:600;font-size:18px;flex:1}
+.mclose{background:none;border:0;font-size:20px;color:var(--steel);line-height:1;padding:5px 9px;border-radius:8px}
+.mclose:hover{background:var(--paper);color:var(--ink)}
+.mbody{padding:20px 24px 24px}
+.tabs{display:flex;gap:8px;margin-bottom:18px}
+.tabbtn{flex:1;padding:10px 12px;border:1px solid var(--line);background:#fff;border-radius:10px;font-size:13px;font-weight:600;color:var(--steel);transition:.15s}
+.tabbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.drop{border:2px dashed var(--line);border-radius:12px;padding:30px 20px;text-align:center;cursor:pointer;transition:.15s;color:var(--steel);font-size:13px}
+.drop:hover,.drop.over{border-color:var(--hazard);background:#fdf6f2;color:var(--ink)}
+.drop b{display:block;font-size:14px;color:var(--ink);margin-bottom:4px}
+.drop img.prev{max-width:100%;max-height:220px;border-radius:8px;margin-top:10px}
+#jsmeBox{border:1px solid var(--line);border-radius:12px;overflow:hidden;min-height:340px;background:#fff}
+.mbtn{display:inline-block;background:var(--hazard);color:#fff;border:0;border-radius:10px;padding:10px 18px;font-size:13.5px;font-weight:600;margin-top:12px}
+.mbtn:hover{background:#c4653f}.mbtn:disabled{opacity:.5;cursor:wait}
+.mbtn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.mbtn.ghost:hover{background:var(--paper)}
+.srescard{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px;background:#fcfbf8;flex-wrap:wrap}
+.srescard img{width:110px;height:110px;object-fit:contain;border:1px solid var(--line);border-radius:10px;background:#fff;flex:none}
+.sresinfo{flex:1;min-width:200px;font-size:13px}
+.sresinfo .nm{font-family:"Fraunces";font-weight:600;font-size:16px;margin-bottom:4px}
 </style>
 </head>
 <body>
 <header class="console"><div class="ci">
-  <div class="brandrow"><div class="brand">유해성 조회 콘솔<span class="dot">.</span></div><div class="tagline">NAS 중계 서버 · CAS·물질명 → 실제 자료 자동 표시</div></div>
-  <p class="subnote">이 콘솔은 <b>내 NAS의 중계 서버</b>가 대신 조회한 자료를 표시합니다. 브라우저 CORS 제약이 없습니다.</p>
+  <div class="brandrow"><div class="brand">유해성 조회 콘솔<span class="dot">.</span></div><div class="tagline">Gemini·Claude AI · CAS·물질명 → 실제 자료 자동 표시</div></div>
+  <p class="subnote">이 콘솔은 <b>Gemini·Claude AI를 활용하는 서버</b>가 대신 조회한 자료를 표시합니다. 브라우저 CORS 제약이 없습니다.</p>
   <div class="sw"><div class="sf">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a919d" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a19c8f" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
     <input id="q" type="text" placeholder="CAS 번호나 물질명 입력 후 Enter  (예: 71-43-2, benzene)" autocomplete="off" spellcheck="false">
-  </div><button class="sb" id="go">조회</button></div>
+  </div><button class="sb" id="go">조회</button><button class="sb alt" id="structBtn">⌬ 구조식으로 검색</button></div>
   <div class="hint">빠른 시도:
     <code data-fill="71-43-2">벤젠 71-43-2</code>
     <code data-fill="50-00-0">폼알데하이드 50-00-0</code>
@@ -141,8 +168,57 @@ main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
 </main>
 <div class="toast" id="toast"></div>
 
+<div class="modal" id="structModal">
+  <div class="mbox">
+    <div class="mhead">
+      <div class="mtitle">구조식으로 검색</div>
+      <button class="mclose" id="structClose" title="닫기">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="tabs">
+        <button class="tabbtn on" id="tabUp">이미지 업로드</button>
+        <button class="tabbtn" id="tabDraw">직접 그리기</button>
+      </div>
+
+      <div id="paneUp">
+        <div class="drop" id="dropZone">
+          <b>구조식 이미지를 끌어다 놓거나 클릭해 선택</b>
+          PNG · JPG · WEBP (최대 8MB) — AI가 구조식을 읽어 SMILES를 추정합니다
+          <div id="prevWrap"></div>
+        </div>
+        <input type="file" id="structFile" accept="image/*" hidden>
+        <button class="mbtn" id="analyzeBtn" disabled>이미지 판독 (AI)</button>
+        <a class="mbtn ghost" href="https://lens.google.com/" target="_blank" rel="noopener" style="margin-left:8px">Google Lens로 검색 ↗</a>
+        <div class="src" style="margin-top:8px">AI 판독은 서버가 Gemini를 호출합니다(수 초 소요). <b>Google Lens</b>는 서버를 거치지 않고 새 탭에서 직접 이미지를 올려 찾는 방식입니다.</div>
+      </div>
+
+      <div id="paneDraw" style="display:none">
+        <div id="jsmeBox"><div class="loading" style="padding:20px"><span class="spin"></span>구조식 편집기 불러오는 중…</div></div>
+        <button class="mbtn" id="drawSearchBtn">그린 구조로 검색</button>
+        <div class="src" style="margin-top:8px">JSME 편집기(무료·오픈소스)로 직접 그린 구조를 SMILES로 변환해 PubChem에서 대조합니다.</div>
+      </div>
+
+      <div id="structResult"></div>
+    </div>
+  </div>
+</div>
+
 <script>
-const API = "/api/chem";  // 같은 NAS에서 서비스 → 상대경로
+// JSME(무료 오픈소스 분자 편집기)가 로딩을 끝내면 GWT가 이 전역 함수를 호출한다.
+var jsmeReady=false, jsmeApplet=null, jsmePending=false;
+function jsmeOnLoad(){ jsmeReady=true; if(jsmePending) createJsme(); }
+function createJsme(){
+  if(jsmeApplet || !jsmeReady) return;
+  const box=document.getElementById('jsmeBox');
+  if(!box) return;
+  box.innerHTML="";
+  jsmeApplet=new JSApplet.JSME("jsmeBox","100%","340px",{options:"newlook,star,nocanonize"});
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jsme-editor/jsme.nocache.js"></script>
+
+<script>
+const API = "/api/chem";  // 같은 서버에서 서비스 → 상대경로
 
 const DB={
   kreach:{name:"기후에너지환경부 화학물질정보처리시스템",url:"https://kreach.mcee.go.kr/repwrt/index.do"},
@@ -162,6 +238,10 @@ const DB={
   comptox:{name:"US EPA CompTox",url:"https://comptox.epa.gov/dashboard/",query:"https://comptox.epa.gov/dashboard/search-results?search="},
   pubchem:{name:"PubChem 전체 레코드",url:"https://pubchem.ncbi.nlm.nih.gov/",query:"https://pubchem.ncbi.nlm.nih.gov/#query="},
   cas_cc:{name:"CAS Common Chemistry",url:"https://commonchemistry.cas.org/",query:"https://commonchemistry.cas.org/results?q="},
+  // 구글 AI 모드(udm=50) — 서버 API를 쓰지 않고 새 탭에서 바로 확인
+  google_ai:{name:"Google AI 모드 검색",url:"https://www.google.com/search?udm=50",
+             query:"https://www.google.com/search?udm=50&q=",
+             qsuffix:" 화학물질의 CAS No., 물질명, 분자식, SMILES, InChIKey를 알려줘"},
   nite:{name:"일본 NITE CHRIP",url:"https://www.chem-info.nite.go.jp/chem/chrip/chrip_search/srhInput"},
   jcheck:{name:"일본 J-CHECK",url:"https://www.nite.go.jp/chem/jcheck/search.action?request_locale=ja"},
   aicis:{name:"호주 AICIS",url:"https://www.industrialchemicals.gov.au/chemical-information/search-assessments"},
@@ -190,7 +270,7 @@ const DB={
 const GROUPS={
   regulation:["kreach","kosha","echa_clh","iarc","ntp","epa_iris","aicis","hcis","ccid","nfa"],
   domestic:["kreach","kreach_open","kosha","nfa","nifds","echa_rar","atsdr"],
-  ident:["cas_cc","pubchem","kreach_search","comptox"],
+  ident:["cas_cc","pubchem","google_ai","kreach_search","comptox"],
   phys:["kreach","kosha","echa","comptox","nite","oecd","echemportal","scholar"],
   human:["kreach","kosha","echa","echa_rar","iarc","ntp","epa_iris","atsdr","oecd","nite","jcheck","nifds","comptox","echemportal","scholar"],
   env:["kreach","echa","echa_rar","ecotox","oecd","nite","jcheck","comptox","echemportal","scholar"],
@@ -212,7 +292,18 @@ const $=s=>document.querySelector(s);
 const main=$("#main"),input=$("#q"),toast=$("#toast"),goBtn=$("#go");
 let Q="";
 const isCas=v=>/^\d{2,7}-\d{2}-\d$/.test(v.trim());
-function dbHref(k){const d=DB[k];if(!d)return"#";return d.query?d.query+encodeURIComponent(Q):d.url;}
+// CAS 등록번호 체크섬 검증: 마지막 자리(확인숫자)를 제외한 앞자리를
+// 오른쪽부터 1,2,3...로 가중합해 10으로 나눈 나머지가 확인숫자와 같아야 함.
+function isCasChecksumValid(v){
+  const digits=v.trim().replace(/-/g,"");
+  if(!/^\d{5,10}$/.test(digits)) return false;
+  const check=parseInt(digits[digits.length-1],10);
+  const body=digits.slice(0,-1);
+  let sum=0;
+  for(let i=0;i<body.length;i++) sum+=parseInt(body[i],10)*(body.length-i);
+  return (sum%10)===check;
+}
+function dbHref(k){const d=DB[k];if(!d)return"#";return d.query?d.query+encodeURIComponent(Q+(d.qsuffix||"")):d.url;}
 function dbClick(e,k){const d=DB[k];if(!d||d.query)return;if(navigator.clipboard)navigator.clipboard.writeText(Q);toast.innerHTML=`<span class="cas">${Q}</span> 복사됨 — <b>${d.name}</b> 검색창에 붙여넣으세요`;toast.classList.add("show");clearTimeout(dbClick._t);dbClick._t=setTimeout(()=>toast.classList.remove("show"),3200);}
 function dbLinks(keys){return `<div class="dbgrid">`+keys.map(k=>{const d=DB[k];if(!d)return"";const dir=!!d.query;return `<a class="dblink ${dir?'direct':'copy'}" href="${dbHref(k)}" target="_blank" rel="noopener" onclick="dbClick(event,'${k}')"><span class="glyph">${dir?"↦":"○"}</span><span class="lbl">${d.name}</span><svg class="arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>`;}).join("")+`</div>`;}
 const legend=`<div class="leg"><span><span class="g direct" style="background:var(--verify);color:#fff">↦</span> <b style="color:var(--verify)">바로 조회</b> — 입력값으로 결과가 바로 열림</span><span><span class="g copy" style="background:#c9a24a;color:#fff">○</span> <b style="color:#a9761a">들어가서 검색</b> — 페이지 이동 + CAS 자동복사</span></div>`;
@@ -254,7 +345,27 @@ function existingStatus(d){
       detail: iso.candidates.map(c=>`${c.name||''} — KE-No. ${c.keno||'—'}${c.table?` (${c.table})`:''}, CAS ${c.cas}`).join(" · "),
       kind:"review"};
   }
-  return {label:"신규화학물질로 추정됨", detail:"", kind:"new"};
+  return {label:"신규화학물질로 추정", detail:"", kind:"new"};
+}
+// §1 '화평법 구분' 배너. 상단 요약 카드와 같은 existingStatus() 결과를 써서
+// 두 곳의 판정이 절대 어긋나지 않게 한다(이성질체 매칭 시에도 동일 문구 사용).
+function existVerdictBanner(d, est, casShown){
+  const nx=(d.notice&&d.notice.existing)||{};
+  const iso=(d.q_is_cas&&d.isomer_check)||{};
+  if(est.kind==="query"){
+    return `<div class="inference"><span class="lab">화평법 구분</span> <b>${est.label}</b> — 물질명으로 검색되어 기존/신규 자동판단을 하지 않습니다. 물질명이 혼합물(A and B 형태)로 표기된 경우 성분 하나의 CAS로 잘못 매칭되어 오판될 수 있습니다. 가능하면 <b>CAS No.로 다시 검색</b>하고, 혼합물 여부는 화학물질정보처리시스템에서 직접 확인하세요.
+      <div style="margin-top:8px">${dbLinks(["kreach_open"])}</div></div>`;
+  }
+  if(est.kind==="existing"){
+    return `<div class="evidence"><span class="lab">화평법 구분</span> <b>${est.label}</b> — 기존화학물질 고시 ${nx.table||""} 수록 (고유번호 ${nx.keno||"—"}). <span class="src">출처: 기존화학물질 고시(별표 대조) · CAS No. ${casShown} 기준</span></div>`;
+  }
+  if(est.kind==="review"){
+    const cands=(iso.candidates||[]);
+    return `<div class="inference"><span class="lab">화평법 구분</span> <b>${est.label}</b> — 이 CAS(${casShown})는 기존화학물질 목록에 <b>없지만</b>, 물질명에서 이성질체 표기(cis/trans/(E)/(Z))·수화물·무수물·중수소 표기를 제외한 이름이 목록의 다른 CAS와 일치합니다. 고시 제3조(수화물·무수물·반응생성물·이성질체) 해당 시 기존화학물질로 인정될 수 있으므로 <b>반드시 화학물질정보처리시스템에서 확인</b>하세요.
+      <ul style="margin:8px 0 4px;padding-left:18px">${cands.map(c=>`<li><b>${c.name||''}</b> — CAS ${c.cas} (${c.keno||''}${c.table?`, ${c.table}`:''})</li>`).join("")}</ul>
+      <div style="margin-top:6px">${dbLinks(["kreach_open"])}</div></div>`;
+  }
+  return `<div class="inference"><span class="lab">화평법 구분</span> <b>${est.label}</b> — 기존화학물질 목록(별표1~3)에서 CAS No. ${casShown} 미검색. 단, 고시 제3조(수화물·무수물, 반응생성물, 이성질체) 해당 시 기존으로 인정될 수 있어 확인 필요. <span class="src">CAS No. 기준 판단(물질명은 참고만)</span></div>`;
 }
 // 실시간 조회 국외 DB(EU CLP·US NTP) — 엑셀 스냅샷(classification_ref)보다 우선 표시
 function renderLiveOverseasClassification(d){
@@ -294,7 +405,74 @@ function renderLiveOverseasClassification(d){
   } else {
     html+=`<div class="src" style="margin:12px 0 10px">덴마크 CLP 데이터베이스 실시간 조회: 대조된 분류 없음</div>`;
   }
+  const iarc=d.iarc||{};
+  const IARC_GROUP_KO={"1":"인체발암성 확인됨(Group 1)","2A":"인체발암성 개연성 있음(Group 2A)",
+    "2B":"인체발암성 가능성 있음(Group 2B)","3":"인체발암성으로 분류되지 않음(Group 3)",
+    "4":"인체발암성 없을 가능성 높음(Group 4)"};
+  if(iarc.listed){
+    html+=`<div class="evidence"><span class="lab">IARC Monographs — 발암성 분류</span> ${IARC_GROUP_KO[iarc.group]||("Group "+iarc.group)}<div class="src" style="margin-top:3px">출처: <a class="dbname" href="${iarc.record_url}" target="_blank" rel="noopener">IARC Monographs ↗</a> · 실시간 조회</div></div>`;
+  } else {
+    html+=`<div class="src" style="margin:12px 0 10px">IARC Monographs 실시간 조회: 목록에 없음</div>`;
+  }
+  const nite=d.nite||{};
+  if(nite.found){
+    html+=`<div class="evidence"><span class="lab">일본 NITE CHRIP — 등재 확인</span> ${nite.name_ja||""}${nite.name_en?` (${nite.name_en})`:""}${nite.formula?` · ${nite.formula}`:""}<div class="src" style="margin-top:3px">CHRIP_ID ${nite.chrip_id||"—"} · GHS 분류 등 상세 항목은 아래 링크에서 직접 확인하세요. <a class="dbname" href="${nite.record_url}" target="_blank" rel="noopener">NITE CHRIP 상세 ↗</a> · 실시간 조회</div></div>`;
+  } else {
+    html+=`<div class="src" style="margin:12px 0 10px">일본 NITE CHRIP 실시간 조회: 등재된 레코드 없음</div>`;
+  }
+  const kosha=d.kosha||{};
+  if(kosha.found){
+    html+=`<div class="evidence"><span class="lab">고용노동부 MSDS(KOSHA) — 등재 확인</span> ${kosha.name||""}<div class="src" style="margin-top:3px">공단 MSDS·법규정보·유해위험성정보 보유 — 상세 GHS표는 링크에서 직접 확인하세요. <a class="dbname" href="${kosha.record_url}" target="_blank" rel="noopener">KOSHA MSDS ↗</a> · 실시간 조회</div></div>`;
+  } else {
+    html+=`<div class="src" style="margin:12px 0 10px">고용노동부 MSDS(KOSHA) 실시간 조회: 등재된 레코드 없음</div>`;
+  }
+  const hcis=d.hcis||{};
+  if(hcis.items&&hcis.items.length){
+    html+=`<div class="src" style="margin:12px 0 6px"><b>호주 HCIS — GHS 분류</b> <span class="livepill">실시간 조회</span></div>
+      <table class="tbl"><thead><tr><th>유해성 분류</th><th style="width:90px">H-code</th><th>문구</th></tr></thead><tbody>
+      ${hcis.items.map(x=>`<tr><td>${x.item}</td><td>${x.h?`<span class="hcode">${x.h}</span>`:"—"}</td><td>${x.text||""}</td></tr>`).join("")}
+      </tbody></table>
+      <div class="src" style="margin:4px 0 12px">출처: <a class="dbname" href="${hcis.record_url}" target="_blank" rel="noopener">HCIS ↗</a></div>`;
+  } else {
+    html+=`<div class="src" style="margin:12px 0 10px">호주 HCIS 실시간 조회: 대조된 분류 없음</div>`;
+  }
   return html;
+}
+// 물리화학적 특성(옥탄올-물 분배계수·끓는점·증기압)
+//  PubChem 실험값을 우선 표시하고, 없는 항목만 EPA EPI Suite 추정/실측값으로 보완한다.
+const PHYS_LABELS={logkow:"옥탄올-물 분배계수 (log Kow)", boiling_point:"끓는점", vapor_pressure:"증기압"};
+function renderPhys(phys){
+  if(!phys) return "";
+  const pc=phys.pubchem||{}, epi=phys.episuite||{}, epiProps=(epi.props)||{};
+  const rows=Object.keys(PHYS_LABELS).map(k=>{
+    const list=pc[k]||[];
+    if(list.length){
+      const main=list[0];
+      const more=list.slice(1);
+      return `<tr><td style="width:190px"><b>${PHYS_LABELS[k]}</b></td><td>
+        <span class="mono">${main.value}</span>
+        <span class="chip neutral" style="margin-left:6px">${main.source}</span>
+        ${more.length?`<div class="src" style="margin-top:4px">다른 출처: ${more.map(m=>`${m.value} <span style="opacity:.7">(${m.source})</span>`).join(" · ")}</div>`:""}
+      </td></tr>`;
+    }
+    const e=epiProps[k];
+    if(e){
+      return `<tr><td><b>${PHYS_LABELS[k]}</b></td><td>
+        <span class="mono">${e.value}</span>
+        <span class="chip ${e.kind==="실측"?"neutral":"warn"}" style="margin-left:6px">EPI Suite ${e.kind}</span>
+        ${e.estimated&&e.kind==="실측"?`<div class="src" style="margin-top:4px">모델 추정값: ${e.estimated}</div>`:""}
+      </td></tr>`;
+    }
+    return `<tr><td><b>${PHYS_LABELS[k]}</b></td><td><span class="src">확인된 값 없음</span></td></tr>`;
+  }).join("");
+  const usedEpi=Object.keys(epiProps).length>0;
+  return `<div class="gt" style="margin-top:18px">물리화학적 특성<span class="badge">PubChem${usedEpi?" · EPI Suite":""}</span></div>
+    <table class="tbl">${rows}</table>
+    <div class="src" style="margin-top:5px">
+      PubChem 실험값(원출처 표기)을 우선 표시하고, 없는 항목은 <b>EPA EPI Suite</b>로 보완합니다.
+      ${usedEpi?`EPI Suite 값은 <b>실측</b>(문헌 측정값)과 <b>추정</b>(모델 예측)을 구분해 표시합니다. `:""}
+      <a class="dbname" href="${phys.episuite_url||"https://episuite.dev/"}" target="_blank" rel="noopener">EPI Suite에서 직접 확인 ↗</a>
+    </div>`;
 }
 function renderKreachUses(kreach){
   const uses=(kreach&&kreach.uses)||[];
@@ -302,8 +480,8 @@ function renderKreachUses(kreach){
     return `<div class="inference"><span class="lab">화평법 신고 및 등록된 용도정보</span> 화학물질정보처리시스템에서 확인된 신고ㆍ등록 용도정보가 없습니다.</div>`;
   }
   return `<div class="evidence"><span class="lab">화평법 신고 및 등록된 용도정보</span>
-    <table class="tbl" style="margin-top:8px"><thead><tr><th style="width:80px">구분</th><th>용도</th></tr></thead><tbody>
-    ${uses.map(u=>`<tr><td><span class="chip ${u.tab==='등록'?'warn':'neutral'}">${u.tab} 정보</span></td><td>${u.use}</td></tr>`).join("")}
+    <table class="tbl" style="margin-top:8px"><thead><tr><th style="width:52px">구분</th><th>용도</th></tr></thead><tbody>
+    ${uses.map(u=>`<tr><td><span class="chip ${u.tab==='등록'?'warn':'neutral'}">${u.tab}</span></td><td>${u.use}</td></tr>`).join("")}
     </tbody></table>
     <div class="src" style="margin-top:5px">출처: 화학물질정보처리시스템(KREACH) 정보공개 — ${uses.map(u=>u.tab).filter((v,i,a)=>a.indexOf(v)===i).join("ㆍ")} 정보 탭</div></div>`;
 }
@@ -319,7 +497,7 @@ function shell(q){
   main.innerHTML=`
   <div class="target"><div class="idhead">
     <div class="struct" id="struct"><div class="ph">구조식<br>불러오는 중…</div></div>
-    <div class="idmain"><div class="idname" id="idname">${Q}<small>NAS 서버가 조회 중…</small></div>
+    <div class="idmain"><div class="idname" id="idname">${Q}<small>AI 조회 중…</small></div>
     <div class="idkv" id="idkv"><div class="cell"><div class="k">상태</div><div class="v"><span class="loading" style="padding:0"><span class="spin"></span>조회 중</span></div></div></div></div>
   </div><div class="source-note" id="idsrc"></div></div>
   ${section(1,"화학물질 기본정보","auto",`<div class="loading"><span class="spin"></span>기본정보 로딩…</div>`,true)}
@@ -327,12 +505,15 @@ function shell(q){
     `<div id="enrich2"><div class="loading"><span class="spin"></span>규제·지정물질을 자동 조회 중…</div></div>
      <p class="si">아래는 직접 확인용 규제 DB 링크입니다.</p>${legend}${dbLinks(GROUPS.regulation)}`,false)}
   ${section(3,"유해성 분류 및 표시 (GHS)","auto",`<div class="loading"><span class="spin"></span>GHS 분류 로딩…</div>`,true)}
-  ${section(4,"유해성 요약 — 확인된 유해성 근거","auto",`<div class="loading"><span class="spin"></span>정리 중…</div>`,false)}
-  ${section(5,"국내 우려 이슈 및 노출경로","gen",
-    `<div id="enrich4"><div class="loading"><span class="spin"></span>국내 우려·용도·노출경로 자동 정리 중…</div></div>
+  ${section(4,"유해성 요약 - 심사기준(국내, EU)","auto",`<div class="loading"><span class="spin"></span>정리 중…</div>`,false)}
+  ${section(5,"등록,신고된 용도 및 이슈","gen",
+    `<div class="gt" style="margin-top:0">1) 등록, 신고 용도<span class="badge">화학물질정보처리시스템</span></div>
+     <div id="regUseBox"></div>
+     <div class="gt">2) 국내 우려 이슈 및 노출경로<span class="badge">AI 생성</span></div>
+     <div id="enrich4"><div class="loading"><span class="spin"></span>국내 우려·용도·노출경로 자동 정리 중…</div></div>
      <p class="si">직접 확인용 국내 DB:</p>${dbLinks(GROUPS.domestic)}`,false)}
   ${section(6,"유해성 정보 수집 — 특성별 Reference DB","link",`<p class="si">물리화학적 특성·인체(건강) 유해성·환경 유해성 3가지로 나눈 시험자료 조회 Reference DB입니다.</p>${legend}${testGroups()}`,false)}
-  <div class="disclaimer">참고자료 우선순위: 1) CAS Common Chemistry 2) PubChem. 1·3·4·5번(용도정보)은 NAS 중계 서버가 CAS Common Chemistry·PubChem·국내 고시·화학물질정보처리시스템(KREACH) 대조로 채웁니다. 기존/신규화학물질 판단은 CAS No. 입력일 때만 자동 수행합니다(물질명은 혼합물 오판 방지를 위해 수동 확인 안내). 2·5·6번의 나머지 항목은 개방형 API가 없는 정부 DB라 자동 링크·AI 생성으로 연결합니다.</div>`;
+  <div class="disclaimer">참고자료 우선순위: 1) CAS Common Chemistry 2) PubChem. 1·3·4·5번(용도정보)은 서버가 CAS Common Chemistry·PubChem·국내 고시·화학물질정보처리시스템(KREACH) 대조로 채웁니다. 기존/신규화학물질 판단은 CAS No. 입력일 때만 자동 수행합니다(물질명은 혼합물 오판 방지를 위해 수동 확인 안내). 2·5·6번의 나머지 항목은 개방형 API가 없는 정부 DB라 자동 링크·AI 생성으로 연결합니다.</div>`;
   window.scrollTo({top:0,behavior:"instant"});
 }
 
@@ -450,26 +631,14 @@ function renderNone(d){
   $("#struct").innerHTML=`<div class="ph">구조식<br>레코드 없음</div>`;
   $("#idname").innerHTML=`${Q}<small>개별 레코드 없음 — 혼합물/UVCB이거나 표기가 다를 수 있음</small>`;
   const nx=(d.notice&&d.notice.existing)||{}; const nr=(d.notice&&d.notice.review)||{};
-  const est0=existingStatus(d);
+  const est0=existingStatus(d); window.__estVerdict=est0;
   let kvhtml=`<div class="cell"><div class="k">기존/신규화학물질</div><div class="v">${est0.label}</div></div>`;
   if(est0.kind==="existing")kvhtml+=`<div class="cell"><div class="k">KE-No.</div><div class="v mono">${nx.keno}</div></div>`;
   $("#idkv").innerHTML=kvhtml;
   $("#idsrc").innerHTML=`<span class="livepill">SERVER</span> 조회됨 · 개별 레코드 없음`;
-  let existBanner="";
-  if(!d.q_is_cas){
-    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>CAS No. 기준 재확인 필요</b> — 물질명 검색은 혼합물(A and B 형태) 오판 우려로 자동판단을 하지 않습니다. CAS No.로 다시 검색하거나 아래에서 직접 확인하세요.<div style="margin-top:8px">${dbLinks(["kreach_open"])}</div></div>`;
-  }else if(nx.is_existing){
-    existBanner=`<div class="evidence"><span class="lab">화평법 구분</span> <b>기존화학물질</b> — 고시 ${nx.table} 수록 (${nx.keno}). <span class="src">CAS No. ${Q} 기준</span></div>`;
-  }else if(d.notice){
-    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>신규화학물질로 추정</b> — 기존화학물질 목록 미검색(CAS No. ${Q} 기준). 제3조 해당 여부 확인 필요.</div>`;
-  }
-  const iso=(d.q_is_cas&&!nx.is_existing&&d.isomer_check)||{};
-  if(iso.matched && (iso.candidates||[]).length){
-    existBanner+=`<div class="inference"><span class="lab">⚠ 기존화학물질 등재 추가 검토 필요</span> 기존화학물질 목록의 다른 CAS와 이름(이성질체·수화물 표기 제외)이 일치합니다. 고시 제3조(수화물·무수물·반응생성물·이성질체) 해당 여부를 화학물질정보처리시스템에서 반드시 확인하세요.
-      <ul style="margin:8px 0 4px;padding-left:18px">${iso.candidates.map(c=>`<li><b>${c.name||''}</b> — CAS ${c.cas} (${c.keno||''}${c.table?`, ${c.table}`:''})</li>`).join("")}</ul>
-      <div style="margin-top:6px">${dbLinks(["kreach_open"])}</div></div>`;
-  }
-  $("#sec1").innerHTML=`${existBanner}<div class="errbox">PubChem·CAS Common Chemistry에 개별 화합물 레코드가 없습니다(UVCB·혼합물에서 흔함). SMILES·InChIKey는 조회 불가.</div><div style="margin-top:12px">${legend}${dbLinks(GROUPS.ident)}</div>`;
+  // 상단 카드와 동일한 판정을 쓰도록 공통 배너 함수 사용
+  const existBanner = existVerdictBanner(d, est0, Q);
+  $("#sec1").innerHTML=`${existBanner}<div class="errbox">PubChem·CAS Common Chemistry에 개별 화합물 레코드가 없습니다(UVCB·혼합물에서 흔함). SMILES·InChIKey는 조회 불가.</div>${renderPhys(d.phys)}<div style="margin-top:12px">${legend}${dbLinks(GROUPS.ident)}</div>`;
 
   const domRows = parseKGhs((nr.classification)||"").map(x=>({item:x.item, code:x.code, grade:x.grade, h:hcodeFor(x.item,x.grade)}));
   const classRef = d.classification_ref||[];
@@ -487,8 +656,8 @@ function renderNone(d){
   s3+= `<p class="si" style="margin:14px 0 8px">'(참고) 분류표시' 시트 1행 기준 국외 유해성 분류 DB(EU CLP·덴마크 CLP 포함) — 직접 검색용:</p>${dbLinks(GROUPS.classificationRefDbs)}`;
   if(kreachHaz.length){
     s3+=`<div class="src" style="margin:16px 0 6px"><b>화학물질정보처리시스템 신고ㆍ등록 정보</b></div>
-      <table class="tbl"><thead><tr><th style="width:70px">구분</th><th>유해성 분류(항목)</th><th style="width:110px">등급</th><th>유해ㆍ위험문구</th></tr></thead><tbody>
-      ${kreachHaz.map(x=>`<tr><td><span class="chip ${x.tab==='등록'?'warn':'neutral'}">${x.tab} 정보</span></td><td>${x.item||""}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.hcode_text||""}</td></tr>`).join("")}
+      <table class="tbl"><thead><tr><th style="width:52px">구분</th><th>유해성 분류(항목)</th><th style="width:110px">등급</th><th>유해ㆍ위험문구</th></tr></thead><tbody>
+      ${kreachHaz.map(x=>`<tr><td><span class="chip ${x.tab==='등록'?'warn':'neutral'}">${x.tab}</span></td><td>${x.item||""}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.hcode_text||""}</td></tr>`).join("")}
       </tbody></table>`;
   }
   s3+=`<div class="src" style="margin:14px 0 2px">국내·조화분류 교차확인 DB</div>${dbLinks(["kreach","echa_clh","iarc","ntp","kosha"])}`;
@@ -505,8 +674,8 @@ function renderNone(d){
     sec2.insertAdjacentHTML("afterbegin", rvBox);
     sec2.insertAdjacentHTML("beforeend", renderInventory(d.notice));
   }
-  const sec5=$("#sec5");
-  if(sec5) sec5.insertAdjacentHTML("afterbegin", renderKreachUses(d.kreach));
+  const regUseBox=$("#regUseBox");
+  if(regUseBox) regUseBox.innerHTML=renderKreachUses(d.kreach);
 }
 function renderData(d){
   const id=d.identity||{}, g=d.ghs||{};
@@ -518,14 +687,14 @@ function renderData(d){
   else $("#struct").innerHTML=`<div class="ph">${id.formula&&id.formula.includes('UVCB')?'UVCB<br>구조식 없음':'구조식<br>없음'}</div>`;
   $("#idname").innerHTML=`${id.title||Q}${id.title_ko?`<small>${id.title_ko}</small>`:""}${(id.other_names&&id.other_names.length)?`<small class="othernames">이명: ${id.other_names.slice(0,5).join(" · ")}</small>`:""}`;
   const isFallback=(d.source||"").includes("규제자료");
-  $("#idsrc").innerHTML=`<span class="livepill" ${isFallback?'style="background:var(--amber)"':''}>${isFallback?'예시':'SERVER'}</span> 출처: ${d.source||"NAS 중계 서버"}${id.cid?` · <a class="dbname" href="${d.record_url}" target="_blank" rel="noopener">PubChem 전체 레코드 ↗</a>`:""}${id.cas_cc_url?` · <a class="dbname" href="${id.cas_cc_url}" target="_blank" rel="noopener">CAS Common Chemistry ↗</a>`:""}${d._cache?' · (캐시)':''}`;
+  $("#idsrc").innerHTML=`<span class="livepill" ${isFallback?'style="background:var(--amber)"':''}>${isFallback?'예시':'SERVER'}</span> 출처: ${d.source||"AI 서버 조회"}${id.cid?` · <a class="dbname" href="${d.record_url}" target="_blank" rel="noopener">PubChem 전체 레코드 ↗</a>`:""}${id.cas_cc_url?` · <a class="dbname" href="${id.cas_cc_url}" target="_blank" rel="noopener">CAS Common Chemistry ↗</a>`:""}${d._cache?' · (캐시)':''}`;
   const kv=[["CAS No.",id.cas||"—",1]];
   if(id.ec)kv.push(["EC No.",id.ec,1]);
   // 국내 고시 대조 결과(기존/신규 · KE-No.) — CAS No. 입력일 때만 자동판단
   const nx=(d.notice&&d.notice.existing)||{};
   const nr=(d.notice&&d.notice.review)||{};
   const des=(d.notice&&d.notice.designated)||[];
-  const est=existingStatus(d);
+  const est=existingStatus(d); window.__estVerdict=est;
   kv.push(["기존/신규화학물질",est.label,1]);
   if(est.kind==="existing")kv.push(["KE-No.",(nx.keno||"—")+" ("+(nx.table||"")+")",1]);
   kv.push(["화학식",id.formula||"—",1]);
@@ -539,25 +708,9 @@ function renderData(d){
     ? `<div class="evidence"><span class="lab">국내 지정물질 현황(확정)</span><div class="chips" style="margin-top:6px">${des.map(h=>`<span class="chip haz" title="${(h.source||'')} ${(h.note||'')}">${h.label}${h.note?` · ${h.note}`:''}</span>`).join("")}</div>${desDetail?`<div style="margin-top:7px;font-size:12px;white-space:pre-line">${desDetail}</div>`:""}<div class="src" style="margin-top:5px">출처: 화학물질 지정 마스터·고시 대조 · 파일에 없는 지정은 아래 2번에서 AI 추정</div></div>`
     : (d.q_is_cas?`<div class="inference"><span class="lab">국내 지정물질 현황</span> 대조된 지정물질이 없습니다. 2번 항목에서 AI 추정으로 보완됩니다.</div>`:"");
 
-  // 기존/신규 판단 배너 — CAS No. 입력일 때만 자동판단(물질명은 혼합물 오판 우려로 보류)
-  let existBanner="";
-  if(!d.q_is_cas){
-    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>CAS No. 기준 재확인 필요</b> — 물질명으로 검색되어 기존/신규 자동판단을 하지 않습니다. 물질명이 혼합물(A and B 형태)로 표기된 경우 성분 하나의 CAS로 잘못 매칭되어 오판될 수 있습니다. 가능하면 <b>CAS No.로 다시 검색</b>하고, 혼합물 여부는 화학물질정보처리시스템에서 직접 확인하세요.
-      <div style="margin-top:8px">${dbLinks(["kreach_open"])}</div></div>`;
-  }else if(nx.is_existing){
-    existBanner=`<div class="evidence"><span class="lab">화평법 구분</span> <b>기존화학물질</b> — 기존화학물질 고시 ${nx.table} 수록 (고유번호 ${nx.keno}). <span class="src">출처: 기존화학물질 고시(별표 대조) · CAS No. ${id.cas||Q} 기준</span></div>`;
-  }else if(d.notice){
-    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>신규화학물질로 추정</b> — 기존화학물질 목록(별표1~3)에서 CAS No. ${id.cas||Q} 미검색. 단, 고시 제3조(수화물·무수물, 반응생성물, 이성질체) 해당 시 기존으로 인정될 수 있어 확인 필요. <span class="src">CAS No. 기준 판단(물질명은 참고만)</span></div>`;
-  }
-  // 이성질체·무수물·수화물 매칭 — 이미 기존화학물질로 완전일치된 경우는 제외(자기 자신과의 중복 경고 방지)
-  const iso=(d.q_is_cas&&!nx.is_existing&&d.isomer_check)||{};
-  let isoBanner="";
-  if(iso.matched && (iso.candidates||[]).length){
-    isoBanner=`<div class="inference"><span class="lab">⚠ 기존화학물질 등재 추가 검토 필요</span> 이 CAS의 물질명에서 이성질체 표기(cis/trans/(E)/(Z))·수화물·무수물 표기를 제외한 이름이 기존화학물질 목록의 다른 CAS와 일치합니다. 고시 제3조(수화물·무수물·반응생성물·이성질체) 해당 여부를 <b>반드시 화학물질정보처리시스템에서 확인</b>하세요.
-      <ul style="margin:8px 0 4px;padding-left:18px">${iso.candidates.map(c=>`<li><b>${c.name||''}</b> — CAS ${c.cas} (${c.keno||''}${c.table?`, ${c.table}`:''})</li>`).join("")}</ul>
-      <div style="margin-top:6px">${dbLinks(["kreach_open"])}</div></div>`;
-  }
-  const existBannerAll = existBanner + isoBanner + desBanner;
+  // 기존/신규 판단 배너 — 상단 카드와 어긋나지 않도록 existingStatus() 판정을 그대로 따른다.
+  const existBanner = existVerdictBanner(d, est, id.cas||Q);
+  const existBannerAll = existBanner + desBanner;
 
   $("#sec1").innerHTML=`${d.note?`<div class="inference"><span class="lab">참고</span> ${d.note}</div>`:""}
     ${existBannerAll}
@@ -571,7 +724,8 @@ function renderData(d){
     ${id.smiles?`<tr><td><b>SMILES</b></td><td class="mono" style="word-break:break-all">${id.smiles}</td></tr>`:""}
     ${id.inchikey?`<tr><td><b>InChIKey</b></td><td class="mono">${id.inchikey}</td></tr>`:""}
     ${id.cid?`<tr><td><b>PubChem CID</b></td><td class="mono">${id.cid}</td></tr>`:""}</table>
-    <div class="evidence"><span class="lab">참고자료 출처</span> ${id.source_label||d.source||"NAS 중계 서버"}${(id.source_no===1)?' <span class="src">(2순위 PubChem으로 IUPAC명·구조식·CID 보완)</span>':''} · 기존/신규 판단: ${d.q_is_cas?"CAS No. 기준 · 기존화학물질 고시 대조":"물질명 검색(자동판단 보류)"}</div>
+    ${renderPhys(d.phys)}
+    <div class="evidence"><span class="lab">참고자료 출처</span> ${id.source_label||d.source||"AI 서버 조회"}${(id.source_no===1)?' <span class="src">(2순위 PubChem으로 IUPAC명·구조식·CID 보완)</span>':''} · 기존/신규 판단: ${d.q_is_cas?"CAS No. 기준 · 기존화학물질 고시 대조":"물질명 검색(자동판단 보류)"}</div>
     <div class="src" style="margin:12px 0 2px">식별정보·KE-No. 교차확인</div>${legend}${dbLinks(GROUPS.ident)}`;
   // GHS
   const sts=g.statements||[];
@@ -617,8 +771,8 @@ function renderData(d){
   ghsHtml += `<p class="si" style="margin:14px 0 8px">'(참고) 분류표시' 시트 1행 기준 국외 유해성 분류 DB(EU CLP·덴마크 CLP 포함) — 자동 대조 여부와 무관하게 직접 검색용으로 항상 제공됩니다.</p>${dbLinks(GROUPS.classificationRefDbs)}`;
   if(kreachHaz.length){
     ghsHtml += `<div class="src" style="margin:16px 0 6px"><b>화학물질정보처리시스템 신고ㆍ등록 정보</b></div>
-      <table class="tbl"><thead><tr><th style="width:70px">구분</th><th>유해성 분류(항목)</th><th style="width:110px">등급</th><th>유해ㆍ위험문구</th></tr></thead><tbody>
-      ${kreachHaz.map(x=>`<tr><td><span class="chip ${x.tab==='등록'?'warn':'neutral'}">${x.tab} 정보</span></td><td>${x.item||""}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.hcode_text||""}</td></tr>`).join("")}
+      <table class="tbl"><thead><tr><th style="width:52px">구분</th><th>유해성 분류(항목)</th><th style="width:110px">등급</th><th>유해ㆍ위험문구</th></tr></thead><tbody>
+      ${kreachHaz.map(x=>`<tr><td><span class="chip ${x.tab==='등록'?'warn':'neutral'}">${x.tab}</span></td><td>${x.item||""}</td><td><span class="gradechip">${x.grade||"—"}</span></td><td>${x.hcode_text||""}</td></tr>`).join("")}
       </tbody></table>
       <div class="src" style="margin-top:5px">출처: 화학물질정보처리시스템(KREACH) 정보공개 — ${kreachHaz.map(x=>x.tab).filter((v,i,a)=>a.indexOf(v)===i).join("ㆍ")} 정보 탭</div>`;
   } else if(kreach.implemented && kreach.reason!=="name_query"){
@@ -644,8 +798,8 @@ function renderData(d){
     sec2.insertAdjacentHTML("afterbegin", rvBox + orgSplit);
     sec2.insertAdjacentHTML("beforeend", renderInventory(d.notice));
   }
-  const sec5=$("#sec5");
-  if(sec5) sec5.insertAdjacentHTML("afterbegin", renderKreachUses(d.kreach));
+  const regUseBox=$("#regUseBox");
+  if(regUseBox) regUseBox.innerHTML=renderKreachUses(d.kreach);
 }
 
 async function enrichDetail(){
@@ -665,12 +819,20 @@ async function enrichDetail(){
     const d=res.data||{};
     const conf=(d.confidence||"medium");
     const cbadge=`<span class="conf ${conf}">신뢰도 ${conf}</span>`;
-    // 1. 기존/신규 판단(생성 초안) → §1 상단에 추가
+    // 1. 기존/신규 판단(AI 초안) → §1 '맨 아래'에 참고로 덧붙인다.
+    //    고시 대조로 확정한 판정(existingStatus)이 정답이므로 AI 결과를 위에 올려
+    //    상단 카드와 어긋나 보이게 하지 않는다. 결론이 다르면 그 사실을 명시한다.
     const en=d.existing_new;
     if(en && en.verdict){
-      const cls = en.verdict.includes("기존")?"evidence":"inference";
-      const html=`<div class="${cls}"><span class="lab">화평법 구분 (AI 판단)</span> <b>${en.verdict}</b>${en.keno?` · KE-No. ${en.keno}`:""} ${cbadge}<div style="margin-top:4px;font-size:12px">${en.basis||""}</div><div class="src" style="margin-top:3px">출처: ${en.source||"기존화학물질 고시"} · ⚠ AI 초안, 검수 필요</div></div>`;
-      const sec1=$("#sec1"); if(sec1) sec1.insertAdjacentHTML("afterbegin", html);
+      const truth=window.__estVerdict||null;
+      // '기존/신규/검토필요' 축으로만 비교(문구 차이는 무시)
+      const axis=s=>/기존화학물질(?!\s*등재)/.test(s)&&!/검토/.test(s)?"existing":/검토|보류/.test(s)?"review":/신규/.test(s)?"new":"other";
+      const conflict = truth && truth.kind!=="query" && axis(en.verdict)!==axis(truth.label);
+      const html=`<div class="inference"><span class="lab">화평법 구분 (AI 참고 의견)</span> <b>${en.verdict}</b>${en.keno?` · KE-No. ${en.keno}`:""} ${cbadge}
+        <div style="margin-top:4px;font-size:12px">${en.basis||""}</div>
+        ${conflict?`<div class="src" style="margin-top:5px;color:var(--hazard)"><b>⚠ 위 확정 판정과 결론이 다릅니다.</b> 이 화면의 공식 판정은 상단의 <b>${truth.label}</b>(기존화학물질 고시 대조 결과)이며, AI 의견은 참고용입니다.</div>`:""}
+        <div class="src" style="margin-top:3px">출처: ${en.source||"기존화학물질 고시"} · ⚠ AI 초안, 검수 필요</div></div>`;
+      const sec1=$("#sec1"); if(sec1) sec1.insertAdjacentHTML("beforeend", html);
     }
     // 지정물질 AI 추정 → §1에 추가 (파일 미대조분)
     const de=(d.designated_estimate||[]).filter(x=>x&&x.likely&&x.likely!=="아니오");
@@ -702,10 +864,176 @@ async function enrichDetail(){
   }
 }
 
-function run(){const v=input.value;if(!v.trim())return;lookup(v);}
+function run(){
+  const v=input.value;
+  if(!v.trim())return;
+  const t=v.trim();
+  if(isCas(t) && !isCasChecksumValid(t)){
+    alert(`CAS No. "${t}"가 성립되지 않습니다.\n번호를 다시 확인해 주세요.`);
+    return;
+  }
+  lookup(v);
+}
 goBtn.addEventListener("click",run);
 input.addEventListener("keydown",e=>{if(e.key==="Enter")run();});
 document.querySelectorAll(".hint code").forEach(c=>c.addEventListener("click",()=>{input.value=c.dataset.fill;run();}));
+
+/* ──────────────────────────────────────────────────────────────
+   구조식으로 검색: ① 이미지 업로드 → Gemini 판독 → SMILES
+                    ② JSME로 직접 그리기 → SMILES
+   두 경로 모두 PubChem 구조검색으로 실제 물질을 대조한 뒤,
+   확인된 CAS로 기존 조회 파이프라인을 그대로 태운다.
+   ────────────────────────────────────────────────────────────── */
+const structModal=$("#structModal"), structResult=$("#structResult");
+let pickedFile=null;
+
+function openStruct(){ structModal.classList.add("show"); }
+function closeStruct(){ structModal.classList.remove("show"); }
+$("#structBtn").addEventListener("click",openStruct);
+$("#structClose").addEventListener("click",closeStruct);
+structModal.addEventListener("click",e=>{ if(e.target===structModal) closeStruct(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeStruct(); });
+
+function structTab(which){
+  const up=which==="up";
+  $("#tabUp").classList.toggle("on",up);
+  $("#tabDraw").classList.toggle("on",!up);
+  $("#paneUp").style.display=up?"":"none";
+  $("#paneDraw").style.display=up?"none":"";
+  structResult.innerHTML="";
+  if(!up){ if(jsmeReady) createJsme(); else jsmePending=true; }
+}
+$("#tabUp").addEventListener("click",()=>structTab("up"));
+$("#tabDraw").addEventListener("click",()=>structTab("draw"));
+
+// ── 이미지 업로드(드래그&드롭 + 파일선택) ──
+const dropZone=$("#dropZone"), structFile=$("#structFile"), analyzeBtn=$("#analyzeBtn");
+dropZone.addEventListener("click",()=>structFile.click());
+["dragenter","dragover"].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();dropZone.classList.add("over");}));
+["dragleave","drop"].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();dropZone.classList.remove("over");}));
+dropZone.addEventListener("drop",e=>{ const f=e.dataTransfer.files[0]; if(f) setPicked(f); });
+structFile.addEventListener("change",()=>{ if(structFile.files[0]) setPicked(structFile.files[0]); });
+
+function setPicked(f){
+  if(!f.type.startsWith("image/")){ alert("이미지 파일만 업로드할 수 있습니다."); return; }
+  if(f.size>8*1024*1024){ alert("이미지가 너무 큽니다(최대 8MB)."); return; }
+  pickedFile=f; analyzeBtn.disabled=false; structResult.innerHTML="";
+  const url=URL.createObjectURL(f);
+  $("#prevWrap").innerHTML=`<img class="prev" src="${url}" alt="선택한 구조식">`;
+}
+
+// 업로드 전 브라우저에서 이미지를 축소한다. 원본 사진(3~5MB)을 그대로 보내면
+// 전송·AI 처리 모두 느려지는데, 구조식 판독에는 긴 변 1200px이면 충분하다.
+function downscaleImage(file, maxDim=1200, quality=0.85){
+  return new Promise(resolve=>{
+    if(!/^image\//i.test(file.type)) return resolve(file);
+    const url=URL.createObjectURL(file), img=new Image();
+    img.onload=()=>{
+      URL.revokeObjectURL(url);
+      const w=img.naturalWidth, h=img.naturalHeight;
+      if(!w||!h) return resolve(file);
+      if(Math.max(w,h)<=maxDim && file.size<500*1024) return resolve(file); // 이미 충분히 작음
+      const s=Math.min(1,maxDim/Math.max(w,h));
+      const cw=Math.round(w*s), ch=Math.round(h*s);
+      const cv=document.createElement("canvas"); cv.width=cw; cv.height=ch;
+      const ctx=cv.getContext("2d");
+      ctx.fillStyle="#fff"; ctx.fillRect(0,0,cw,ch);  // 투명 PNG가 검게 변하지 않도록
+      ctx.drawImage(img,0,0,cw,ch);
+      cv.toBlob(b=>resolve(b?new File([b],"structure.jpg",{type:"image/jpeg"}):file),"image/jpeg",quality);
+    };
+    img.onerror=()=>{ URL.revokeObjectURL(url); resolve(file); };
+    img.src=url;
+  });
+}
+
+analyzeBtn.addEventListener("click",async()=>{
+  if(!pickedFile) return;
+  analyzeBtn.disabled=true;
+  structResult.innerHTML=`<div class="loading"><span class="spin"></span>이미지 압축 중…</div>`;
+  try{
+    const up=await downscaleImage(pickedFile);
+    const kb=Math.round(up.size/1024), okb=Math.round(pickedFile.size/1024);
+    structResult.innerHTML=`<div class="loading"><span class="spin"></span>AI가 구조식을 판독하는 중… (5~15초)${up!==pickedFile?` · 이미지 ${okb}KB → ${kb}KB로 축소`:""}</div>`;
+    const fd=new FormData(); fd.append("file",up);
+    const r=await fetch("/api/structure",{method:"POST",body:fd});
+    renderStructResult(await r.json());
+  }catch(e){
+    structResult.innerHTML=`<div class="errbox">판독 요청 실패: ${e.message}</div>`;
+  }finally{ analyzeBtn.disabled=false; }
+});
+
+// ── 직접 그리기(JSME) ──
+$("#drawSearchBtn").addEventListener("click",async()=>{
+  if(!jsmeApplet){ alert("구조식 편집기가 아직 준비되지 않았습니다. 잠시 후 다시 시도해 주세요."); return; }
+  const smi=(jsmeApplet.smiles()||"").trim();
+  if(!smi){ alert("먼저 구조식을 그려주세요."); return; }
+  structResult.innerHTML=`<div class="loading"><span class="spin"></span>그린 구조를 대조하는 중…</div>`;
+  try{
+    const r=await fetch(`/api/resolve-smiles?smiles=${encodeURIComponent(smi)}`);
+    const d=await r.json();
+    renderStructResult({ok:true, ai:{smiles:smi, confidence:"drawn"}, resolved:d.resolved||{}});
+  }catch(e){
+    structResult.innerHTML=`<div class="errbox">대조 실패: ${e.message}</div>`;
+  }
+});
+
+function renderStructResult(res){
+  if(!res || res.ok===false){
+    const msg=(res&&res.message)||"판독에 실패했습니다.";
+    structResult.innerHTML=`<div class="errbox">${msg}</div>`;
+    return;
+  }
+  const ai=res.ai||{}, rv=res.resolved||{};
+  const drawn=ai.confidence==="drawn";
+  let html="";
+  if(!drawn){
+    const conf=ai.confidence||"medium";
+    html+=`<div class="inference"><span class="lab">AI 판독 결과 — 검수 필요</span>
+      <span class="conf ${conf}">신뢰도 ${conf}</span>
+      <table class="tbl" style="margin-top:8px">
+        <tr><td style="width:110px"><b>CAS No. (1순위)</b></td><td class="mono">${ai.cas||'<span class="src">판독 실패</span>'}</td></tr>
+        <tr><td><b>물질명 (2순위)</b></td><td>${ai.name||'<span class="src">판독 실패</span>'}</td></tr>
+        ${ai.molecular_formula?`<tr><td><b>분자식</b></td><td class="mono">${ai.molecular_formula}</td></tr>`:""}
+      </table>
+      ${ai.notes?`<div class="src" style="margin-top:6px">판독 메모: ${ai.notes}</div>`:""}
+      <div class="src" style="margin-top:5px">⚠ 범용 AI의 구조식 판독은 전용 도구보다 정확도가 낮습니다. 아래 대조 결과를 반드시 눈으로 확인하세요.</div></div>`;
+  }
+  if(rv.found){
+    html+=`<div class="srescard">
+      ${rv.structure_url?`<img src="${rv.structure_url}" alt="대조된 구조식">`:""}
+      <div class="sresinfo">
+        <div class="nm">${rv.title||"(이름 없음)"}</div>
+        <div><b>CAS No.</b> <span class="mono">${rv.cas||"—"}</span></div>
+        <div><b>분자식</b> <span class="mono">${rv.formula||"—"}</span></div>
+        ${rv.inchikey?`<div><b>InChIKey</b> <span class="mono" style="font-size:11.5px">${rv.inchikey}</span></div>`:""}
+        <div class="src" style="margin-top:6px">PubChem에서 대조됨${rv.via==="cas"?" (AI가 읽은 CAS No.로 확인)":rv.via==="name"?" (CAS 미확인 → 물질명으로 확인)":" (구조검색)"} · <a class="dbname" href="${rv.record_url}" target="_blank" rel="noopener">PubChem 레코드 ↗</a></div>
+        <div style="margin-top:10px">
+          ${rv.cas?`<button class="mbtn" onclick="searchResolved('${rv.cas}')">이 물질 조회 (CAS ${rv.cas})</button>`
+                  :`<button class="mbtn" onclick="searchResolved(${JSON.stringify(rv.title||"").replace(/"/g,'&quot;')})">이 물질 조회 (물질명)</button>`}
+          <a class="mbtn ghost" style="margin-left:8px" target="_blank" rel="noopener"
+             href="${googleAiHref(rv.cas||rv.title||"")}">Google AI 모드로 교차확인 ↗</a>
+        </div>
+      </div></div>`;
+  }else{
+    const hint=ai.cas||ai.name||ai.smiles||ai.molecular_formula||"";
+    html+=`<div class="errbox" style="margin-top:12px">PubChem에서 일치하는 물질을 찾지 못했습니다${rv.reason?` (${rv.reason})`:""}. 판독된 CAS·물질명이 정확한지 확인하거나, 아래에서 직접 확인해 보세요.
+      ${hint?`<div style="margin-top:10px"><a class="mbtn ghost" target="_blank" rel="noopener" href="${googleAiHref(hint)}">Google AI 모드로 검색 ↗</a></div>`:""}</div>`;
+  }
+  structResult.innerHTML=html;
+}
+
+// 구글 AI 모드(udm=50)로 CAS·물질명·분자식·SMILES·InChIKey를 한 번에 물어보는 링크
+function googleAiHref(v){
+  const q=String(v||"").trim()+" 화학물질의 CAS No., 물질명, 분자식, SMILES, InChIKey를 알려줘";
+  return "https://www.google.com/search?udm=50&q="+encodeURIComponent(q);
+}
+
+function searchResolved(v){
+  if(!v) return;
+  closeStruct();
+  input.value=String(v);
+  run();
+}
 </script>
 </body>
 </html>
