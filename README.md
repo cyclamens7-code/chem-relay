@@ -27,8 +27,11 @@ Render 대시보드 → 서비스 → **Environment** 탭에서 직접 입력해
 
 | 키 | 필수 | 용도 |
 |---|---|---|
-| `GEMINI_API_KEY` | 선택 | 2·5번 "자세히 생성"(국내외 규제현황·우려이슈) — 없으면 해당 기능만 비활성, 나머지는 무료로 동작 |
+| `GEMINI_API_KEY` | 선택 | 2·5번 "자세히 생성"(국내외 규제현황·우려이슈)과 구조식 이미지 판독 — 없으면 해당 기능만 비활성, 나머지는 무료로 동작 |
 | `CAS_CC_API_KEY` | 선택 | 1·3번 기본정보 1순위 출처(CAS Common Chemistry) — 없으면 자동으로 2순위(PubChem)만 사용 |
+| `KECO_API_KEY` | 선택 | 1번 기본정보의 **한국환경공단 공식 API**(KE번호·국문명·물질분류) — 없으면 해당 블록만 숨겨짐 |
+| `KECO_NCIS_URL` | 선택 | 위 API 엔드포인트. 기본값 `https://apis.data.go.kr/B552584/kecoapi/ncissbstn`. 포털에서 주소가 바뀌면 **코드 수정 없이** 이 값만 교체 |
+| `KECO_NCIS_PARAM` | 선택 | CAS 검색 파라미터명. 비워두면 `casNo` 등 후보를 자동 탐색하므로 보통 설정 불필요 |
 
 값을 입력하고 저장하면 Render가 자동으로 재배포합니다.
 
@@ -61,6 +64,7 @@ Render 대시보드에 표시되는 서비스 URL(`https://chem-relay-xxxx.onren
 | 기본정보·이명·구조식·화학식 | ✅ 자동 | 우선순위 1) CAS Common Chemistry 2) PubChem (아래 참고) |
 | 구조식으로 검색 — 이미지 판독 | 🤖 Gemini(선택) | 구조식 이미지 업로드 → Gemini 비전이 SMILES 추정 → PubChem 구조검색으로 실제 물질 대조 → CAS로 전체 조회. `analyze_structure_image()` / `POST /api/structure` |
 | 구조식으로 검색 — 직접 그리기 | ✅ 자동 | 무료 오픈소스 편집기 **JSME**(jsdelivr CDN)로 그린 구조 → SMILES → PubChem 대조. AI 불필요. `GET /api/resolve-smiles` |
+| 물리화학적 특성(옥탄올-물 분배계수·끓는점·증기압) | ✅ 자동 | 1순위 PubChem 실험값(HSDB·ICSC 등 원출처 표기), 없는 항목만 2순위 **EPA EPI Suite** 공개 API로 보완. `fetch_phys_props()` |
 | 기존/신규화학물질 판단 | ✅ 자동(CAS 입력 시만) | CAS No. 입력일 때만 판단. 물질명 입력은 혼합물 오판 방지를 위해 자동판단하지 않고 확인 링크만 제공 |
 | GHS 분류(H코드·픽토그램·출처) | ✅ 자동 | 국내 유해성심사 고시 + EU CLP(실시간) + US NTP(고정목록) + 물질별 제출 자료('참고 분류표시' 시트) |
 | 유해성 요약 | ✅ 자동 | 국내 유해성심사 + EU CLH(조화분류, 실시간 우선)만 근거로 사용 |
@@ -113,7 +117,7 @@ Render 대시보드에 표시되는 서비스 URL(`https://chem-relay-xxxx.onren
 
 | 방법 | 동작 | AI 필요 |
 |---|---|---|
-| **이미지 업로드** | 구조식 그림(PNG·JPG·WEBP, 최대 8MB)을 올리면 Gemini 비전이 SMILES·분자식·물질명을 추정 → PubChem 구조검색으로 실제 물질 대조 → 확인된 CAS로 전체 조회 | ⭕ `GEMINI_API_KEY` |
+| **이미지 업로드** | 구조식 그림(PNG·JPG·WEBP, 최대 8MB)을 올리면 Gemini 비전이 **CAS No.(1순위)·물질명(2순위)**·분자식을 판독 → 그 순서로 PubChem에서 실제 물질 대조 → 확인된 CAS로 전체 조회. (SMILES는 판독 단계에서 요구하지 않음) | ⭕ `GEMINI_API_KEY` |
 | **직접 그리기** | 무료 오픈소스 편집기 **JSME**로 구조를 그리면 브라우저에서 SMILES를 만들고 → PubChem 구조검색으로 대조 → CAS로 전체 조회 | ❌ 불필요 |
 | **Google Lens / Google AI 모드** | 서버를 전혀 거치지 않고 새 탭에서 직접 확인. Lens는 이미지를 직접 올려 검색, AI 모드(`udm=50`)는 CAS·물질명·분자식·SMILES·InChIKey를 한 번에 묻는 질의로 열림 | ❌ 불필요 |
 
@@ -130,6 +134,39 @@ Render 대시보드에 표시되는 서비스 URL(`https://chem-relay-xxxx.onren
 - 판독이 틀린 것 같으면 **직접 그리기** 탭을 쓰면 AI를 거치지 않아 정확합니다.
 
 JSME는 `https://cdn.jsdelivr.net/npm/jsme-editor/jsme.nocache.js` 를 CDN에서 불러옵니다(설치·빌드 불필요).
+
+### 국내 공식 정보 — 한국환경공단 오픈API (공공데이터포털)
+
+[한국환경공단_화학물질 정보 조회 서비스](https://www.data.go.kr/data/15149420/openapi.do)로
+**KE번호(고유번호)·물질명(국문/영문)·분자식·분자량·물질분류**를 국내 공식 출처에서 가져와
+**1번 화학물질 기본정보**에 표시합니다.
+
+가장 큰 쓸모는 **교차검증**입니다. 이 앱은 평소 내장 고시파일(`app/data/existing_chemicals.json`)로
+기존/신규를 판정하는데, 공식 API가 **KE번호를 주는데 내장 파일은 '기존'이 아니라고 본 경우**
+불일치 경고를 띄우고 "공식 API 결과를 우선 검토하라"고 안내합니다(내장 고시파일이 최신이 아닐 수 있으므로).
+
+**설정**
+1. 공공데이터포털에서 위 서비스에 **활용신청** → 승인
+2. Render 대시보드 → Environment → `KECO_API_KEY`에 인증키 입력
+3. 키가 없으면 이 블록은 아예 표시되지 않고, 나머지 기능은 그대로 동작합니다.
+
+> **승인 전에는 `NO_OPENAPI_SERVICE_ERROR`가 반환됩니다.** 이는 정상이며 화면에
+> "인증키가 아직 이 서비스에 반영되지 않았습니다"로 안내됩니다. 승인이 끝나면 자동으로 표시됩니다.
+> 포털에서 엔드포인트 주소나 파라미터명이 다르게 안내되면 `KECO_NCIS_URL` / `KECO_NCIS_PARAM`
+> 환경변수만 바꾸면 되고 코드는 고칠 필요가 없습니다(파라미터명은 비워두면 자동 탐색).
+
+### 물리화학적 특성 — PubChem + EPA EPI Suite
+
+**1번 화학물질 기본정보**에 옥탄올-물 분배계수(log Kow)·끓는점·증기압을 표시합니다.
+
+1. **1순위 PubChem 실험값** — PUG-View에서 항목별로 가져오며, HSDB·ICSC·CAMEO 등
+   **원출처를 함께 표기**합니다. 값이 여러 개면 대표값 1개 + "다른 출처"로 최대 2개를 더 보여줍니다.
+2. **2순위 EPA EPI Suite** — PubChem에 없는 항목만 `https://episuite.dev/api/submit` 공개 API로 보완합니다.
+   EPI Suite는 **실측**(문헌 측정값)과 **추정**(모델 예측)을 구분해 주므로 화면에도 배지로 구분 표시하고,
+   실측값이 있을 때는 모델 추정값도 함께 보여줍니다.
+
+세 항목을 PubChem에서 모두 찾으면 EPI Suite는 호출하지 않습니다(불필요한 외부 호출 방지).
+인증·API 키가 필요 없으며, 사이트 개편 시 `fetch_phys_props()` / `fetch_episuite()`만 고치면 됩니다.
 
 ### 국내 DB 스크래핑 — 화학물질정보처리시스템(KREACH)
 `app/main.py`의 `fetch_kreach(cas, name)` 함수가 KREACH 정보공개 화면(검색→상세)을

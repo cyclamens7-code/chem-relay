@@ -35,6 +35,17 @@ GEMINI_URL     = "https://generativelanguage.googleapis.com/v1beta/models"
 CAS_CC_API_KEY = os.getenv("CAS_CC_API_KEY", "")
 CAS_CC_BASE    = "https://commonchemistry.cas.org/api"
 
+# ── 한국환경공단 화학물질 정보 조회 서비스(공공데이터포털) ─────────────
+# https://www.data.go.kr/data/15149420/openapi.do
+# CAS·물질명으로 물질ID·CAS·KE번호·국문/영문명·분자식·분자량·물질분류를 제공.
+# 국내 공식 출처라 내장 고시파일 대조 결과를 교차검증하는 데 쓴다.
+#   KECO_API_KEY : 공공데이터포털 인증키(디코딩/인코딩 어느 쪽이든 허용)
+#   KECO_NCIS_URL: 엔드포인트. 포털에서 운영주소가 바뀌면 코드 수정 없이 교체 가능.
+#   KECO_NCIS_PARAM: CAS 검색 파라미터명. 비워두면 후보들을 순서대로 자동 탐색한다.
+KECO_API_KEY    = os.getenv("KECO_API_KEY", "")
+KECO_NCIS_URL   = os.getenv("KECO_NCIS_URL", "https://apis.data.go.kr/B552584/kecoapi/ncissbstn")
+KECO_NCIS_PARAM = os.getenv("KECO_NCIS_PARAM", "")
+
 # ── 접속 잠금(비밀번호) ─────────────────────────────────────────────
 # 아이디/비밀번호를 환경변수로 설정하면 전체 사이트에 로그인창이 걸립니다.
 # 둘 중 하나라도 비어 있으면 잠금은 꺼진 상태(누구나 접속)로 동작합니다.
@@ -544,6 +555,266 @@ def merge_identity(casc: dict, pub: dict) -> dict:
     ident["source_label"] = "2) PubChem" if CAS_CC_API_KEY else "2) PubChem (CAS Common Chemistry API 키 미설정)"
     ident["cas_cc_url"] = None
     return ident
+
+# ----------------------------------------------------------------------
+# 물리화학적 특성 (옥탄올-물 분배계수 · 끓는점 · 증기압)
+#   1순위: PubChem 실험값(PUG-View) — HSDB·ICSC 등 원출처가 함께 표시된다.
+#   2순위: EPA EPI Suite Web 공개 API — PubChem에 없는 항목만 보완한다.
+#          EPI Suite는 실측(EXPERIMENTAL)과 모델 추정(ESTIMATED)을 구분해 주므로
+#          화면에도 그대로 구분해 표시한다.
+# ----------------------------------------------------------------------
+PHYS_HEADINGS = {"logkow": "LogP", "boiling_point": "Boiling Point", "vapor_pressure": "Vapor Pressure"}
+EPISUITE_API = "https://episuite.dev/api/submit"
+EPISUITE_SITE = "https://episuite.dev/"
+
+async def _pubchem_prop(client, cid, heading):
+    """PUG-View에서 해당 항목의 (값, 원출처) 목록을 뽑는다."""
+    try:
+        r = await client.get(f"{PCV}/data/compound/{cid}/JSON", params={"heading": heading})
+        if r.status_code != 200:
+            return []
+        d = r.json()
+    except Exception:
+        return []
+    refs = {ref.get("ReferenceNumber"): ref.get("SourceName")
+            for ref in (d.get("Record", {}).get("Reference") or [])}
+    out = []
+    def walk(node):
+        for it in (node.get("Information") or []):
+            v = it.get("Value", {}) or {}
+            vals = [sw.get("String") for sw in (v.get("StringWithMarkup") or []) if sw.get("String")]
+            if not vals and v.get("Number"):
+                num = " ".join(str(x) for x in v["Number"])
+                vals = [f"{num} {v.get('Unit','')}".strip()]
+            if vals:
+                out.append({"value": vals[0].strip(),
+                            "source": refs.get(it.get("ReferenceNumber")) or "PubChem"})
+        for s in (node.get("Section") or []):
+            walk(s)
+    walk(d.get("Record", {}) or {})
+    return out
+
+def _epi_pick(block):
+    """EPI Suite 항목에서 대표값(실측 우선) + 추정값을 뽑는다."""
+    if not isinstance(block, dict):
+        return None
+    sel = block.get("selectedValue") or {}
+    est = block.get("estimatedValue") or {}
+    val = sel.get("value")
+    if val is None and isinstance(est, dict):
+        val = est.get("value")
+        sel = {"valueType": "ESTIMATED", "units": est.get("units"), "source": est.get("source")}
+    if val is None:
+        return None
+    unit = (sel.get("units") or "").strip()
+    unit = "°C" if unit == "celsius" else unit
+    try:
+        shown = f"{round(float(val), 4):g}"
+    except Exception:
+        shown = str(val)
+    kind = "실측" if str(sel.get("valueType", "")).upper() in ("EXPERIMENTAL", "EVIDENCE") else "추정"
+    est_val = est.get("value") if isinstance(est, dict) else None
+    try:
+        est_shown = f"{round(float(est_val), 4):g}" if est_val is not None else None
+    except Exception:
+        est_shown = str(est_val) if est_val is not None else None
+    return {"value": f"{shown} {unit}".strip(), "kind": kind,
+            "estimated": f"{est_shown} {unit}".strip() if est_shown else None,
+            "source_raw": str(sel.get("source") or "")}
+
+async def fetch_episuite(cas: str) -> dict:
+    empty = {"found": False, "record_url": EPISUITE_SITE}
+    if not cas or not CAS_RE.match(cas):
+        return empty
+    try:
+        async with httpx.AsyncClient(timeout=40, headers={**UA, "Accept": "application/json"}) as client:
+            r = await client.get(EPISUITE_API,
+                                 params={"cas": cas, "modules": "logKow,physicalProperties"})
+            if r.status_code != 200:
+                return {**empty, "reason": f"http_{r.status_code}"}
+            d = r.json()
+    except Exception as e:
+        return {**empty, "reason": f"error:{e}"}
+    props = {}
+    for key, api_key in (("logkow", "logKow"), ("boiling_point", "boilingPoint"),
+                         ("vapor_pressure", "vaporPressure")):
+        picked = _epi_pick(d.get(api_key))
+        if picked:
+            props[key] = picked
+    cp = d.get("chemicalProperties") or {}
+    return {"found": bool(props), "props": props, "name": cp.get("name"),
+            "record_url": EPISUITE_SITE}
+
+async def fetch_phys_props(cid, cas: str) -> dict:
+    """PubChem 실험값을 먼저 채우고, 빈 항목만 EPI Suite로 보완한다."""
+    result = {k: [] for k in PHYS_HEADINGS}
+    if cid:
+        try:
+            async with httpx.AsyncClient(timeout=25, headers=UA) as client:
+                got = await asyncio.gather(
+                    *[_pubchem_prop(client, cid, h) for h in PHYS_HEADINGS.values()],
+                    return_exceptions=True)
+            for key, res in zip(PHYS_HEADINGS.keys(), got):
+                result[key] = res[:3] if isinstance(res, list) else []
+        except Exception:
+            pass
+    missing = [k for k, v in result.items() if not v]
+    epi = {"found": False, "record_url": EPISUITE_SITE}
+    if missing and cas:
+        epi = await fetch_episuite(cas)
+    return {"pubchem": result, "episuite": epi, "missing": missing,
+            "episuite_url": EPISUITE_SITE}
+
+# ----------------------------------------------------------------------
+# 한국환경공단 화학물질 정보 조회 서비스 (공공데이터포털 오픈API)
+#   국내 공식 출처로 KE번호·국문명·분자식·물질분류를 받아, 내장 고시파일로 한
+#   기존/신규 판정을 교차검증한다. 키가 없거나 실패하면 조용히 건너뛴다.
+#   공식 규격 문서를 코드에 하드코딩하지 않고, 파라미터명·응답 구조를 유연하게
+#   탐색하도록 만들어 포털 쪽 규격이 조금 달라도 동작하게 한다.
+# ----------------------------------------------------------------------
+_KECO_CAS_PARAMS  = ["casNo", "casno", "srchCasNo", "searchCasNo", "casRn", "searchWord", "srchWord"]
+_KECO_NAME_PARAMS = ["sbstnNm", "chemNm", "searchWord", "srchWord", "korNm"]
+_keco_param_cache = {}   # {"cas": "casNo", "name": "sbstnNm"} — 한 번 통한 이름을 재사용
+
+def _keco_service_key() -> str:
+    """포털 인증키는 인코딩/디코딩 두 형태로 배포된다. httpx가 다시 인코딩하므로
+    항상 '디코딩된' 형태로 만들어 넘긴다(그래야 %2F 등이 이중 인코딩되지 않음)."""
+    from urllib.parse import unquote
+    k = (KECO_API_KEY or "").strip()
+    return unquote(k) if "%" in k else k
+
+def _keco_find_items(payload):
+    """data.go.kr 응답(JSON/XML 파싱본)에서 레코드 목록을 재귀적으로 찾아낸다."""
+    found = []
+    def walk(n):
+        if isinstance(n, dict):
+            for k, v in n.items():
+                if k.lower() in ("item", "items", "row") and v is not None:
+                    if isinstance(v, list):
+                        found.extend([x for x in v if isinstance(x, dict)])
+                    elif isinstance(v, dict):
+                        # {"items": {"item": [...]}} 형태
+                        inner = v.get("item") if "item" in v else None
+                        if isinstance(inner, list):
+                            found.extend([x for x in inner if isinstance(x, dict)])
+                        elif isinstance(inner, dict):
+                            found.append(inner)
+                        else:
+                            found.append(v)
+                walk(v)
+        elif isinstance(n, list):
+            for x in n:
+                walk(x)
+    walk(payload)
+    return found
+
+def _keco_parse(text: str):
+    """JSON이면 그대로, XML이면 dict로 바꿔 레코드 목록과 에러메시지를 돌려준다."""
+    t = (text or "").strip()
+    if not t:
+        return [], "empty"
+    if t.startswith("{") or t.startswith("["):
+        try:
+            data = json.loads(t)
+        except Exception:
+            return [], "json_parse_error"
+    else:
+        try:
+            from bs4 import BeautifulSoup
+            soup = BeautifulSoup(t, "xml") if "<?xml" in t[:80] else BeautifulSoup(t, "html.parser")
+        except Exception:
+            return [], "xml_parse_error"
+        rows = soup.find_all(re.compile(r"^item$", re.I))
+        recs = []
+        for row in rows:
+            rec = {}
+            for ch in row.find_all(recursive=False):
+                rec[ch.name] = ch.get_text(strip=True)
+            if rec:
+                recs.append(rec)
+        if recs:
+            return recs, None
+        err = soup.find(re.compile(r"^(errMsg|returnAuthMsg|resultMsg)$", re.I))
+        return [], (err.get_text(strip=True) if err else "no_items")
+    items = _keco_find_items(data)
+    if items:
+        return items, None
+    # 에러 메시지 추출
+    msg = ""
+    def findmsg(n):
+        nonlocal msg
+        if isinstance(n, dict):
+            for k, v in n.items():
+                if k.lower() in ("errmsg", "returnauthmsg", "resultmsg") and isinstance(v, str) and not msg:
+                    msg = v
+                findmsg(v)
+        elif isinstance(n, list):
+            for x in n:
+                findmsg(x)
+    findmsg(data)
+    return [], (msg or "no_items")
+
+def _keco_pick(rec: dict, *needles):
+    """필드명이 규격마다 조금씩 달라, 키 이름에 특정 문자열이 들어간 값을 찾아온다."""
+    for k, v in (rec or {}).items():
+        kl = str(k).lower()
+        if any(n in kl for n in needles):
+            s = str(v).strip()
+            if s and s.lower() not in ("none", "null"):
+                return s
+    return ""
+
+async def fetch_keco_ncis(cas: str = None, name: str = None) -> dict:
+    empty = {"enabled": bool(KECO_API_KEY), "found": False,
+             "portal_url": "https://www.data.go.kr/data/15149420/openapi.do"}
+    if not KECO_API_KEY:
+        return {**empty, "reason": "no_api_key"}
+    query = (cas or "").strip() or (name or "").strip()
+    if not query:
+        return {**empty, "reason": "no_query"}
+
+    kind = "cas" if (cas or "").strip() else "name"
+    candidates = ([KECO_NCIS_PARAM] if KECO_NCIS_PARAM else []) \
+        + ([_keco_param_cache[kind]] if _keco_param_cache.get(kind) else []) \
+        + (_KECO_CAS_PARAMS if kind == "cas" else _KECO_NAME_PARAMS)
+    seen, ordered = set(), []
+    for c in candidates:
+        if c and c not in seen:
+            seen.add(c); ordered.append(c)
+
+    last_err = None
+    try:
+        async with httpx.AsyncClient(timeout=20, headers=UA) as client:
+            for pname in ordered:
+                params = {"serviceKey": _keco_service_key(), "pageNo": 1, "numOfRows": 5,
+                          "returnType": "json", "type": "json", pname: query}
+                try:
+                    r = await client.get(KECO_NCIS_URL, params=params)
+                except Exception as e:
+                    last_err = f"error:{e}"
+                    continue
+                items, err = _keco_parse(r.text)
+                if items:
+                    _keco_param_cache[kind] = pname
+                    rec = items[0]
+                    return {
+                        **empty, "found": True, "param": pname, "count": len(items),
+                        "cas": _keco_pick(rec, "cas"),
+                        "keno": _keco_pick(rec, "keno", "ke_no", "kenum", "고유"),
+                        "name_ko": _keco_pick(rec, "korn", "knm", "kornm", "국문", "namekor"),
+                        "name_en": _keco_pick(rec, "engn", "enm", "engnm", "영문", "nameeng"),
+                        "formula": _keco_pick(rec, "formula", "분자식", "mlcl"),
+                        "mw": _keco_pick(rec, "weight", "분자량", "mlclwt"),
+                        "category": _keco_pick(rec, "clsf", "category", "분류", "type"),
+                        "raw": rec,
+                    }
+                last_err = err
+                # 인증키 문제면 파라미터를 더 시도해도 소용없다.
+                if err and ("KEY" in str(err).upper() or "인증" in str(err)):
+                    break
+    except Exception as e:
+        return {**empty, "reason": f"error:{e}"}
+    return {**empty, "reason": last_err or "not_found"}
 
 # ----------------------------------------------------------------------
 # 화학물질정보처리시스템(KREACH) 정보공개 화면 조회
@@ -1092,6 +1363,10 @@ async def api_chem(q: str = Query(..., min_length=1)):
             result["nite"] = {"found": False, "record_url": NITE_SEARCH_URL}
             result["kosha"] = {"found": False, "record_url": "https://msds.kosha.or.kr/MSDSInfo/"}
             result["hcis"] = {"found": False, "items": [], "record_url": f"{HCIS_BASE}/"}
+        result["phys"] = await fetch_phys_props(
+            (result.get("identity") or {}).get("cid"), fbcas or "")
+        result["keco"] = await fetch_keco_ncis(cas=fbcas or None,
+                                                name=None if fbcas else q)
         cache_set(key, result)
         return JSONResponse(result)
 
@@ -1138,6 +1413,16 @@ async def api_chem(q: str = Query(..., min_length=1)):
         data["nite"] = {"found": False, "record_url": NITE_SEARCH_URL}
         data["kosha"] = {"found": False, "record_url": "https://msds.kosha.or.kr/MSDSInfo/"}
         data["hcis"] = {"found": False, "items": [], "record_url": f"{HCIS_BASE}/"}
+
+    # 물리화학적 특성(옥탄올-물 분배계수·끓는점·증기압)
+    # 물질명 검색이어도 PubChem CID만 있으면 조회 가능하므로 분기 밖에서 수행한다.
+    data["phys"] = await fetch_phys_props(
+        identity.get("cid"), identity.get("cas") or (q if q_is_cas else ""))
+
+    # 한국환경공단 공식 API — CAS가 있으면 CAS로, 없으면 물질명으로 조회
+    _keco_cas = identity.get("cas") or (q if q_is_cas else "")
+    data["keco"] = await fetch_keco_ncis(cas=_keco_cas or None,
+                                          name=None if _keco_cas else q)
 
     if data.get("found"):
         cache_set(key, data)
@@ -1357,21 +1642,25 @@ async def enrich_with_gemini(name: str, cas: str, ghs_summary: str, notice: dict
 # ----------------------------------------------------------------------
 STRUCTURE_PROMPT = """당신은 화학 구조식 판독 전문가입니다. 첨부된 이미지의 화학 구조식을 읽고 JSON만 출력하세요(설명·마크다운 금지).
 
+가장 중요한 목표는 이 물질을 특정할 수 있는 식별자를 찾는 것입니다.
+**1순위: CAS 등록번호(CAS No.)**, **2순위: 화합물 영문명**입니다.
+
 출력 JSON 스키마:
 {
   "is_structure": true 또는 false,
-  "smiles": "표준 SMILES 문자열(확실하지 않으면 빈 문자열)",
+  "cas": "CAS 등록번호(예: 71-43-2). 확실하지 않으면 빈 문자열",
+  "name": "화합물 영문명(예: Benzene). 확실하지 않으면 빈 문자열",
   "molecular_formula": "분자식(예: C6H6). 확실하지 않으면 빈 문자열",
-  "name": "추정되는 화합물 영문명(확실하지 않으면 빈 문자열)",
   "confidence": "high|medium|low",
   "notes": "판독 시 주의점(입체화학 불명확, 화질 문제, 일부 치환기 불확실 등)"
 }
 
 규칙:
 - 이미지가 화학 구조식이 아니면 is_structure를 false로 하고 나머지는 빈 값으로 두세요.
-- SMILES는 실제로 파싱 가능한 유효한 문자열이어야 합니다. 확신이 없으면 빈 문자열로 두고 confidence를 low로 하세요.
-- 입체화학(쐐기/점선)이 명확히 보이지 않으면 입체 표기를 넣지 말고 notes에 그 사실을 적으세요.
-- 절대 추측으로 그럴듯한 물질명을 지어내지 마세요. 모르면 빈 문자열입니다."""
+- CAS 번호는 반드시 그 구조에 실제로 대응하는 번호여야 합니다. 확신이 없으면 빈 문자열로 두세요(틀린 CAS는 없느니만 못합니다).
+- 물질명은 널리 통용되는 표준 영문명으로 적으세요.
+- 절대 추측으로 그럴듯한 CAS 번호나 물질명을 지어내지 마세요. 모르면 빈 문자열입니다.
+- SMILES는 요구하지 않습니다. 출력하지 마세요."""
 
 async def analyze_structure_image(image_bytes: bytes, mime_type: str) -> dict:
     import base64
@@ -1467,18 +1756,27 @@ async def api_structure(file: UploadFile = File(...)):
     if not d.get("is_structure"):
         return JSONResponse({"ok": False, "error": "not_structure",
                              "message": "이미지에서 화학 구조식을 찾지 못했습니다.", "ai": d})
-    resolved = await resolve_smiles(d.get("smiles", ""))
-    # SMILES로 못 찾으면 AI가 추정한 이름으로 한 번 더 시도
-    if not resolved.get("found") and d.get("name"):
-        by_name = await fetch_pubchem(d["name"])
-        if by_name.get("found"):
-            ident = by_name.get("identity", {})
-            resolved = {"found": True, "cid": ident.get("cid"), "cas": ident.get("cas"),
-                        "title": ident.get("title"), "formula": ident.get("formula"),
-                        "mw": ident.get("mw"), "iupac": ident.get("iupac"),
-                        "inchikey": ident.get("inchikey"), "smiles": ident.get("smiles"),
-                        "structure_url": ident.get("structure_url"),
-                        "record_url": by_name.get("record_url"), "via": "name"}
+    # 대조 우선순위: ① AI가 읽은 CAS No. ② AI가 읽은 물질명
+    async def _by_query(q, via):
+        got = await fetch_pubchem(q)
+        if not got.get("found"):
+            return None
+        ident = got.get("identity", {})
+        return {"found": True, "cid": ident.get("cid"), "cas": ident.get("cas"),
+                "title": ident.get("title"), "formula": ident.get("formula"),
+                "mw": ident.get("mw"), "iupac": ident.get("iupac"),
+                "inchikey": ident.get("inchikey"), "smiles": ident.get("smiles"),
+                "structure_url": ident.get("structure_url"),
+                "record_url": got.get("record_url"), "via": via}
+
+    resolved = None
+    ai_cas = (d.get("cas") or "").strip()
+    if CAS_RE.match(ai_cas):
+        resolved = await _by_query(ai_cas, "cas")
+    if not resolved and (d.get("name") or "").strip():
+        resolved = await _by_query(d["name"].strip(), "name")
+    if not resolved:
+        resolved = {"found": False, "reason": "no_match"}
     result = {"ok": True, "ai": d, "resolved": resolved}
     cache_set(img_key, result)
     return JSONResponse(result)

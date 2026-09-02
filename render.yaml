@@ -10,5 +10,9 @@ services:
         value: gemini-flash-latest
       - key: CAS_CC_API_KEY
         sync: false          # 대시보드에서 직접 입력. 비워두면 자동으로 2)PubChem만 사용
+      - key: KECO_API_KEY
+        sync: false          # 공공데이터포털 인증키. 대시보드에서 직접 입력(깃허브에 저장 안 됨)
+      - key: KECO_NCIS_URL
+        value: https://apis.data.go.kr/B552584/kecoapi/ncissbstn
       - key: CACHE_DIR
         value: /tmp/cache

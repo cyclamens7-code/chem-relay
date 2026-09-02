@@ -347,6 +347,26 @@ function existingStatus(d){
   }
   return {label:"신규화학물질로 추정", detail:"", kind:"new"};
 }
+// §1 '화평법 구분' 배너. 상단 요약 카드와 같은 existingStatus() 결과를 써서
+// 두 곳의 판정이 절대 어긋나지 않게 한다(이성질체 매칭 시에도 동일 문구 사용).
+function existVerdictBanner(d, est, casShown){
+  const nx=(d.notice&&d.notice.existing)||{};
+  const iso=(d.q_is_cas&&d.isomer_check)||{};
+  if(est.kind==="query"){
+    return `<div class="inference"><span class="lab">화평법 구분</span> <b>${est.label}</b> — 물질명으로 검색되어 기존/신규 자동판단을 하지 않습니다. 물질명이 혼합물(A and B 형태)로 표기된 경우 성분 하나의 CAS로 잘못 매칭되어 오판될 수 있습니다. 가능하면 <b>CAS No.로 다시 검색</b>하고, 혼합물 여부는 화학물질정보처리시스템에서 직접 확인하세요.
+      <div style="margin-top:8px">${dbLinks(["kreach_open"])}</div></div>`;
+  }
+  if(est.kind==="existing"){
+    return `<div class="evidence"><span class="lab">화평법 구분</span> <b>${est.label}</b> — 기존화학물질 고시 ${nx.table||""} 수록 (고유번호 ${nx.keno||"—"}). <span class="src">출처: 기존화학물질 고시(별표 대조) · CAS No. ${casShown} 기준</span></div>`;
+  }
+  if(est.kind==="review"){
+    const cands=(iso.candidates||[]);
+    return `<div class="inference"><span class="lab">화평법 구분</span> <b>${est.label}</b> — 이 CAS(${casShown})는 기존화학물질 목록에 <b>없지만</b>, 물질명에서 이성질체 표기(cis/trans/(E)/(Z))·수화물·무수물·중수소 표기를 제외한 이름이 목록의 다른 CAS와 일치합니다. 고시 제3조(수화물·무수물·반응생성물·이성질체) 해당 시 기존화학물질로 인정될 수 있으므로 <b>반드시 화학물질정보처리시스템에서 확인</b>하세요.
+      <ul style="margin:8px 0 4px;padding-left:18px">${cands.map(c=>`<li><b>${c.name||''}</b> — CAS ${c.cas} (${c.keno||''}${c.table?`, ${c.table}`:''})</li>`).join("")}</ul>
+      <div style="margin-top:6px">${dbLinks(["kreach_open"])}</div></div>`;
+  }
+  return `<div class="inference"><span class="lab">화평법 구분</span> <b>${est.label}</b> — 기존화학물질 목록(별표1~3)에서 CAS No. ${casShown} 미검색. 단, 고시 제3조(수화물·무수물, 반응생성물, 이성질체) 해당 시 기존으로 인정될 수 있어 확인 필요. <span class="src">CAS No. 기준 판단(물질명은 참고만)</span></div>`;
+}
 // 실시간 조회 국외 DB(EU CLP·US NTP) — 엑셀 스냅샷(classification_ref)보다 우선 표시
 function renderLiveOverseasClassification(d){
   if(!d.q_is_cas) return "";
@@ -417,6 +437,70 @@ function renderLiveOverseasClassification(d){
     html+=`<div class="src" style="margin:12px 0 10px">호주 HCIS 실시간 조회: 대조된 분류 없음</div>`;
   }
   return html;
+}
+// 한국환경공단 공식 API(공공데이터포털) 결과 — 내장 고시파일 판정과 교차검증한다.
+function renderKeco(d){
+  const k=d.keco||{};
+  if(!k.enabled) return "";                      // 키 미설정이면 아예 표시하지 않음
+  if(!k.found){
+    const r=k.reason||"";
+    const why = r==="no_query" ? "조회할 CAS·물질명이 없습니다."
+      : /NO_OPENAPI_SERVICE|KEY|인증|REGISTERED/i.test(r)
+        ? `인증키가 아직 이 서비스에 반영되지 않았습니다. 공공데이터포털에서 활용신청 승인이 끝나면(보통 신청 후 1~2시간, 심의형은 1~2일) 자동으로 표시됩니다. <span class="src">(${r})</span>`
+      : `조회 결과 없음 <span class="src">(${r||"unknown"})</span>`;
+    return `<div class="src" style="margin:10px 0">한국환경공단 공식 API: ${why}
+      <a class="dbname" href="${k.portal_url}" target="_blank" rel="noopener">서비스 정보 ↗</a></div>`;
+  }
+  const est=window.__estVerdict||null;
+  // 공식 API가 KE번호를 주는데 내장 고시파일은 '기존'이 아니라고 본 경우 → 불일치 경고
+  const conflict = est && k.keno && est.kind!=="existing" && est.kind!=="query";
+  const rows=[
+    ["CAS No.", k.cas], ["KE번호(고유번호)", k.keno], ["물질명(국문)", k.name_ko],
+    ["물질명(영문)", k.name_en], ["분자식", k.formula], ["분자량", k.mw], ["물질분류", k.category],
+  ].filter(([,v])=>v);
+  return `<div class="gt" style="margin-top:18px">국내 공식 정보 — 한국환경공단<span class="badge">공공데이터포털 API</span></div>
+    <table class="tbl">${rows.map(([a,b])=>`<tr><td style="width:150px"><b>${a}</b></td><td class="mono">${b}</td></tr>`).join("")}</table>
+    ${conflict?`<div class="inference" style="margin-top:8px"><span class="lab">⚠ 고시파일 대조 결과와 불일치</span>
+      공식 API는 이 물질에 <b>KE번호 ${k.keno}</b>를 부여하고 있으나, 내장 기존화학물질 고시 대조에서는 <b>${est.label}</b>로 판정되었습니다.
+      내장 고시파일이 최신이 아닐 수 있으니 <b>공식 API 결과(KE번호 보유 = 기존화학물질)를 우선</b> 검토하세요.</div>`:""}
+    <div class="src" style="margin-top:5px">출처: 한국환경공단 화학물질 정보 조회 서비스(공공데이터포털) · 국내 공식 자료
+      <a class="dbname" href="${k.portal_url}" target="_blank" rel="noopener">서비스 정보 ↗</a></div>`;
+}
+// 물리화학적 특성(옥탄올-물 분배계수·끓는점·증기압)
+//  PubChem 실험값을 우선 표시하고, 없는 항목만 EPA EPI Suite 추정/실측값으로 보완한다.
+const PHYS_LABELS={logkow:"옥탄올-물 분배계수 (log Kow)", boiling_point:"끓는점", vapor_pressure:"증기압"};
+function renderPhys(phys){
+  if(!phys) return "";
+  const pc=phys.pubchem||{}, epi=phys.episuite||{}, epiProps=(epi.props)||{};
+  const rows=Object.keys(PHYS_LABELS).map(k=>{
+    const list=pc[k]||[];
+    if(list.length){
+      const main=list[0];
+      const more=list.slice(1);
+      return `<tr><td style="width:190px"><b>${PHYS_LABELS[k]}</b></td><td>
+        <span class="mono">${main.value}</span>
+        <span class="chip neutral" style="margin-left:6px">${main.source}</span>
+        ${more.length?`<div class="src" style="margin-top:4px">다른 출처: ${more.map(m=>`${m.value} <span style="opacity:.7">(${m.source})</span>`).join(" · ")}</div>`:""}
+      </td></tr>`;
+    }
+    const e=epiProps[k];
+    if(e){
+      return `<tr><td><b>${PHYS_LABELS[k]}</b></td><td>
+        <span class="mono">${e.value}</span>
+        <span class="chip ${e.kind==="실측"?"neutral":"warn"}" style="margin-left:6px">EPI Suite ${e.kind}</span>
+        ${e.estimated&&e.kind==="실측"?`<div class="src" style="margin-top:4px">모델 추정값: ${e.estimated}</div>`:""}
+      </td></tr>`;
+    }
+    return `<tr><td><b>${PHYS_LABELS[k]}</b></td><td><span class="src">확인된 값 없음</span></td></tr>`;
+  }).join("");
+  const usedEpi=Object.keys(epiProps).length>0;
+  return `<div class="gt" style="margin-top:18px">물리화학적 특성<span class="badge">PubChem${usedEpi?" · EPI Suite":""}</span></div>
+    <table class="tbl">${rows}</table>
+    <div class="src" style="margin-top:5px">
+      PubChem 실험값(원출처 표기)을 우선 표시하고, 없는 항목은 <b>EPA EPI Suite</b>로 보완합니다.
+      ${usedEpi?`EPI Suite 값은 <b>실측</b>(문헌 측정값)과 <b>추정</b>(모델 예측)을 구분해 표시합니다. `:""}
+      <a class="dbname" href="${phys.episuite_url||"https://episuite.dev/"}" target="_blank" rel="noopener">EPI Suite에서 직접 확인 ↗</a>
+    </div>`;
 }
 function renderKreachUses(kreach){
   const uses=(kreach&&kreach.uses)||[];
@@ -575,26 +659,14 @@ function renderNone(d){
   $("#struct").innerHTML=`<div class="ph">구조식<br>레코드 없음</div>`;
   $("#idname").innerHTML=`${Q}<small>개별 레코드 없음 — 혼합물/UVCB이거나 표기가 다를 수 있음</small>`;
   const nx=(d.notice&&d.notice.existing)||{}; const nr=(d.notice&&d.notice.review)||{};
-  const est0=existingStatus(d);
+  const est0=existingStatus(d); window.__estVerdict=est0;
   let kvhtml=`<div class="cell"><div class="k">기존/신규화학물질</div><div class="v">${est0.label}</div></div>`;
   if(est0.kind==="existing")kvhtml+=`<div class="cell"><div class="k">KE-No.</div><div class="v mono">${nx.keno}</div></div>`;
   $("#idkv").innerHTML=kvhtml;
   $("#idsrc").innerHTML=`<span class="livepill">SERVER</span> 조회됨 · 개별 레코드 없음`;
-  let existBanner="";
-  if(!d.q_is_cas){
-    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>CAS No. 기준 재확인 필요</b> — 물질명 검색은 혼합물(A and B 형태) 오판 우려로 자동판단을 하지 않습니다. CAS No.로 다시 검색하거나 아래에서 직접 확인하세요.<div style="margin-top:8px">${dbLinks(["kreach_open"])}</div></div>`;
-  }else if(nx.is_existing){
-    existBanner=`<div class="evidence"><span class="lab">화평법 구분</span> <b>기존화학물질</b> — 고시 ${nx.table} 수록 (${nx.keno}). <span class="src">CAS No. ${Q} 기준</span></div>`;
-  }else if(d.notice){
-    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>신규화학물질로 추정</b> — 기존화학물질 목록 미검색(CAS No. ${Q} 기준). 제3조 해당 여부 확인 필요.</div>`;
-  }
-  const iso=(d.q_is_cas&&!nx.is_existing&&d.isomer_check)||{};
-  if(iso.matched && (iso.candidates||[]).length){
-    existBanner+=`<div class="inference"><span class="lab">⚠ 기존화학물질 등재 추가 검토 필요</span> 기존화학물질 목록의 다른 CAS와 이름(이성질체·수화물 표기 제외)이 일치합니다. 고시 제3조(수화물·무수물·반응생성물·이성질체) 해당 여부를 화학물질정보처리시스템에서 반드시 확인하세요.
-      <ul style="margin:8px 0 4px;padding-left:18px">${iso.candidates.map(c=>`<li><b>${c.name||''}</b> — CAS ${c.cas} (${c.keno||''}${c.table?`, ${c.table}`:''})</li>`).join("")}</ul>
-      <div style="margin-top:6px">${dbLinks(["kreach_open"])}</div></div>`;
-  }
-  $("#sec1").innerHTML=`${existBanner}<div class="errbox">PubChem·CAS Common Chemistry에 개별 화합물 레코드가 없습니다(UVCB·혼합물에서 흔함). SMILES·InChIKey는 조회 불가.</div><div style="margin-top:12px">${legend}${dbLinks(GROUPS.ident)}</div>`;
+  // 상단 카드와 동일한 판정을 쓰도록 공통 배너 함수 사용
+  const existBanner = existVerdictBanner(d, est0, Q);
+  $("#sec1").innerHTML=`${existBanner}<div class="errbox">PubChem·CAS Common Chemistry에 개별 화합물 레코드가 없습니다(UVCB·혼합물에서 흔함). SMILES·InChIKey는 조회 불가.</div>${renderKeco(d)}${renderPhys(d.phys)}<div style="margin-top:12px">${legend}${dbLinks(GROUPS.ident)}</div>`;
 
   const domRows = parseKGhs((nr.classification)||"").map(x=>({item:x.item, code:x.code, grade:x.grade, h:hcodeFor(x.item,x.grade)}));
   const classRef = d.classification_ref||[];
@@ -650,7 +722,7 @@ function renderData(d){
   const nx=(d.notice&&d.notice.existing)||{};
   const nr=(d.notice&&d.notice.review)||{};
   const des=(d.notice&&d.notice.designated)||[];
-  const est=existingStatus(d);
+  const est=existingStatus(d); window.__estVerdict=est;
   kv.push(["기존/신규화학물질",est.label,1]);
   if(est.kind==="existing")kv.push(["KE-No.",(nx.keno||"—")+" ("+(nx.table||"")+")",1]);
   kv.push(["화학식",id.formula||"—",1]);
@@ -664,25 +736,9 @@ function renderData(d){
     ? `<div class="evidence"><span class="lab">국내 지정물질 현황(확정)</span><div class="chips" style="margin-top:6px">${des.map(h=>`<span class="chip haz" title="${(h.source||'')} ${(h.note||'')}">${h.label}${h.note?` · ${h.note}`:''}</span>`).join("")}</div>${desDetail?`<div style="margin-top:7px;font-size:12px;white-space:pre-line">${desDetail}</div>`:""}<div class="src" style="margin-top:5px">출처: 화학물질 지정 마스터·고시 대조 · 파일에 없는 지정은 아래 2번에서 AI 추정</div></div>`
     : (d.q_is_cas?`<div class="inference"><span class="lab">국내 지정물질 현황</span> 대조된 지정물질이 없습니다. 2번 항목에서 AI 추정으로 보완됩니다.</div>`:"");
 
-  // 기존/신규 판단 배너 — CAS No. 입력일 때만 자동판단(물질명은 혼합물 오판 우려로 보류)
-  let existBanner="";
-  if(!d.q_is_cas){
-    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>CAS No. 기준 재확인 필요</b> — 물질명으로 검색되어 기존/신규 자동판단을 하지 않습니다. 물질명이 혼합물(A and B 형태)로 표기된 경우 성분 하나의 CAS로 잘못 매칭되어 오판될 수 있습니다. 가능하면 <b>CAS No.로 다시 검색</b>하고, 혼합물 여부는 화학물질정보처리시스템에서 직접 확인하세요.
-      <div style="margin-top:8px">${dbLinks(["kreach_open"])}</div></div>`;
-  }else if(nx.is_existing){
-    existBanner=`<div class="evidence"><span class="lab">화평법 구분</span> <b>기존화학물질</b> — 기존화학물질 고시 ${nx.table} 수록 (고유번호 ${nx.keno}). <span class="src">출처: 기존화학물질 고시(별표 대조) · CAS No. ${id.cas||Q} 기준</span></div>`;
-  }else if(d.notice){
-    existBanner=`<div class="inference"><span class="lab">화평법 구분</span> <b>신규화학물질로 추정</b> — 기존화학물질 목록(별표1~3)에서 CAS No. ${id.cas||Q} 미검색. 단, 고시 제3조(수화물·무수물, 반응생성물, 이성질체) 해당 시 기존으로 인정될 수 있어 확인 필요. <span class="src">CAS No. 기준 판단(물질명은 참고만)</span></div>`;
-  }
-  // 이성질체·무수물·수화물 매칭 — 이미 기존화학물질로 완전일치된 경우는 제외(자기 자신과의 중복 경고 방지)
-  const iso=(d.q_is_cas&&!nx.is_existing&&d.isomer_check)||{};
-  let isoBanner="";
-  if(iso.matched && (iso.candidates||[]).length){
-    isoBanner=`<div class="inference"><span class="lab">⚠ 기존화학물질 등재 추가 검토 필요</span> 이 CAS의 물질명에서 이성질체 표기(cis/trans/(E)/(Z))·수화물·무수물 표기를 제외한 이름이 기존화학물질 목록의 다른 CAS와 일치합니다. 고시 제3조(수화물·무수물·반응생성물·이성질체) 해당 여부를 <b>반드시 화학물질정보처리시스템에서 확인</b>하세요.
-      <ul style="margin:8px 0 4px;padding-left:18px">${iso.candidates.map(c=>`<li><b>${c.name||''}</b> — CAS ${c.cas} (${c.keno||''}${c.table?`, ${c.table}`:''})</li>`).join("")}</ul>
-      <div style="margin-top:6px">${dbLinks(["kreach_open"])}</div></div>`;
-  }
-  const existBannerAll = existBanner + isoBanner + desBanner;
+  // 기존/신규 판단 배너 — 상단 카드와 어긋나지 않도록 existingStatus() 판정을 그대로 따른다.
+  const existBanner = existVerdictBanner(d, est, id.cas||Q);
+  const existBannerAll = existBanner + desBanner;
 
   $("#sec1").innerHTML=`${d.note?`<div class="inference"><span class="lab">참고</span> ${d.note}</div>`:""}
     ${existBannerAll}
@@ -696,6 +752,8 @@ function renderData(d){
     ${id.smiles?`<tr><td><b>SMILES</b></td><td class="mono" style="word-break:break-all">${id.smiles}</td></tr>`:""}
     ${id.inchikey?`<tr><td><b>InChIKey</b></td><td class="mono">${id.inchikey}</td></tr>`:""}
     ${id.cid?`<tr><td><b>PubChem CID</b></td><td class="mono">${id.cid}</td></tr>`:""}</table>
+    ${renderKeco(d)}
+    ${renderPhys(d.phys)}
     <div class="evidence"><span class="lab">참고자료 출처</span> ${id.source_label||d.source||"AI 서버 조회"}${(id.source_no===1)?' <span class="src">(2순위 PubChem으로 IUPAC명·구조식·CID 보완)</span>':''} · 기존/신규 판단: ${d.q_is_cas?"CAS No. 기준 · 기존화학물질 고시 대조":"물질명 검색(자동판단 보류)"}</div>
     <div class="src" style="margin:12px 0 2px">식별정보·KE-No. 교차확인</div>${legend}${dbLinks(GROUPS.ident)}`;
   // GHS
@@ -790,12 +848,20 @@ async function enrichDetail(){
     const d=res.data||{};
     const conf=(d.confidence||"medium");
     const cbadge=`<span class="conf ${conf}">신뢰도 ${conf}</span>`;
-    // 1. 기존/신규 판단(생성 초안) → §1 상단에 추가
+    // 1. 기존/신규 판단(AI 초안) → §1 '맨 아래'에 참고로 덧붙인다.
+    //    고시 대조로 확정한 판정(existingStatus)이 정답이므로 AI 결과를 위에 올려
+    //    상단 카드와 어긋나 보이게 하지 않는다. 결론이 다르면 그 사실을 명시한다.
     const en=d.existing_new;
     if(en && en.verdict){
-      const cls = en.verdict.includes("기존")?"evidence":"inference";
-      const html=`<div class="${cls}"><span class="lab">화평법 구분 (AI 판단)</span> <b>${en.verdict}</b>${en.keno?` · KE-No. ${en.keno}`:""} ${cbadge}<div style="margin-top:4px;font-size:12px">${en.basis||""}</div><div class="src" style="margin-top:3px">출처: ${en.source||"기존화학물질 고시"} · ⚠ AI 초안, 검수 필요</div></div>`;
-      const sec1=$("#sec1"); if(sec1) sec1.insertAdjacentHTML("afterbegin", html);
+      const truth=window.__estVerdict||null;
+      // '기존/신규/검토필요' 축으로만 비교(문구 차이는 무시)
+      const axis=s=>/기존화학물질(?!\s*등재)/.test(s)&&!/검토/.test(s)?"existing":/검토|보류/.test(s)?"review":/신규/.test(s)?"new":"other";
+      const conflict = truth && truth.kind!=="query" && axis(en.verdict)!==axis(truth.label);
+      const html=`<div class="inference"><span class="lab">화평법 구분 (AI 참고 의견)</span> <b>${en.verdict}</b>${en.keno?` · KE-No. ${en.keno}`:""} ${cbadge}
+        <div style="margin-top:4px;font-size:12px">${en.basis||""}</div>
+        ${conflict?`<div class="src" style="margin-top:5px;color:var(--hazard)"><b>⚠ 위 확정 판정과 결론이 다릅니다.</b> 이 화면의 공식 판정은 상단의 <b>${truth.label}</b>(기존화학물질 고시 대조 결과)이며, AI 의견은 참고용입니다.</div>`:""}
+        <div class="src" style="margin-top:3px">출처: ${en.source||"기존화학물질 고시"} · ⚠ AI 초안, 검수 필요</div></div>`;
+      const sec1=$("#sec1"); if(sec1) sec1.insertAdjacentHTML("beforeend", html);
     }
     // 지정물질 AI 추정 → §1에 추가 (파일 미대조분)
     const de=(d.designated_estimate||[]).filter(x=>x&&x.likely&&x.likely!=="아니오");
@@ -954,9 +1020,9 @@ function renderStructResult(res){
     html+=`<div class="inference"><span class="lab">AI 판독 결과 — 검수 필요</span>
       <span class="conf ${conf}">신뢰도 ${conf}</span>
       <table class="tbl" style="margin-top:8px">
-        ${ai.name?`<tr><td style="width:96px"><b>추정 물질명</b></td><td>${ai.name}</td></tr>`:""}
+        <tr><td style="width:110px"><b>CAS No. (1순위)</b></td><td class="mono">${ai.cas||'<span class="src">판독 실패</span>'}</td></tr>
+        <tr><td><b>물질명 (2순위)</b></td><td>${ai.name||'<span class="src">판독 실패</span>'}</td></tr>
         ${ai.molecular_formula?`<tr><td><b>분자식</b></td><td class="mono">${ai.molecular_formula}</td></tr>`:""}
-        <tr><td><b>SMILES</b></td><td class="mono" style="word-break:break-all">${ai.smiles||"판독 실패"}</td></tr>
       </table>
       ${ai.notes?`<div class="src" style="margin-top:6px">판독 메모: ${ai.notes}</div>`:""}
       <div class="src" style="margin-top:5px">⚠ 범용 AI의 구조식 판독은 전용 도구보다 정확도가 낮습니다. 아래 대조 결과를 반드시 눈으로 확인하세요.</div></div>`;
@@ -969,17 +1035,17 @@ function renderStructResult(res){
         <div><b>CAS No.</b> <span class="mono">${rv.cas||"—"}</span></div>
         <div><b>분자식</b> <span class="mono">${rv.formula||"—"}</span></div>
         ${rv.inchikey?`<div><b>InChIKey</b> <span class="mono" style="font-size:11.5px">${rv.inchikey}</span></div>`:""}
-        <div class="src" style="margin-top:6px">PubChem 구조검색으로 대조됨${rv.via==="name"?" (SMILES 미매칭 → 추정 물질명으로 재검색)":""} · <a class="dbname" href="${rv.record_url}" target="_blank" rel="noopener">PubChem 레코드 ↗</a></div>
+        <div class="src" style="margin-top:6px">PubChem에서 대조됨${rv.via==="cas"?" (AI가 읽은 CAS No.로 확인)":rv.via==="name"?" (CAS 미확인 → 물질명으로 확인)":" (구조검색)"} · <a class="dbname" href="${rv.record_url}" target="_blank" rel="noopener">PubChem 레코드 ↗</a></div>
         <div style="margin-top:10px">
           ${rv.cas?`<button class="mbtn" onclick="searchResolved('${rv.cas}')">이 물질 조회 (CAS ${rv.cas})</button>`
                   :`<button class="mbtn" onclick="searchResolved(${JSON.stringify(rv.title||"").replace(/"/g,'&quot;')})">이 물질 조회 (물질명)</button>`}
           <a class="mbtn ghost" style="margin-left:8px" target="_blank" rel="noopener"
-             href="${googleAiHref(rv.cas||rv.title||ai.smiles||"")}">Google AI 모드로 교차확인 ↗</a>
+             href="${googleAiHref(rv.cas||rv.title||"")}">Google AI 모드로 교차확인 ↗</a>
         </div>
       </div></div>`;
   }else{
-    const hint=ai.name||ai.smiles||ai.molecular_formula||"";
-    html+=`<div class="errbox" style="margin-top:12px">PubChem에서 일치하는 물질을 찾지 못했습니다${rv.reason?` (${rv.reason})`:""}. SMILES가 정확한지 확인하거나, 아래에서 직접 확인해 보세요.
+    const hint=ai.cas||ai.name||ai.smiles||ai.molecular_formula||"";
+    html+=`<div class="errbox" style="margin-top:12px">PubChem에서 일치하는 물질을 찾지 못했습니다${rv.reason?` (${rv.reason})`:""}. 판독된 CAS·물질명이 정확한지 확인하거나, 아래에서 직접 확인해 보세요.
       ${hint?`<div style="margin-top:10px"><a class="mbtn ghost" target="_blank" rel="noopener" href="${googleAiHref(hint)}">Google AI 모드로 검색 ↗</a></div>`:""}</div>`;
   }
   structResult.innerHTML=html;
