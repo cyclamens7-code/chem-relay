@@ -12,8 +12,14 @@ services:
       # 나머지(기본정보·구조식·GHS·요약)는 그대로 무료로 동작합니다.
       - GEMINI_API_KEY=${GEMINI_API_KEY:-}
       - GEMINI_MODEL=gemini-flash-latest
+      # 총칭명 검토만 다른 모델로 돌리고 싶을 때(비워두면 GEMINI_MODEL 사용)
+      - GENERIC_REVIEW_MODEL=${GENERIC_REVIEW_MODEL:-}
       # ── CAS Common Chemistry(선택) : 참고자료 1순위 출처 ──
       # https://www.cas.org/services/commonchemistry-api 에서 발급. 비워두면 2순위(PubChem)만 사용.
       - CAS_CC_API_KEY=${CAS_CC_API_KEY:-}
+      # ── 한국환경공단 화학물질 정보 조회(선택) : KE번호·국문명·물질분류 ──
+      # https://www.data.go.kr/data/15149420/openapi.do 활용신청 후 발급
+      - KECO_API_KEY=${KECO_API_KEY:-}
+      - KECO_NCIS_URL=${KECO_NCIS_URL:-https://apis.data.go.kr/B552584/kecoapi/ncissbstn}
       - CACHE_DIR=/data/cache
     restart: unless-stopped
