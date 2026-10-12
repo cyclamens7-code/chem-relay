@@ -1879,14 +1879,44 @@ async def api_generic_review(
         payload = generic_review.build_payload(files, chemical_name, generic_name, cas_no, note.strip(),
                                                local, result["pubchem"])
         call = await _gemini_call(payload, timeout=240, model=GENERIC_REVIEW_MODEL)
+
+        # 2.5 계열은 '생각(thinking)' 토큰도 maxOutputTokens 예산에서 쓴다. 검토 항목이 많아
+        # 생각만으로 예산을 다 쓰면 본문이 비고 finishReason=MAX_TOKENS 가 된다.
+        # 그 경우에 한해 생각을 끄고 한 번만 다시 시도한다(지원하지 않는 모델이면 원래 오류를 유지).
+        if call.get("ok"):
+            _text, _finish = _gemini_text(call["data"])
+            if not _text and _finish == "MAX_TOKENS":
+                retry_payload = json.loads(json.dumps(payload))
+                retry_payload["generationConfig"]["thinkingConfig"] = {"thinkingBudget": 0}
+                retry = await _gemini_call(retry_payload, timeout=240, model=GENERIC_REVIEW_MODEL)
+                if retry.get("ok") and _gemini_text(retry["data"])[0]:
+                    call = retry
+
         if not call.get("ok"):
-            result["ai_error"] = call.get("message") or "AI 호출 실패"
+            if call.get("error") == "no_api_key":
+                # 키 자체가 없으면 Gemini를 호출조차 하지 않는다. 어디를 고쳐야 하는지까지 알려준다.
+                result["ai_error"] = ("서버에 GEMINI_API_KEY가 설정되어 있지 않아 Gemini를 호출하지 않았습니다. "
+                                      "이 경우 2·5번 'AI 자동 생성'도 같은 이유로 동작하지 않습니다. "
+                                      "지금 접속한 서버의 /api/health 를 열어 api_key_set 이 false 인지 확인한 뒤, "
+                                      "Render 대시보드 → Environment → GEMINI_API_KEY 를 등록하세요"
+                                      "(로컬 실행 중이라면 실행 전에 환경변수를 설정해야 합니다).")
+            else:
+                # 구글이 돌려준 본문(detail)까지 함께 보여줘야 원인을 알 수 있다.
+                detail = (call.get("detail") or "").strip()
+                result["ai_error"] = ((call.get("message") or "AI 호출 실패")
+                                      + (f" · 응답: {detail[:300]}" if detail else ""))
         else:
             text, finish = _gemini_text(call["data"])
             parsed = _extract_json(text)
             if not isinstance(parsed, dict) or finish == "MAX_TOKENS":
-                result["ai_error"] = (f"AI 응답을 해석하지 못했습니다(사유 {finish or '불명'}). 다시 시도해 주세요."
-                                      if text else f"AI가 응답을 생성하지 않았습니다(사유 {finish or '불명'}).")
+                if text:
+                    result["ai_error"] = (f"AI 응답을 해석하지 못했습니다(사유 {finish or '불명'}). 다시 시도해 주세요."
+                                          + (" 응답이 길이 제한에 걸려 잘렸습니다." if finish == "MAX_TOKENS" else ""))
+                else:
+                    pf = (call["data"].get("promptFeedback") or {}).get("blockReason", "")
+                    result["ai_error"] = (f"AI가 응답을 생성하지 않았습니다(사유 {finish or pf or '불명'})."
+                                          + (" 첨부 구조식 없이 명칭만으로 다시 시도해 보세요."
+                                             if finish == "MAX_TOKENS" else ""))
             else:
                 result["ai"] = generic_review.normalize(parsed)
                 result["ai"]["_model"] = GENERIC_REVIEW_MODEL
