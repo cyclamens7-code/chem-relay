@@ -11,7 +11,7 @@
   - UI  :  GET /            → app/static/index.html
   - API :  GET /api/chem?q=<CAS 또는 물질명>
 """
-from fastapi import FastAPI, Query, Depends, HTTPException, status, File, UploadFile
+from fastapi import FastAPI, Query, Depends, HTTPException, status, File, Form, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse
@@ -20,12 +20,16 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response
 import httpx, json, re, hashlib, time, pathlib, asyncio, os, secrets
 
+from . import generic_review, generic_rules
+
 # ── Gemini(Google) 설정 ─────────────────────────────────────────────
 # Google AI Studio 무료 API 키를 서버 환경변수로 주입 → 브라우저에 노출 안 됨.
 # 무료 티어(카드 불필요)로 "자세히 생성"을 돌립니다.
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 GEMINI_MODEL   = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
 GEMINI_URL     = "https://generativelanguage.googleapis.com/v1beta/models"
+# 총칭명 검토는 구조식 판독·명명법 판단이 필요해 더 강한 모델(pro 계열)을 따로 지정할 수 있다.
+GENERIC_REVIEW_MODEL = os.getenv("GENERIC_REVIEW_MODEL", "") or GEMINI_MODEL
 
 # ── CAS Common Chemistry API 설정 ──────────────────────────────────
 # 참고자료 우선순위: 1) CAS Common Chemistry  2) PubChem
@@ -1569,12 +1573,12 @@ def _extract_json(text: str):
 # ----------------------------------------------------------------------
 _GEMINI_RETRY_STATUSES = {503, 429, 500}
 
-async def _gemini_call(payload: dict, timeout: int = 60) -> dict:
+async def _gemini_call(payload: dict, timeout: int = 60, model: str = None) -> dict:
     if not GEMINI_API_KEY:
         return {"ok": False, "error": "no_api_key",
                 "message": "서버에 GEMINI_API_KEY가 설정되지 않았습니다. Render 환경변수에 추가하세요."}
     headers = {"x-goog-api-key": GEMINI_API_KEY, "Content-Type": "application/json"}
-    url = f"{GEMINI_URL}/{GEMINI_MODEL}:generateContent"
+    url = f"{GEMINI_URL}/{model or GEMINI_MODEL}:generateContent"
     r = None
     try:
         async with httpx.AsyncClient() as client:
@@ -1813,6 +1817,81 @@ async def api_enrich(q: str = Query(..., min_length=1)):
         result["notice"] = notice   # 프런트에서 사실 근거로 함께 표시
     if result.get("ok"):
         cache_set(key, result)
+    return JSONResponse(result)
+
+# ----------------------------------------------------------------------
+# 총칭명 검토 (화평법 자료보호 신청)
+#   입력: 화학물질명·총칭명(필수), 구조식 그림/PDF·CAS No.·비고(선택)
+#   ① 자동 형식점검(generic_rules, AI 불필요) → ② Gemini 로 구조·명칭·총칭명 대조
+#   기준: [별표 1] 총칭명의 명명방법 + Lexicon guide (app/data/generic/rules.md)
+# ----------------------------------------------------------------------
+GENERIC_FILE_TYPES = {"image/png", "image/jpeg", "image/webp", "application/pdf"}
+GENERIC_MAX_BYTES  = 15 * 1024 * 1024   # Gemini 인라인 요청 한도(20MB)를 넘지 않도록
+
+@app.post("/api/generic-review")
+async def api_generic_review(
+    chemical_name: str = Form(...),
+    generic_name: str = Form(...),
+    cas_no: str = Form(""),
+    note: str = Form(""),
+    use_ai: bool = Form(True),
+    use_pubchem: bool = Form(False),
+    structure_files: list[UploadFile] = File(default=[]),
+):
+    chemical_name, generic_name, cas_no = chemical_name.strip(), generic_name.strip(), cas_no.strip()
+    if not chemical_name or not generic_name:
+        return JSONResponse({"ok": False, "message": "화학물질명과 총칭명은 필수 입력값입니다."}, status_code=400)
+
+    files, total = [], 0
+    for up in structure_files:
+        raw = await up.read()
+        if not raw:
+            continue
+        mime = up.content_type or ""
+        if mime not in GENERIC_FILE_TYPES:
+            return JSONResponse({"ok": False, "message": f"{up.filename}: 지원하지 않는 형식입니다(PNG·JPG·WEBP·PDF)."},
+                                status_code=400)
+        total += len(raw)
+        files.append((up.filename or "file", mime, raw))
+    if total > GENERIC_MAX_BYTES:
+        return JSONResponse({"ok": False, "message": "첨부파일 합계가 15MB를 넘습니다. 구조식이 있는 쪽만 올려 주세요."},
+                            status_code=400)
+
+    local = generic_rules.run(chemical_name, generic_name)
+    result = {"ok": True,
+              "input": {"chemical_name": chemical_name, "generic_name": generic_name, "cas_no": cas_no,
+                        "files": [f[0] for f in files]},
+              "local": local, "pubchem": None, "ai": None, "ai_error": None}
+
+    if use_pubchem:
+        async def _pc(q):
+            got = await fetch_pubchem(q)
+            if not got.get("found"):
+                return {"query": q, "found": False}
+            ident = got.get("identity", {})
+            return {"query": q, "found": True, "cid": ident.get("cid"), "cas": ident.get("cas"),
+                    "title": ident.get("title"), "iupac_name": ident.get("iupac"),
+                    "formula": ident.get("formula"), "smiles": ident.get("smiles")}
+        result["pubchem"] = {"by_name": await _pc(chemical_name),
+                             "by_cas": await _pc(cas_no) if CAS_RE.match(cas_no) else None}
+
+    if use_ai:
+        payload = generic_review.build_payload(files, chemical_name, generic_name, cas_no, note.strip(),
+                                               local, result["pubchem"])
+        call = await _gemini_call(payload, timeout=240, model=GENERIC_REVIEW_MODEL)
+        if not call.get("ok"):
+            result["ai_error"] = call.get("message") or "AI 호출 실패"
+        else:
+            text, finish = _gemini_text(call["data"])
+            parsed = _extract_json(text)
+            if not isinstance(parsed, dict) or finish == "MAX_TOKENS":
+                result["ai_error"] = (f"AI 응답을 해석하지 못했습니다(사유 {finish or '불명'}). 다시 시도해 주세요."
+                                      if text else f"AI가 응답을 생성하지 않았습니다(사유 {finish or '불명'}).")
+            else:
+                result["ai"] = generic_review.normalize(parsed)
+                result["ai"]["_model"] = GENERIC_REVIEW_MODEL
+
+    result["verdict"], result["verdict_note"] = generic_review.final_verdict(local, result["ai"])
     return JSONResponse(result)
 
 @app.get("/api/health")

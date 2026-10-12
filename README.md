@@ -32,6 +32,7 @@ Render 대시보드 → 서비스 → **Environment** 탭에서 직접 입력해
 | `KECO_API_KEY` | 선택 | 1번 기본정보의 **한국환경공단 공식 API**(KE번호·국문명·물질분류) — 없으면 해당 블록만 숨겨짐 |
 | `KECO_NCIS_URL` | 선택 | 위 API 엔드포인트. 기본값 `https://apis.data.go.kr/B552584/kecoapi/ncissbstn`. 포털에서 주소가 바뀌면 **코드 수정 없이** 이 값만 교체 |
 | `KECO_NCIS_PARAM` | 선택 | CAS 검색 파라미터명. 비워두면 `casNo` 등 후보를 자동 탐색하므로 보통 설정 불필요 |
+| `GENERIC_REVIEW_MODEL` | 선택 | **총칭명 검토**에 쓸 Gemini 모델. 비워두면 `GEMINI_MODEL`과 같은 모델 사용. 구조식 판독·명명법 판단 정확도를 높이려면 pro 계열 모델명을 지정 |
 
 값을 입력하고 저장하면 Render가 자동으로 재배포합니다.
 
@@ -50,7 +51,10 @@ Render 대시보드에 표시되는 서비스 URL(`https://chem-relay-xxxx.onren
 │  └─ build_classification_reference.py   # 물질별 엑셀 → classification_reference.json 추출
 └─ app/
    ├─ main.py               # FastAPI: /api/chem, /api/enrich + UI 서빙
+   ├─ generic_rules.py      # 총칭명 검토: 자동 형식점검(AI 불필요)
+   ├─ generic_review.py     # 총칭명 검토: AI 프롬프트·출력 스키마·결과 정리
    ├─ data/                 # 기존화학물질·유해성심사·지정물질·국외 분류표시 등 내장 DB(JSON)
+   │  └─ generic/           # 총칭명 검토 기준(rules.md), 별표1 별첨 치환기, Lexicon family 목록
    └─ static/
       └─ index.html         # 웹 콘솔
 ```
@@ -200,3 +204,15 @@ py scripts/build_classification_reference.py
 현재는 Render로 운영 중이라 NAS 배포는 사용하지 않습니다. `docker-compose.yml`이
 그 흔적으로 남아있으며, 나중에 NAS로 옮길 때 참고할 수 있도록 환경변수만 최신 코드에
 맞춰(`GEMINI_*`, `CAS_CC_API_KEY`) 정리해 뒀습니다. Render 배포에는 이 파일이 사용되지 않습니다.
+
+---
+
+## 총칭명 검토 (자료보호 신청)
+
+검색창 옆 **✎ 총칭명 검토** 버튼으로 엽니다. 화평법 자료보호 신청 시 업체가 낸 화학물질명과 희망 총칭명이 적합한지 검토합니다.
+
+- **입력**: 화학물질명·총칭명(필수), 구조식 그림/PDF·CAS No.·비고(선택). 구조식이 없으면 화학물질명에서 구조를 도출해 검토합니다.
+- **결과**: 종합 판정(적합/부적합/판단곤란) → 구조 → 화학물질명 검토(문제 부분 강조·권장 명칭) → 총칭명 검토(원 명칭 ↔ 총칭명 대응표, 위반 조항·사유·수정 방향, 기준에 맞는 예시) → 보완요청 문안 초안.
+- **기준**: 「자료보호요청서의 작성방법 및 보호자료 관리방법 등에 관한 규정」 [별표 1] 총칭명의 명명방법, 안전보건공단 Lexicon guide 적용 안내서(2023.12.21). 판정 기준 문구는 `app/data/generic/rules.md` 에 있으며 이 파일만 고치면 반영됩니다.
+- **동작**: `POST /api/generic-review`. 자동 형식점검은 API 키 없이 동작하고, AI 검토는 `GEMINI_API_KEY` 가 있을 때 수행됩니다.
+- **유의**: AI 검토를 켜면 명칭과 구조식 파일이 이 서버를 거쳐 Google Gemini 로 전송됩니다. 보호 대상 자료이므로 외부 전송이 허용되는지 먼저 확인하고, 공개 주소로 배포했다면 `AUTH_USER`/`AUTH_PASS` 접속 잠금을 켜세요. 검토 결과는 캐시에 저장하지 않습니다.

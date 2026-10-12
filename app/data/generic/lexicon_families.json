@@ -1,0 +1,840 @@
+[
+{
+"no": "001",
+"family": "Hydrogen compounds",
+"sub": [
+"Hydrides"
+]
+},
+{
+"no": "002",
+"family": "Helium compounds",
+"sub": []
+},
+{
+"no": "003",
+"family": "Lithium compounds",
+"sub": []
+},
+{
+"no": "004",
+"family": "Beryllium compounds",
+"sub": []
+},
+{
+"no": "005",
+"family": "Boron compounds",
+"sub": [
+"Boranes",
+"Borates"
+]
+},
+{
+"no": "006",
+"family": "Carbon compounds",
+"sub": [
+"Carbamates",
+"Inorganic carbon compounds",
+"Salts of hydrogen cyanide",
+"Urea and derivatives"
+]
+},
+{
+"no": "007",
+"family": "Nitrogen compounds",
+"sub": [
+"Quaternary ammonium compounds",
+"Acid nitrogen compounds",
+"Nitrates",
+"Nitrites"
+]
+},
+{
+"no": "008",
+"family": "Oxygen compounds",
+"sub": []
+},
+{
+"no": "009",
+"family": "Fluorine compounds",
+"sub": [
+"Inorganic fluorides"
+]
+},
+{
+"no": "010",
+"family": "Neon compounds",
+"sub": []
+},
+{
+"no": "011",
+"family": "Sodium compounds",
+"sub": []
+},
+{
+"no": "012",
+"family": "Magnesium compounds",
+"sub": [
+"Organometallic magnesium derivatives"
+]
+},
+{
+"no": "013",
+"family": "Aluminium compounds",
+"sub": [
+"Organometallic aluminium derivatives"
+]
+},
+{
+"no": "014",
+"family": "Silicon compounds",
+"sub": [
+"Silicones",
+"Silicates"
+]
+},
+{
+"no": "015",
+"family": "Phosphorus compounds",
+"sub": [
+"Acid phosphorus compounds",
+"Phosphonium compounds",
+"Phosphoric esters",
+"Phosphates",
+"Phosphites",
+"Phosphoramides and derivatives"
+]
+},
+{
+"no": "016",
+"family": "Sulphur compounds",
+"sub": [
+"Acid sulphur compounds",
+"Mercaptans",
+"Sulphates",
+"Sulphites"
+]
+},
+{
+"no": "017",
+"family": "Chlorine compounds",
+"sub": [
+"Chlorates",
+"Perchlorates"
+]
+},
+{
+"no": "018",
+"family": "Argon compounds",
+"sub": []
+},
+{
+"no": "019",
+"family": "Potassium compounds",
+"sub": []
+},
+{
+"no": "020",
+"family": "Calcium compounds",
+"sub": []
+},
+{
+"no": "021",
+"family": "Scandium compounds",
+"sub": []
+},
+{
+"no": "022",
+"family": "Titanium compounds",
+"sub": []
+},
+{
+"no": "023",
+"family": "Vanadium compounds",
+"sub": []
+},
+{
+"no": "024",
+"family": "Chromium compounds",
+"sub": [
+"Chromium VI compounds"
+]
+},
+{
+"no": "025",
+"family": "Manganese compounds",
+"sub": []
+},
+{
+"no": "026",
+"family": "Iron compounds",
+"sub": []
+},
+{
+"no": "027",
+"family": "Cobalt compounds",
+"sub": []
+},
+{
+"no": "028",
+"family": "Nickel compounds",
+"sub": []
+},
+{
+"no": "029",
+"family": "Copper compounds",
+"sub": []
+},
+{
+"no": "030",
+"family": "Zinc compounds",
+"sub": [
+"Organometallic zinc derivatives"
+]
+},
+{
+"no": "031",
+"family": "Gallium compounds",
+"sub": []
+},
+{
+"no": "032",
+"family": "Germanium compounds",
+"sub": []
+},
+{
+"no": "033",
+"family": "Arsenic compounds",
+"sub": []
+},
+{
+"no": "034",
+"family": "Selenium compounds",
+"sub": []
+},
+{
+"no": "035",
+"family": "Bromine compounds",
+"sub": []
+},
+{
+"no": "036",
+"family": "Krypton compounds",
+"sub": []
+},
+{
+"no": "037",
+"family": "Rubidium compounds",
+"sub": []
+},
+{
+"no": "038",
+"family": "Strontium compounds",
+"sub": []
+},
+{
+"no": "039",
+"family": "Yttrium compounds",
+"sub": []
+},
+{
+"no": "040",
+"family": "Zirconium compounds",
+"sub": []
+},
+{
+"no": "041",
+"family": "Niobium compounds",
+"sub": []
+},
+{
+"no": "042",
+"family": "Molybdenum compounds",
+"sub": []
+},
+{
+"no": "043",
+"family": "Technetium compounds",
+"sub": []
+},
+{
+"no": "044",
+"family": "Ruthenium compounds",
+"sub": []
+},
+{
+"no": "045",
+"family": "Rhodium compounds",
+"sub": []
+},
+{
+"no": "046",
+"family": "Palladium compounds",
+"sub": []
+},
+{
+"no": "047",
+"family": "Silver compounds",
+"sub": []
+},
+{
+"no": "048",
+"family": "Cadmium compounds",
+"sub": []
+},
+{
+"no": "049",
+"family": "Indium compounds",
+"sub": []
+},
+{
+"no": "050",
+"family": "Tin compounds",
+"sub": [
+"Organometallic tin derivatives"
+]
+},
+{
+"no": "051",
+"family": "Antimony compounds",
+"sub": []
+},
+{
+"no": "052",
+"family": "Tellurium compounds",
+"sub": []
+},
+{
+"no": "053",
+"family": "Iodine compounds",
+"sub": []
+},
+{
+"no": "054",
+"family": "Xenon compounds",
+"sub": []
+},
+{
+"no": "055",
+"family": "Caesium compounds",
+"sub": []
+},
+{
+"no": "056",
+"family": "Barium compounds",
+"sub": []
+},
+{
+"no": "057",
+"family": "Lanthanum compounds",
+"sub": []
+},
+{
+"no": "058",
+"family": "Cerium compounds",
+"sub": []
+},
+{
+"no": "059",
+"family": "Praseodymium compounds",
+"sub": []
+},
+{
+"no": "060",
+"family": "Neodymium compounds",
+"sub": []
+},
+{
+"no": "061",
+"family": "Promethium compounds",
+"sub": []
+},
+{
+"no": "062",
+"family": "Samarium compounds",
+"sub": []
+},
+{
+"no": "063",
+"family": "Europium compounds",
+"sub": []
+},
+{
+"no": "064",
+"family": "Gandolinium compounds",
+"sub": []
+},
+{
+"no": "065",
+"family": "Terbium compounds",
+"sub": []
+},
+{
+"no": "066",
+"family": "Dysprosium compounds",
+"sub": []
+},
+{
+"no": "067",
+"family": "Holmium compounds",
+"sub": []
+},
+{
+"no": "068",
+"family": "Erbium compounds",
+"sub": []
+},
+{
+"no": "069",
+"family": "Thulium compounds",
+"sub": []
+},
+{
+"no": "070",
+"family": "Ytterbium compounds",
+"sub": []
+},
+{
+"no": "071",
+"family": "Lutetium compounds",
+"sub": []
+},
+{
+"no": "072",
+"family": "Hafnium compounds",
+"sub": []
+},
+{
+"no": "073",
+"family": "Tantalum compounds",
+"sub": []
+},
+{
+"no": "074",
+"family": "Tungsten compounds",
+"sub": []
+},
+{
+"no": "075",
+"family": "Rhenium compounds",
+"sub": []
+},
+{
+"no": "076",
+"family": "Osmium compounds",
+"sub": []
+},
+{
+"no": "077",
+"family": "Iridium compounds",
+"sub": []
+},
+{
+"no": "078",
+"family": "Platinum compounds",
+"sub": []
+},
+{
+"no": "079",
+"family": "Gold compounds",
+"sub": []
+},
+{
+"no": "080",
+"family": "Mercury compounds",
+"sub": [
+"Organometallic mercury derivatives"
+]
+},
+{
+"no": "081",
+"family": "Thallium compounds",
+"sub": []
+},
+{
+"no": "082",
+"family": "Lead compounds",
+"sub": [
+"Organometallic lead derivatives"
+]
+},
+{
+"no": "083",
+"family": "Bismuth compounds",
+"sub": []
+},
+{
+"no": "084",
+"family": "Polonium compounds",
+"sub": []
+},
+{
+"no": "085",
+"family": "Astatine compounds",
+"sub": []
+},
+{
+"no": "086",
+"family": "Radon compounds",
+"sub": []
+},
+{
+"no": "087",
+"family": "Francium compounds",
+"sub": []
+},
+{
+"no": "088",
+"family": "Radium compounds",
+"sub": []
+},
+{
+"no": "089",
+"family": "Actinium compounds",
+"sub": []
+},
+{
+"no": "090",
+"family": "Thorium compounds",
+"sub": []
+},
+{
+"no": "091",
+"family": "Protactinium compounds",
+"sub": []
+},
+{
+"no": "092",
+"family": "Uranium compounds",
+"sub": []
+},
+{
+"no": "093",
+"family": "Neptunium compounds",
+"sub": []
+},
+{
+"no": "094",
+"family": "Plutonium compounds",
+"sub": []
+},
+{
+"no": "095",
+"family": "Americium compounds",
+"sub": []
+},
+{
+"no": "096",
+"family": "Curium compounds",
+"sub": []
+},
+{
+"no": "097",
+"family": "Berkelium compounds",
+"sub": []
+},
+{
+"no": "098",
+"family": "Californium compounds",
+"sub": []
+},
+{
+"no": "099",
+"family": "Einsteinium compounds",
+"sub": []
+},
+{
+"no": "100",
+"family": "Fermium compounds",
+"sub": []
+},
+{
+"no": "101",
+"family": "Mendelevium compounds",
+"sub": []
+},
+{
+"no": "102",
+"family": "Nobelium compounds",
+"sub": []
+},
+{
+"no": "103",
+"family": "Lawrencium compounds",
+"sub": []
+},
+{
+"no": "601",
+"family": "Hydrocarbons",
+"sub": [
+"Aliphatic hydrocarbons",
+"Aromatic hydrocarbons",
+"Alicyclic hydrocarbons",
+"Polycyclic aromatic hydrocarbons(PAH)"
+]
+},
+{
+"no": "602",
+"family": "Halogenated hydrocarbons (*)",
+"sub": [
+"Halogenated aliphatic hydrocarbons (*)",
+"Halogenated aromatic hydrocarbons (*)",
+"Halogenated alicyclic hydrocarbons (*)"
+]
+},
+{
+"no": "603",
+"family": "Alcohols and derivatives",
+"sub": [
+"Aliphatic alcohols",
+"Aromatic alcohols",
+"Alicyclic alcohols",
+"Alcanolamines",
+"Epoxy derivatives",
+"Ethers",
+"Glycolethers",
+"Glycols and polyols"
+]
+},
+{
+"no": "604",
+"family": "Phenols and derivatives",
+"sub": [
+"Halogenated phenol derivatives (*)"
+]
+},
+{
+"no": "605",
+"family": "Aldehydes and derivatives",
+"sub": [
+"Aliphatic aldehydes",
+"Aromatic aldehydes",
+"Alicyclic aldehydes",
+"Aliphatic acetals",
+"Aromatic acetals",
+"Alicyclic acetals"
+]
+},
+{
+"no": "606",
+"family": "Ketones and derivatives",
+"sub": [
+"Aliphatic ketones",
+"Aromatic ketones (**)",
+"Alicyclic ketones"
+]
+},
+{
+"no": "607",
+"family": "Organic acids and derivatives",
+"sub": [
+"Aliphatic acids",
+"Halogenated aliphatic acids (*)",
+"Aromatic acids",
+"Halogenated aromatic acids (*)",
+"Alicyclic acids",
+"Halogenated alicyclic acids (*)",
+"Aliphatic acid anhydrides",
+"Halogenated aliphatic acid anhydrides (*)",
+"Aromatic acid anhydrides",
+"Halogenated aromatic acid anhydrides (*)",
+"Alicyclic acid anhydrides",
+"Halogenated alicyclic acid anhydrides (*)",
+"Salts of aliphatic acid",
+"Salts of halogenated aliphatic acid (*)",
+"Salts of aromatic acid",
+"Salts of halogenated aromatic acid (*)",
+"Salts of alicyclic acid",
+"Salts of halogenated alicyclic acid (*)",
+"Esters of aliphatic acid",
+"Esters of halogenated aliphatic acid (*)",
+"Esters of aromatic acid",
+"Esters of halogenated aromatic acid (*)",
+"Esters of alicyclic acid",
+"Esters of halogenated alicyclic acid (*)",
+"Esters of glycol ether",
+"Acrylates",
+"Methacrylates",
+"Lactones",
+"Acyl halogenides"
+]
+},
+{
+"no": "608",
+"family": "Nitriles and derivatives",
+"sub": []
+},
+{
+"no": "609",
+"family": "Nitro compounds",
+"sub": []
+},
+{
+"no": "610",
+"family": "Chlornitrated compounds",
+"sub": []
+},
+{
+"no": "611",
+"family": "Azoxy and azo compounds",
+"sub": []
+},
+{
+"no": "612",
+"family": "Amine compounds",
+"sub": [
+"Aliphatic amines and derivatives",
+"Alicyclic amines and derivatives",
+"Aromatic amines and derivatives",
+"Aniline and derivatives",
+"Benzidine and derivatives"
+]
+},
+{
+"no": "613",
+"family": "Heterocyclic bases and derivatives",
+"sub": [
+"Benzimidazole and derivatives",
+"Imidazole and derivatives",
+"Pyrethrinoids",
+"Quinoline and derivatives",
+"Triazine and derivatives",
+"Triazole and derivatives"
+]
+},
+{
+"no": "614",
+"family": "Glycosides and alkaloids",
+"sub": [
+"Alkaloid and derivatives",
+"Glycosides and derivatives"
+]
+},
+{
+"no": "615",
+"family": "Cyanates and isocyanates",
+"sub": [
+"Cyanates",
+"Isocyanates"
+]
+},
+{
+"no": "616",
+"family": "Amides and derivatives",
+"sub": [
+"Acetamide and derivatives",
+"Anilides"
+]
+},
+{
+"no": "617",
+"family": "Organic peroxides",
+"sub": []
+},
+{
+"no": "647",
+"family": "Enzymes",
+"sub": []
+},
+{
+"no": "648",
+"family": "Complex coal derivatives",
+"sub": [
+"Acid extract",
+"Alkaline extract",
+"Anthracene oil",
+"Anthracene oil extract residue",
+"Anthracene oil fraction",
+"Carbolic oil",
+"Carbolic oil extract residue",
+"Coal liquids, liquid solvent extraction",
+"Coal liquids, liquid solvent extraction solvents",
+"Coal oil",
+"Coal tar",
+"Coal tar extract",
+"Coal tar solids residue",
+"Coke (coal tar) low temperature, high temperature pitch",
+"Coke (coal tar), high temperature pitch",
+"Coke (coal tar), mixed coal high temperature pitch",
+"Crude benzole",
+"Crude phenols",
+"Crude tar bases",
+"Distillate bases",
+"Distillate phenols",
+"Distillates",
+"Distillates (coal), liquid solvent extraction, primary",
+"Distillates (coal), solvent extraction, hydrocracked",
+"Distillates (coal), solvent extraction, hydrocracked hydrogenated middle",
+"Distillates (coal), solvent extraction, hydrocracked middle",
+"Extract residues (coal), low temperature coal tar alkaline",
+"Fresh oil",
+"Fuels, diesel, coal solvent extraction, hydrocracked, hydrogenated",
+"Fuels, jet aircraft, coal solvent extraction, hydrocracked, hydrogenated",
+"Gasoline, coal solvent extraction, hydrocracked naphtha",
+"Heat treatment products",
+"Heavy anthracene oil",
+"Heavy anthracene oil redistillate",
+"Light oil",
+"Light oil extract residues, high boiling",
+"Light oil extract residues, intermediate boiling",
+"Light oil extract residues, low boiling",
+"Light oil redistillate, high boiling",
+"Light oil redistillate, intermediate boiling",
+"Light oil redistillate, low boiling",
+"Methylnaphthalene oil",
+"Methylnaphthalene oil extract residue",
+"Naphtha (coal), solvent extraction, hydrocracked",
+"Naphthalene oil",
+"Naphthalene oil extract residue",
+"Naphthalene oil redistillate",
+"Pitch",
+"Pitch redistillate",
+"Pitch residue",
+"Pitch residue, heat treated",
+"Pitch residue, oxidised",
+"Pyrolysis products",
+"Redistillates",
+"Residues (coal), liquid solvent extractions",
+"Tar brown coal",
+"Tar brown coal, low temperature",
+"Tar oil, high boiling",
+"Tar oil, intermediate boiling",
+"Wash oil",
+"Wash oil extract residue",
+"Wash oil redistillate"
+]
+},
+{
+"no": "649",
+"family": "Complex oil derivatives",
+"sub": [
+"Crude oil",
+"Petroleum gas",
+"Low boiling point naphtha",
+"Low boiling point modified naphtha",
+"Low boiling point cat-cracked naphtha",
+"Low boiling point cat-reformed naphtha",
+"Low boiling point thermally cracked naphtha",
+"Low boiling point hydrogen treated naphtha",
+"Low boiling point naphtha — unspecified",
+"Straight-run kerosine",
+"Kerosine — unspecified",
+"Cracked gas oil",
+"Gas oil — unspecified",
+"Heavy fuel oil",
+"Grease",
+"Unrefined or mildly refined base oil",
+"Base oil — unspecified",
+"Distillate aromatic extract",
+"Distillate aromatic extract (treated)",
+"Foots oil",
+"Slack wax",
+"Petrolatum"
+]
+},
+{
+"no": "650",
+"family": "Various substances",
+"sub": []
+}
+]

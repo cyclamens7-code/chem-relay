@@ -146,6 +146,33 @@ main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
 .srescard img{width:110px;height:110px;object-fit:contain;border:1px solid var(--line);border-radius:10px;background:#fff;flex:none}
 .sresinfo{flex:1;min-width:200px;font-size:13px}
 .sresinfo .nm{font-family:"Fraunces";font-weight:600;font-size:16px;margin-bottom:4px}
+/* ── 총칭명 검토 ── */
+.mbox.wide{max-width:900px}
+.gnlbl{display:block;font-size:13px;font-weight:600;margin:14px 0 5px}
+.gnlbl small{font-weight:400;color:var(--steel)}
+.gnreq,.gnopt{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:99px;margin-left:4px}
+.gnreq{background:var(--hazard-bg);color:var(--hazard)}.gnopt{background:#eee;color:var(--steel)}
+.gnin{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:13.5px;background:#fff;color:var(--ink);resize:vertical}
+textarea.gnin{font-family:"JetBrains Mono",monospace;min-height:58px}
+.gnin:focus{outline:2px solid var(--focus);border-color:transparent}
+.gnfiles{font-size:12.5px;margin-top:6px}.gnfiles span{display:inline-block;background:var(--paper);border:1px solid var(--line);border-radius:99px;padding:2px 10px;margin:3px 4px 0 0}
+.gnfiles a{color:var(--hazard);cursor:pointer;margin-left:6px;font-weight:700}
+.gnchk{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;margin-top:10px}.gnchk input{margin-top:3px}
+.gnverdict{display:flex;gap:14px;align-items:center;border-radius:12px;padding:14px 16px;margin:18px 0 6px;font-size:13px}
+.gnverdict b{font-family:"Fraunces";font-size:19px;white-space:nowrap}
+.gv-ok{background:var(--verify-bg);color:var(--verify)}.gv-bad{background:var(--hazard-bg);color:#a8492b}.gv-hold{background:var(--amber-bg);color:#6d4c12}
+.gnverdict span{color:var(--ink)}
+.gnsec{border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+.gnsec h4{font-family:"Fraunces";font-weight:600;font-size:15.5px;display:flex;align-items:center;gap:8px;margin:0 0 8px}
+.gnsub{font-size:11px;font-weight:700;color:var(--steel);letter-spacing:.05em;margin:14px 0 4px}
+.gnpill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.gnname{font-family:"JetBrains Mono",monospace;font-size:13px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 11px;word-break:break-all}
+.gnname mark{background:#f9d5c6;border-bottom:2px solid var(--hazard);color:inherit}
+.gnissue{border-left:3px solid var(--line);background:#fcfbf9;border-radius:0 8px 8px 0;padding:9px 13px;margin:7px 0;font-size:12.5px}
+.gnissue.bad{border-color:var(--hazard)}.gnissue.hold{border-color:var(--amber)}
+.gnissue code{background:var(--hazard-bg);border-radius:4px;padding:0 5px;font-family:"JetBrains Mono",monospace;font-size:12px;word-break:break-all}
+.gnissue .fix{color:var(--verify);margin-top:3px}
+.gnreqtext{white-space:pre-wrap;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:11px 13px;font-size:13px}
 </style>
 </head>
 <body>
@@ -155,7 +182,7 @@ main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
   <div class="sw"><div class="sf">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a19c8f" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
     <input id="q" type="text" placeholder="CAS 번호나 물질명 입력 후 Enter  (예: 71-43-2, benzene)" autocomplete="off" spellcheck="false">
-  </div><button class="sb" id="go">조회</button><button class="sb alt" id="structBtn">⌬ 구조식으로 검색</button></div>
+  </div><button class="sb" id="go">조회</button><button class="sb alt" id="structBtn">⌬ 구조식으로 검색</button><button class="sb alt" id="gnBtn">✎ 총칭명 검토</button></div>
   <div class="hint">빠른 시도:
     <code data-fill="71-43-2">벤젠 71-43-2</code>
     <code data-fill="50-00-0">폼알데하이드 50-00-0</code>
@@ -199,6 +226,41 @@ main{max-width:1080px;margin:0 auto;padding:0 24px 80px}
       </div>
 
       <div id="structResult"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="gnModal">
+  <div class="mbox wide">
+    <div class="mhead">
+      <div class="mtitle">총칭명 검토 <span class="src" style="font-family:inherit;font-weight:400">자료보호 신청 · [별표 1] 총칭명의 명명방법 / Lexicon guide 기준</span></div>
+      <button class="mclose" id="gnClose" title="닫기">✕</button>
+    </div>
+    <div class="mbody">
+      <label class="gnlbl" for="gnName">화학물질명<span class="gnreq">필수</span> <small>업체 제출 명칭</small></label>
+      <textarea class="gnin" id="gnName" spellcheck="false" placeholder="예: 2-Chloro-4-(1H-1,2,4-triazol-1-yl)benzoic acid"></textarea>
+
+      <label class="gnlbl" for="gnGeneric">총칭명<span class="gnreq">필수</span> <small>업체 희망 총칭명</small></label>
+      <textarea class="gnin" id="gnGeneric" spellcheck="false" placeholder="예: 2-Halo-4-(heteromonocyclic)benzoic acid"></textarea>
+
+      <label class="gnlbl">구조식 파일<span class="gnopt">선택</span> <small>제출된 경우에만 · 그림(PNG·JPG·WEBP) 또는 PDF, 여러 개 가능</small></label>
+      <div class="drop" id="gnDrop" style="padding:16px"><b>파일을 끌어다 놓거나 클릭해 선택</b>구조식이 없으면 비워 두세요 — 화학물질명에서 구조를 도출해 검토합니다</div>
+      <input type="file" id="gnFile" accept="image/png,image/jpeg,image/webp,application/pdf" multiple hidden>
+      <div class="gnfiles" id="gnFiles"></div>
+
+      <label class="gnlbl" for="gnCas">CAS No.<span class="gnopt">선택</span></label>
+      <input class="gnin" id="gnCas" type="text" autocomplete="off" placeholder="예: 220141-15-1">
+
+      <label class="gnlbl" for="gnNote">비고<span class="gnopt">선택</span> <small>고분자 잔류 단량체 함량 등 참고사항</small></label>
+      <input class="gnin" id="gnNote" type="text" autocomplete="off">
+
+      <label class="gnchk"><input type="checkbox" id="gnUseAi" checked><span>AI 검토 (Gemini) — 명칭·총칭명 검토, 구조식이 있으면 판독·대조<br><span class="src">끄면 자동 형식점검만 수행합니다.</span></span></label>
+      <label class="gnchk"><input type="checkbox" id="gnUsePc"><span>PubChem 명칭 조회<br><span class="src">화학물질명·CAS No.가 PubChem으로 전송됩니다.</span></span></label>
+
+      <button class="mbtn" id="gnRun">검토 실행</button>
+      <div class="src" style="margin-top:8px">⚠ AI 검토를 켜면 입력한 명칭과 구조식 파일이 이 서버를 거쳐 Google Gemini로 전송됩니다. 보호 대상 자료의 외부 전송이 허용되는지 먼저 확인하세요. 결과는 심사 보조용이며 최종 판단은 검토자가 합니다.</div>
+
+      <div id="gnResult"></div>
     </div>
   </div>
 </div>
@@ -1062,6 +1124,145 @@ function searchResolved(v){
   closeStruct();
   input.value=String(v);
   run();
+}
+
+/* ──────────────────────────────────────────────────────────────
+   총칭명 검토: 화학물질명·총칭명(필수) + 구조식 파일(선택)
+   서버(/api/generic-review)가 자동 형식점검과 AI 검토를 수행하고,
+   여기서는 결과를 판정 → 구조 → 화학물질명 → 총칭명 순으로 보여준다.
+   ────────────────────────────────────────────────────────────── */
+const gnModal=$("#gnModal"), gnResult=$("#gnResult"), gnDrop=$("#gnDrop"), gnFile=$("#gnFile");
+let gnPicked=[];
+const gnEsc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+$("#gnBtn").addEventListener("click",()=>{
+  // 조회 중이던 물질이 있으면 CAS No.를 미리 채워 준다
+  if(!$("#gnCas").value && isCas(input.value.trim())) $("#gnCas").value=input.value.trim();
+  gnModal.classList.add("show"); $("#gnName").focus();
+});
+function closeGn(){ gnModal.classList.remove("show"); }
+$("#gnClose").addEventListener("click",closeGn);
+gnModal.addEventListener("click",e=>{ if(e.target===gnModal) closeGn(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeGn(); });
+
+function gnAdd(list){
+  for(const f of list){
+    if(!/^image\/(png|jpeg|webp)$|^application\/pdf$/.test(f.type)){ alert(`${f.name}: PNG·JPG·WEBP·PDF만 올릴 수 있습니다.`); continue; }
+    gnPicked.push(f);
+  }
+  gnRenderFiles();
+}
+function gnRenderFiles(){
+  $("#gnFiles").innerHTML=gnPicked.map((f,i)=>`<span>${gnEsc(f.name)} · ${Math.round(f.size/1024)}KB<a onclick="gnPicked.splice(${i},1);gnRenderFiles()">✕</a></span>`).join("");
+}
+gnDrop.addEventListener("click",()=>gnFile.click());
+["dragenter","dragover"].forEach(ev=>gnDrop.addEventListener(ev,e=>{e.preventDefault();gnDrop.classList.add("over");}));
+["dragleave","drop"].forEach(ev=>gnDrop.addEventListener(ev,e=>{e.preventDefault();gnDrop.classList.remove("over");}));
+gnDrop.addEventListener("drop",e=>gnAdd(e.dataTransfer.files));
+gnFile.addEventListener("change",()=>{ gnAdd(gnFile.files); gnFile.value=""; });
+
+$("#gnRun").addEventListener("click",async()=>{
+  const name=$("#gnName").value.trim(), generic=$("#gnGeneric").value.trim();
+  if(!name||!generic){ alert("화학물질명과 총칭명은 필수 입력값입니다."); (name?$("#gnGeneric"):$("#gnName")).focus(); return; }
+  const btn=$("#gnRun"), useAi=$("#gnUseAi").checked; btn.disabled=true;
+  gnResult.innerHTML=`<div class="loading" style="margin-top:14px"><span class="spin"></span>${useAi?"명칭과 총칭명을 검토하는 중… (30초~2분)":"점검 중…"}</div>`;
+  try{
+    const fd=new FormData();
+    fd.append("chemical_name",name); fd.append("generic_name",generic);
+    fd.append("cas_no",$("#gnCas").value.trim()); fd.append("note",$("#gnNote").value.trim());
+    fd.append("use_ai",useAi); fd.append("use_pubchem",$("#gnUsePc").checked);
+    for(const f of gnPicked){
+      // 그림은 구조식 검색과 같은 방식으로 축소해 보낸다(판독에는 긴 변 1600px이면 충분)
+      const up=f.type==="application/pdf"?f:await downscaleImage(f,1600,0.9);
+      fd.append("structure_files",up,up===f?f.name:f.name.replace(/\.[^.]+$/,"")+".jpg");
+    }
+    const r=await fetch("/api/generic-review",{method:"POST",body:fd});
+    const d=await r.json();
+    if(!r.ok||d.ok===false) gnResult.innerHTML=`<div class="errbox" style="margin-top:14px">${gnEsc(d.message||"검토에 실패했습니다.")}</div>`;
+    else renderGn(d);
+  }catch(e){
+    gnResult.innerHTML=`<div class="errbox" style="margin-top:14px">검토 요청 실패: ${gnEsc(e.message)}</div>`;
+  }finally{ btn.disabled=false; }
+});
+
+const GN_CLS={"적합":"gv-ok","일치":"gv-ok","높음":"gv-ok","부적합":"gv-bad","불일치":"gv-bad","낮음":"gv-bad"};
+const gnPill=(t,cls)=>`<span class="gnpill ${cls||GN_CLS[t]||"gv-hold"}">${gnEsc(t)}</span>`;
+function gnMark(text,parts){
+  // 지적된 부분 문자열을 명칭 위에 강조 표시
+  const low=text.toLowerCase(), ranges=[];
+  for(const p of parts) for(const piece of String(p||"").split(/,\s+/)){
+    const q=piece.trim().toLowerCase(); if(q.length<2) continue;
+    for(let i=low.indexOf(q);i>=0;i=low.indexOf(q,i+q.length)) ranges.push([i,i+q.length]);
+  }
+  ranges.sort((a,b)=>a[0]-b[0]);
+  let pos=0, html="";
+  for(const [s,e] of ranges){ if(s<pos) continue; html+=gnEsc(text.slice(pos,s))+`<mark>${gnEsc(text.slice(s,e))}</mark>`; pos=e; }
+  return `<div class="gnname">${html+gnEsc(text.slice(pos))}</div>`;
+}
+function gnIssue(level,title,loc,problem,basis,fix){
+  const cls=level==="부적합"?"bad":level==="확인필요"?"hold":"";
+  return `<div class="gnissue ${cls}">${gnPill(level,cls==="bad"?"gv-bad":cls==="hold"?"gv-hold":"invno")} ${title?`<b>${gnEsc(title)}</b> `:""}${loc?`<code>${gnEsc(loc)}</code>`:""}
+    <div style="margin-top:4px">${gnEsc(problem)}</div>
+    ${basis?`<div class="src">근거: ${gnEsc(basis)}</div>`:""}${fix?`<div class="fix">→ ${gnEsc(fix)}</div>`:""}</div>`;
+}
+const gnLocal=a=>a.length?a.map(f=>gnIssue(f.level,f.title,f.location,f.detail,f.basis)).join(""):`<div class="src">형식상 지적 사항 없음</div>`;
+const gnAi=a=>a.length?a.map(i=>gnIssue(i.severity,"",i.location,i.problem,i.basis,i.suggestion)).join(""):`<div class="src">지적 사항 없음</div>`;
+const gnRows=rows=>`<table class="tbl">`+rows.filter(r=>r[1]).map(r=>`<tr><td style="width:120px"><b>${r[0]}</b></td><td>${r[1]}</td></tr>`).join("")+`</table>`;
+const gnList=a=>a&&a.length?a.map(gnEsc).join("<br>"):"";
+
+function renderGn(d){
+  const a=d.ai, L=d.local, noFile=!d.input.files.length;
+  const vcls=GN_CLS[d.verdict]||"gv-hold";
+  let h=`<div class="gnverdict ${vcls}"><b>종합: ${gnEsc(d.verdict)}</b><span>${gnEsc((a?a.overall.summary:"")+(d.verdict_note?" "+d.verdict_note:""))}</span></div>`;
+  if(d.ai_error) h+=`<div class="errbox">AI 검토 미수행 — ${gnEsc(d.ai_error)}</div>`;
+
+  if(a){
+    const s=a.structure;
+    h+=`<div class="gnsec"><h4>1. ${noFile?"구조 (화학물질명으로부터 도출)":"구조식 판독"} ${noFile?gnPill("구조식 미제출","invno"):s.readable?gnPill("판독 신뢰도 "+s.confidence,GN_CLS[s.confidence]):gnPill("판독불가","gv-bad")}</h4>`
+      +gnRows([["물질 유형",gnEsc(s.substance_type)],["구조 설명",gnEsc(s.description)],["SMILES",s.smiles&&`<span class="mono">${gnEsc(s.smiles)}</span>`],
+        ["분자식",gnEsc(s.molecular_formula)],["구조 기준 명칭",s.name_from_structure&&`<span class="mono">${gnEsc(s.name_from_structure)}</span>`],
+        ["사슬계",gnList(s.chains)],["고리계",gnList(s.rings)],["작용기",gnList(s.functional_groups)],
+        ["금속·할로겐 등",gnList(s.special_elements)],["자기반응성·특정구조",gnList(s.hazard_relevant_groups)],["메모",gnEsc(s.source_note)]])
+      +`<div class="src" style="margin-top:6px">⚠ AI가 ${noFile?"명칭을 해석해 도출한":"그림에서 읽은"} 구조입니다. 반드시 눈으로 확인하세요.</div></div>`;
+  }
+
+  const bad=f=>f.level!=="참고", sev=i=>i.severity!=="경미";
+  h+=`<div class="gnsec"><h4>2. 화학물질명 검토 ${a?gnPill(a.name_review.verdict):gnPill("자동점검만","invno")}</h4>`
+    +gnMark(d.input.chemical_name,[...L.name.filter(bad).map(f=>f.location),...(a?a.name_review.issues.filter(sev).map(i=>i.location):[])]);
+  if(a){
+    const n=a.name_review;
+    h+=`<div class="gnsub">AI 검토</div>`+gnRows([["명칭 유형",gnEsc(n.nomenclature_type)],
+        ["구조식과 일치",noFile?`<span class="src">구조식 미제출 (대조 생략)</span>`:gnPill(n.structure_match)],
+        ["명칭 분해",gnEsc(n.parsed_name)],["요약",gnEsc(n.summary)],["권장 명칭",n.suggested_name&&`<span class="mono">${gnEsc(n.suggested_name)}</span>`]])+gnAi(n.issues);
+  }
+  h+=`<div class="gnsub">자동 형식점검</div>`+gnLocal(L.name);
+  if(d.pubchem) for(const [lab,p] of [["명칭",d.pubchem.by_name],["CAS No.",d.pubchem.by_cas]]){
+    if(!p) continue;
+    h+=`<div class="gnsub">PubChem 조회 — ${lab}</div>`+(p.found
+      ?gnRows([["검색 결과",gnPill("검색됨","gv-ok")+` CID ${gnEsc(p.cid)}${p.cas?" · CAS "+gnEsc(p.cas):""}`],["IUPAC 명칭",`<span class="mono">${gnEsc(p.iupac_name||"—")}</span>`],["분자식",gnEsc(p.formula)],["SMILES",`<span class="mono">${gnEsc(p.smiles||"—")}</span>`]])
+      :`<div class="src">${gnPill("검색 안 됨")} 제출 명칭이 PubChem 등록 명칭과 일치하지 않습니다(신규 물질이거나 표기 차이).</div>`);
+  }
+  h+=`</div>`;
+
+  h+=`<div class="gnsec"><h4>3. 총칭명 검토 ${a?gnPill(a.generic_review.verdict):gnPill("자동점검만","invno")}</h4>`
+    +gnMark(d.input.generic_name,[...L.generic.filter(bad).map(f=>f.location),...(a?a.generic_review.issues.filter(sev).map(i=>i.location):[])]);
+  if(a){
+    const g=a.generic_review;
+    h+=`<div class="gnsub">AI 검토</div>`+gnRows([["작성 방식",gnEsc(g.method)],["요약",gnEsc(g.summary)]]);
+    if(g.mapping.length) h+=`<div class="gnsub">원 명칭 ↔ 총칭명 대응</div><table class="tbl"><tr><th>원 명칭 부분</th><th>총칭명 표기</th><th>구분</th><th>적용 기준</th><th>판정</th><th>설명</th></tr>`
+      +g.mapping.map(m=>`<tr${m.ok?"":' style="background:#fdf3ee"'}><td class="mono">${gnEsc(m.original_part)}</td><td class="mono">${gnEsc(m.generic_part)}</td><td>${gnEsc(m.kind)}</td><td>${gnEsc(m.rule)}</td><td>${gnPill(m.ok?"적합":"부적합")}</td><td>${gnEsc(m.comment)}</td></tr>`).join("")+`</table>`;
+    h+=`<div class="gnsub">지적 사항</div>`+gnAi(g.issues);
+    if(g.suggested_generic_names.length) h+=`<div class="gnsub">기준에 맞는 총칭명 예시</div><div class="gnname">${g.suggested_generic_names.map(gnEsc).join("<br>")}</div>`;
+  }
+  const M=L.meta||{};
+  h+=`<div class="gnsub">자동 형식점검</div>`+gnRows([["추정 작성 방식",gnEsc(M.method)],
+      ["Lexicon 명칭 일치",(M.lexicon_matches||[]).map(x=>gnEsc(x.no+" "+x.name)).join(" / ")],
+      ["원 명칭 내 별첨 치환기",gnEsc((M.annex_substituents_in_name||[]).join(", "))]])+gnLocal(L.generic)+`</div>`;
+
+  if(a&&a.overall.supplement_request)
+    h+=`<div class="gnsec"><h4>4. 보완요청 문안(초안) <button class="mbtn ghost" style="margin:0;padding:4px 12px;font-size:12px" onclick="navigator.clipboard.writeText(document.getElementById('gnReqText').innerText)">복사</button></h4><div class="gnreqtext" id="gnReqText">${gnEsc(a.overall.supplement_request)}</div></div>`;
+  if(a) h+=`<div class="src" style="text-align:right;margin-top:10px">${gnEsc(a._model||"")}</div>`;
+  gnResult.innerHTML=h;
 }
 </script>
 </body>
